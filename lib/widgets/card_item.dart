@@ -3,13 +3,12 @@ import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 
 class CardItem extends StatelessWidget {
-  const CardItem({
-    super.key,
-  });
-
+  const CardItem({super.key, required this.index});
+  final int index;
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(left: 20, right: index == 0 ? 44 : 0),
       width: 160,
       height: 216,
       decoration: BoxDecoration(
@@ -91,37 +90,37 @@ class CardItem extends StatelessWidget {
                   offset: Offset(0, 2.77),
                   blurRadius: 2.21,
                   spreadRadius: 0,
-                  color: Color.fromRGBO(59, 94, 223, 0.04),
+                  color: Color.fromRGBO(59, 94, 223, 0.06),
                 ),
                 BoxShadow(
                   offset: Offset(0, 6.65),
                   blurRadius: 5.32,
                   spreadRadius: 0,
-                  color: Color.fromRGBO(59, 94, 223, 0.04),
+                  color: Color.fromRGBO(59, 94, 223, 0.06),
                 ),
                 BoxShadow(
                   offset: Offset(0, 12.52),
                   blurRadius: 10.02,
                   spreadRadius: 0,
-                  color: Color.fromRGBO(59, 94, 223, 0.05),
+                  color: Color.fromRGBO(59, 94, 223, 0.07),
                 ),
                 BoxShadow(
                   offset: Offset(0, 22.34),
                   blurRadius: 17.87,
                   spreadRadius: 0,
-                  color: Color.fromRGBO(59, 94, 223, 0.05),
+                  color: Color.fromRGBO(59, 94, 223, 0.07),
                 ),
                 BoxShadow(
                   offset: Offset(0, 41.78),
                   blurRadius: 33.42,
                   spreadRadius: 0,
-                  color: Color.fromRGBO(59, 94, 223, 0.05),
+                  color: Color.fromRGBO(59, 94, 223, 0.07),
                 ),
                 BoxShadow(
                   offset: Offset(0, 100),
                   blurRadius: 80,
                   spreadRadius: 0,
-                  color: Color.fromRGBO(59, 94, 223, 0.07),
+                  color: Color.fromRGBO(59, 94, 223, 0.09),
                 ),
               ],
             ),

@@ -1,6 +1,6 @@
 import 'package:apple_shop/constants/colors.dart';
-import 'package:apple_shop/widgets/card_item.dart';
-import 'package:apple_shop/widgets/category_horizontal_item_list.dart';
+import 'package:apple_shop/screens/home_screen.dart';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,29 +12,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: MyColors.myWhite,
-        body: SafeArea(
-          child: Center(
-            child: CardItem(),
-          ),
+    return MaterialApp(
+      theme: ThemeData(
+        scaffoldBackgroundColor: MyColors.myWhite,
+        textSelectionTheme: const TextSelectionThemeData(
+          selectionHandleColor: Colors.transparent,
+          selectionColor: MyColors.myBlue,
+          cursorColor: Colors.black,
         ),
       ),
-    );
-  }
-
-  ListView getCategoryList() {
-    return ListView.builder(
-      reverse: true,
-      scrollDirection: Axis.horizontal,
-      itemCount: 20,
-      itemBuilder: (context, index) {
-        return CategoryHorizontalItemList(
-          index: index,
-        );
-      },
+      debugShowCheckedModeBanner: false,
+      home: const HomeScreen(),
     );
   }
 }

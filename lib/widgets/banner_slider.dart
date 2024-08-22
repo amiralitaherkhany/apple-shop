@@ -7,7 +7,8 @@ class BannerSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PageController pageController = PageController(viewportFraction: 0.8);
+    PageController pageController =
+        PageController(viewportFraction: 0.8, initialPage: 1);
     return SizedBox(
       height: 177,
       child: Stack(
@@ -19,10 +20,13 @@ class BannerSlider extends StatelessWidget {
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.only(left: 10, right: 10),
-                child: Container(
-                  width: 340,
-                  height: 177,
-                  color: Colors.red,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Container(
+                    width: 340,
+                    height: 177,
+                    color: Colors.red,
+                  ),
                 ),
               );
             },
