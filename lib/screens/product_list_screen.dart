@@ -1,8 +1,10 @@
 import 'package:apple_shop/constants/colors.dart';
+import 'package:apple_shop/widgets/card_item.dart';
+import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 
-class CategoryScreen extends StatelessWidget {
-  const CategoryScreen({super.key});
+class ProductListScreen extends StatelessWidget {
+  const ProductListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +27,11 @@ class CategoryScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                     color: Colors.white,
                   ),
-                  child: Stack(
+                  child: const Stack(
                     alignment: AlignmentDirectional.center,
                     children: [
-                      const Text(
-                        'دسته بندی',
+                      Text(
+                        'پرفروش ترین ها',
                         style: TextStyle(
                           fontFamily: 'SB',
                           fontSize: 16,
@@ -38,8 +40,17 @@ class CategoryScreen extends StatelessWidget {
                       ),
                       Positioned(
                         left: 15,
-                        top: 10,
-                        child: Image.asset('assets/images/icon_apple_blue.png'),
+                        child: Icon(
+                          IconsaxOutline.filter,
+                          size: 30,
+                        ),
+                      ),
+                      Positioned(
+                        right: 15,
+                        child: Icon(
+                          IconsaxOutline.arrow_circle_right,
+                          size: 30,
+                        ),
                       ),
                     ],
                   ),
@@ -52,24 +63,23 @@ class CategoryScreen extends StatelessWidget {
               ),
             ),
             SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 44),
+              padding: const EdgeInsets.symmetric(horizontal: 38),
               sliver: SliverGrid.builder(
                 itemCount: 20,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 20,
+                  mainAxisExtent: 216,
                 ),
                 itemBuilder: (context, index) {
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Container(
-                      color: MyColors.myBlue,
-                    ),
+                  return CardItem(
+                    index: index,
+                    isGrid: true,
                   );
                 },
               ),
-            ),
+            )
           ],
         ),
       ),

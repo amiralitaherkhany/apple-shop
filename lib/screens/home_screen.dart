@@ -168,6 +168,7 @@ class HomeScreen extends StatelessWidget {
                   reverse: true,
                   itemBuilder: (context, index) => CardItem(
                     index: index,
+                    isGrid: false,
                   ),
                   scrollDirection: Axis.horizontal,
                   itemCount: 10,
@@ -226,6 +227,7 @@ class HomeScreen extends StatelessWidget {
                   reverse: true,
                   itemBuilder: (context, index) => CardItem(
                     index: index,
+                    isGrid: false,
                   ),
                   scrollDirection: Axis.horizontal,
                   itemCount: 10,

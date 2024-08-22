@@ -3,12 +3,15 @@ import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 
 class CardItem extends StatelessWidget {
-  const CardItem({super.key, required this.index});
+  const CardItem({super.key, required this.index, required this.isGrid});
   final int index;
+  final bool isGrid;
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: index == 0 ? 44 : 0),
+      margin: isGrid == false
+          ? EdgeInsets.only(left: 20, right: index == 0 ? 44 : 0)
+          : const EdgeInsets.all(0),
       width: 160,
       height: 216,
       decoration: BoxDecoration(
