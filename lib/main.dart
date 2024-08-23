@@ -12,9 +12,15 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int selectedBottomNavigationIndex = 0;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -49,7 +55,14 @@ class MyApp extends StatelessWidget {
                 ),
               ),
               child: BottomNavigationBar(
-                currentIndex: 3,
+                onTap: (int index) {
+                  setState(
+                    () {
+                      selectedBottomNavigationIndex = index;
+                    },
+                  );
+                },
+                currentIndex: selectedBottomNavigationIndex,
                 selectedItemColor: MyColors.myBlue,
                 unselectedItemColor: Colors.black,
                 selectedFontSize: 20,
@@ -76,19 +89,27 @@ class MyApp extends StatelessWidget {
                 backgroundColor: Colors.transparent,
                 items: const [
                   BottomNavigationBarItem(
+                    activeIcon: Icon(IconsaxBold.profile_circle),
+                    backgroundColor: Colors.transparent,
                     label: 'حساب کاربری',
                     icon: Icon(IconsaxOutline.profile_circle),
                   ),
                   BottomNavigationBarItem(
+                    activeIcon: Icon(IconsaxBold.bag_2),
+                    backgroundColor: Colors.transparent,
                     icon: Icon(IconsaxOutline.bag_2),
                     label: 'سبد خرید',
                   ),
                   BottomNavigationBarItem(
+                    activeIcon: Icon(IconsaxBold.category_2),
+                    backgroundColor: Colors.transparent,
                     icon: Icon(IconsaxOutline.category_2),
                     label: 'دسته بندی',
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(IconsaxBold.home),
+                    activeIcon: Icon(IconsaxBold.home),
+                    backgroundColor: Colors.transparent,
+                    icon: Icon(IconsaxOutline.home),
                     label: 'خانه',
                   )
                 ],
@@ -96,8 +117,20 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        body: const HomeScreen(),
+        body: IndexedStack(
+          index: selectedBottomNavigationIndex,
+          children: getScreens(),
+        ),
       ),
     );
+  }
+
+  List<Widget> getScreens() {
+    return <Widget>[
+      const CategoryScreen(),
+      const ProductListScreen(),
+      const CategoryScreen(),
+      const HomeScreen(),
+    ];
   }
 }
