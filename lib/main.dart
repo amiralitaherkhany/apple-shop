@@ -4,6 +4,7 @@ import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/screens/category_screen.dart';
 import 'package:apple_shop/screens/home_screen.dart';
 import 'package:apple_shop/screens/product_list_screen.dart';
+import 'package:apple_shop/screens/profile_screen.dart';
 import 'package:ficonsax/ficonsax.dart';
 
 import 'package:flutter/material.dart';
@@ -127,7 +128,7 @@ class _MyAppState extends State<MyApp> {
 
   List<Widget> getScreens() {
     return <Widget>[
-      const CategoryScreen(),
+      const ProfileScreen(),
       const ProductListScreen(),
       const CategoryScreen(),
       const HomeScreen(),
