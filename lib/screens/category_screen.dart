@@ -1,14 +1,46 @@
 import 'package:apple_shop/constants/colors.dart';
+import 'package:apple_shop/cubit/scroll/cubit/scroll_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CategoryScreen extends StatelessWidget {
+class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
+
+  @override
+  State<CategoryScreen> createState() => _CategoryScreenState();
+}
+
+class _CategoryScreenState extends State<CategoryScreen> {
+  late final ScrollController scrollController;
+  @override
+  void initState() {
+    super.initState();
+    scrollController = ScrollController();
+    scrollController.addListener(
+      () {
+        if (scrollController.position.userScrollDirection ==
+            ScrollDirection.reverse) {
+          context.read<ScrollCubit>().hide();
+        } else {
+          context.read<ScrollCubit>().show();
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    scrollController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(
+          controller: scrollController,
           slivers: [
             const SliverToBoxAdapter(
               child: SizedBox(

@@ -25,7 +25,7 @@ class BannerSlider extends StatelessWidget {
                   child: Container(
                     width: 340,
                     height: 177,
-                    color: Colors.red,
+                    color: MyColors.myGreen,
                   ),
                 ),
               );
