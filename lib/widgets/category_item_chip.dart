@@ -17,42 +17,42 @@ class CategoryItemChip extends StatelessWidget {
             width: 56,
             height: 56,
             decoration: ShapeDecoration(
-              shadows: const [
+              shadows: [
                 BoxShadow(
-                  offset: Offset(0, 2.77),
+                  color: const Color(0xFFFBAD40).withOpacity(0.0368),
+                  offset: const Offset(0, 2.77),
                   blurRadius: 2.21,
                   spreadRadius: 0,
-                  color: Color.fromRGBO(251, 173, 64, 0.04),
                 ),
                 BoxShadow(
-                  offset: Offset(0, 6.65),
+                  color: const Color(0xFFFBAD40).withOpacity(0.0445),
+                  offset: const Offset(0, 6.65),
                   blurRadius: 5.32,
                   spreadRadius: 0,
-                  color: Color.fromRGBO(251, 173, 64, 0.04),
                 ),
                 BoxShadow(
-                  offset: Offset(0, 12.52),
+                  color: const Color(0xFFFBAD40).withOpacity(0.0482),
+                  offset: const Offset(0, 12.52),
                   blurRadius: 10.02,
                   spreadRadius: 0,
-                  color: Color.fromRGBO(251, 173, 64, 0.05),
                 ),
                 BoxShadow(
-                  offset: Offset(0, 22.34),
+                  color: const Color(0xFFFBAD40).withOpacity(0.051),
+                  offset: const Offset(0, 22.34),
                   blurRadius: 17.87,
                   spreadRadius: 0,
-                  color: Color.fromRGBO(251, 173, 64, 0.05),
                 ),
                 BoxShadow(
-                  offset: Offset(0, 41.78),
+                  color: const Color(0xFFFBAD40).withOpacity(0.0549),
+                  offset: const Offset(0, 41.78),
                   blurRadius: 33.42,
                   spreadRadius: 0,
-                  color: Color.fromRGBO(251, 173, 64, 0.05),
                 ),
                 BoxShadow(
-                  offset: Offset(0, 100),
+                  color: const Color(0xFFFBAD40).withOpacity(0.07),
+                  offset: const Offset(0, 100),
                   blurRadius: 80,
                   spreadRadius: 0,
-                  color: Color.fromRGBO(251, 173, 64, 0.07),
                 ),
               ],
               shape: ContinuousRectangleBorder(

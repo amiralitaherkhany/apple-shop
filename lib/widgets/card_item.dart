@@ -82,48 +82,48 @@ class CardItem extends StatelessWidget {
           const Spacer(),
           Container(
             height: 53,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: MyColors.myBlue,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(15),
                 bottomRight: Radius.circular(15),
               ),
               boxShadow: [
                 BoxShadow(
-                  offset: Offset(0, 2.77),
+                  color: const Color(0xFF3B5EDF).withOpacity(0.0335),
+                  offset: const Offset(0, 2.77),
                   blurRadius: 2.21,
                   spreadRadius: 0,
-                  color: Color.fromRGBO(59, 94, 223, 0.06),
                 ),
                 BoxShadow(
-                  offset: Offset(0, 6.65),
+                  color: const Color(0xFF3B5EDF).withOpacity(0.0412),
+                  offset: const Offset(0, 6.65),
                   blurRadius: 5.32,
                   spreadRadius: 0,
-                  color: Color.fromRGBO(59, 94, 223, 0.06),
                 ),
                 BoxShadow(
-                  offset: Offset(0, 12.52),
+                  color: const Color(0xFF3B5EDF).withOpacity(0.0455),
+                  offset: const Offset(0, 12.52),
                   blurRadius: 10.02,
                   spreadRadius: 0,
-                  color: Color.fromRGBO(59, 94, 223, 0.07),
                 ),
                 BoxShadow(
-                  offset: Offset(0, 22.34),
+                  color: const Color(0xFF3B5EDF).withOpacity(0.0491),
+                  offset: const Offset(0, 22.34),
                   blurRadius: 17.87,
                   spreadRadius: 0,
-                  color: Color.fromRGBO(59, 94, 223, 0.07),
                 ),
                 BoxShadow(
-                  offset: Offset(0, 41.78),
+                  color: const Color(0xFF3B5EDF).withOpacity(0.0541),
+                  offset: const Offset(0, 41.78),
                   blurRadius: 33.42,
                   spreadRadius: 0,
-                  color: Color.fromRGBO(59, 94, 223, 0.07),
                 ),
                 BoxShadow(
-                  offset: Offset(0, 100),
+                  color: const Color(0xFF3B5EDF).withOpacity(0.07),
+                  offset: const Offset(0, 100),
                   blurRadius: 80,
                   spreadRadius: 0,
-                  color: Color.fromRGBO(59, 94, 223, 0.09),
                 ),
               ],
             ),
