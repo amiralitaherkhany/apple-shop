@@ -3,6 +3,9 @@ import 'package:apple_shop/widgets/card_item.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../cubit/scroll/cubit/scroll_cubit.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
@@ -12,19 +15,51 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class _ProductListScreenState extends State<ProductListScreen> {
+  late final ScrollController scrollController;
+  @override
+  void initState() {
+    super.initState();
+    scrollController = ScrollController();
+    scrollController.addListener(
+      _scrollListener,
+    );
+  }
+
+  void _scrollListener() {
+    if (scrollController.position.userScrollDirection ==
+        ScrollDirection.reverse) {
+      context.read<ScrollCubit>().hide();
+    } else {
+      context.read<ScrollCubit>().show();
+    }
+  }
+
+  @override
+  void dispose() {
+    scrollController.removeListener(_scrollListener);
+    scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(
+          controller: scrollController,
           slivers: [
             const SliverToBoxAdapter(
               child: SizedBox(
                 height: 20,
               ),
             ),
-            SliverToBoxAdapter(
-              child: Padding(
+            SliverAppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              expandedHeight: 46.0,
+              floating: true,
+              pinned: false,
+              flexibleSpace: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 44),
                 child: Container(
                   width: 340,
@@ -79,10 +114,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                   mainAxisExtent: 216,
                 ),
                 itemBuilder: (context, index) {
-                  return CardItem(
-                    index: index,
-                    isGrid: true,
-                  );
+                  return const CardItem();
                 },
               ),
             )

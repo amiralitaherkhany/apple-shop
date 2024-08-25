@@ -18,21 +18,24 @@ class _CategoryScreenState extends State<CategoryScreen> {
     super.initState();
     scrollController = ScrollController();
     scrollController.addListener(
-      () {
-        if (scrollController.position.userScrollDirection ==
-            ScrollDirection.reverse) {
-          context.read<ScrollCubit>().hide();
-        } else {
-          context.read<ScrollCubit>().show();
-        }
-      },
+      _scrollListener,
     );
+  }
+
+  void _scrollListener() {
+    if (scrollController.position.userScrollDirection ==
+        ScrollDirection.reverse) {
+      context.read<ScrollCubit>().hide();
+    } else {
+      context.read<ScrollCubit>().show();
+    }
   }
 
   @override
   void dispose() {
-    super.dispose();
+    scrollController.removeListener(_scrollListener);
     scrollController.dispose();
+    super.dispose();
   }
 
   @override

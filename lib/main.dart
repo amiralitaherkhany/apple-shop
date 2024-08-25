@@ -32,7 +32,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int selectedBottomNavigationIndex = 0;
+  int selectedBottomNavigationIndex = 3;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -18,8 +18,13 @@ class ProductDetailScreen extends StatelessWidget {
                 height: 20,
               ),
             ),
-            SliverToBoxAdapter(
-              child: Padding(
+            SliverAppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              expandedHeight: 46.0,
+              floating: true,
+              pinned: false,
+              flexibleSpace: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 44),
                 child: Container(
                   width: 340,

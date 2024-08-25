@@ -82,52 +82,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
               height: 20,
             ),
             const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 42.0),
+              padding: EdgeInsets.symmetric(horizontal: 44.0),
               child: Wrap(
                 spacing: 33,
                 runSpacing: 20,
                 textDirection: TextDirection.rtl,
                 children: [
-                  CategoryItemChip(
-                    index: 0,
-                    isListed: false,
-                  ),
-                  CategoryItemChip(
-                    index: 0,
-                    isListed: false,
-                  ),
-                  CategoryItemChip(
-                    index: 0,
-                    isListed: false,
-                  ),
-                  CategoryItemChip(
-                    index: 0,
-                    isListed: false,
-                  ),
-                  CategoryItemChip(
-                    index: 0,
-                    isListed: false,
-                  ),
-                  CategoryItemChip(
-                    index: 0,
-                    isListed: false,
-                  ),
-                  CategoryItemChip(
-                    index: 0,
-                    isListed: false,
-                  ),
-                  CategoryItemChip(
-                    index: 0,
-                    isListed: false,
-                  ),
-                  CategoryItemChip(
-                    index: 0,
-                    isListed: false,
-                  ),
-                  CategoryItemChip(
-                    index: 0,
-                    isListed: false,
-                  ),
+                  CategoryItemChip(),
+                  CategoryItemChip(),
+                  CategoryItemChip(),
+                  CategoryItemChip(),
+                  CategoryItemChip(),
+                  CategoryItemChip(),
+                  CategoryItemChip(),
+                  CategoryItemChip(),
+                  CategoryItemChip(),
+                  CategoryItemChip(),
                 ],
               ),
             ),

@@ -22,21 +22,24 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     scrollController = ScrollController();
     scrollController.addListener(
-      () {
-        if (scrollController.position.userScrollDirection ==
-            ScrollDirection.reverse) {
-          context.read<ScrollCubit>().hide();
-        } else {
-          context.read<ScrollCubit>().show();
-        }
-      },
+      _scrollListener,
     );
+  }
+
+  void _scrollListener() {
+    if (scrollController.position.userScrollDirection ==
+        ScrollDirection.reverse) {
+      context.read<ScrollCubit>().hide();
+    } else {
+      context.read<ScrollCubit>().show();
+    }
   }
 
   @override
   void dispose() {
-    super.dispose();
+    scrollController.removeListener(_scrollListener);
     scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -204,10 +207,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 217,
                 child: ListView.builder(
                   reverse: true,
-                  itemBuilder: (context, index) => CardItem(
-                    index: index,
-                    isGrid: false,
-                  ),
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.only(
+                          left: 20.0, right: index == 0 ? 44 : 0),
+                      child: const CardItem(),
+                    );
+                  },
                   scrollDirection: Axis.horizontal,
                   itemCount: 10,
                 ),
@@ -263,10 +269,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 217,
                 child: ListView.builder(
                   reverse: true,
-                  itemBuilder: (context, index) => CardItem(
-                    index: index,
-                    isGrid: false,
-                  ),
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.only(
+                          left: 20.0, right: index == 0 ? 44 : 0),
+                      child: const CardItem(),
+                    );
+                  },
                   scrollDirection: Axis.horizontal,
                   itemCount: 10,
                 ),
@@ -285,9 +294,9 @@ class _HomeScreenState extends State<HomeScreen> {
       scrollDirection: Axis.horizontal,
       itemCount: 20,
       itemBuilder: (context, index) {
-        return CategoryItemChip(
-          index: index,
-          isListed: true,
+        return Padding(
+          padding: EdgeInsets.only(left: 20.0, right: index == 0 ? 44 : 0),
+          child: const CategoryItemChip(),
         );
       },
     );
