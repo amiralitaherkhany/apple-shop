@@ -2,16 +2,18 @@ import 'dart:ui';
 
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/cubit/scroll/cubit/scroll_cubit.dart';
+import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/screens/card_screen.dart';
 import 'package:apple_shop/screens/category_screen.dart';
 import 'package:apple_shop/screens/home_screen.dart';
 import 'package:apple_shop/screens/profile_screen.dart';
 import 'package:ficonsax/ficonsax.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await getItInit();
   runApp(
     MultiBlocProvider(
       providers: [
@@ -60,25 +62,33 @@ class _MyAppState extends State<MyApp> {
               firstChild: ClipRRect(
                 child: BackdropFilter(
                   filter: ImageFilter.blur(
-                    sigmaX: 10,
-                    sigmaY: 10,
+                    sigmaX: 5,
+                    sigmaY: 5,
                   ),
                   child: Container(
                     height: 75,
                     width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       backgroundBlendMode: BlendMode.overlay,
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
+                      gradient: const LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
                         colors: [
-                          Color.fromRGBO(255, 255, 255, 0.4),
+                          Color.fromRGBO(255, 255, 255, 1),
                           Color.fromRGBO(255, 255, 255, 0.1),
                         ],
                       ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.25),
+                          offset: const Offset(0, -4),
+                          blurRadius: 60,
+                          spreadRadius: -30,
+                        ),
+                      ],
                     ),
                     child: BottomNavigationBar(
-                      onTap: (int index) {
+                      onTap: (int index) async {
                         setState(
                           () {
                             selectedBottomNavigationIndex = index;
