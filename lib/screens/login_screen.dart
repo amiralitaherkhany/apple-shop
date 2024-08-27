@@ -1,10 +1,14 @@
+import 'package:apple_shop/bloc/authentication/bloc/auth_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
-  final TextEditingController _usernameTextController = TextEditingController();
-  final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _usernameTextController =
+      TextEditingController(text: 'amiralitaherkhany');
+  final TextEditingController _passwordTextController =
+      TextEditingController(text: 'Amir0200820621');
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -116,23 +120,48 @@ class LoginScreen extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: MyColors.myBlue,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          maximumSize: const Size(200, 48),
-                        ),
-                        child: const Text(
-                          'ورود به حساب کاربری',
-                          style: TextStyle(
-                            fontFamily: 'SB',
-                            fontSize: 16,
-                          ),
-                        ),
+                      BlocBuilder<AuthBloc, AuthState>(
+                        builder: (context, state) {
+                          if (state is AuthInitial) {
+                            return ElevatedButton(
+                              onPressed: () {
+                                context.read<AuthBloc>().add(AuthLoginRequest(
+                                    username: _usernameTextController.text,
+                                    password: _passwordTextController.text));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: MyColors.myBlue,
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                maximumSize: const Size(200, 48),
+                              ),
+                              child: const Text(
+                                'ورود به حساب کاربری',
+                                style: TextStyle(
+                                  fontFamily: 'SB',
+                                  fontSize: 16,
+                                ),
+                              ),
+                            );
+                          } else if (state is AuthLoading) {
+                            return const CircularProgressIndicator(
+                              color: MyColors.myBlue,
+                            );
+                          } else if (state is AuthResponse) {
+                            return state.response.fold(
+                              (l) {
+                                return Text(l);
+                              },
+                              (r) {
+                                return Text(r);
+                              },
+                            );
+                          } else {
+                            return const Text('خطای نامشخص');
+                          }
+                        },
                       ),
                     ],
                   ),

@@ -1,12 +1,13 @@
 import 'dart:ui';
 
+import 'package:apple_shop/bloc/authentication/bloc/auth_bloc.dart';
+import 'package:apple_shop/bloc/category/bloc/category_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/cubit/scroll/cubit/scroll_cubit.dart';
 import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/screens/card_screen.dart';
 import 'package:apple_shop/screens/category_screen.dart';
 import 'package:apple_shop/screens/home_screen.dart';
-import 'package:apple_shop/screens/login_screen.dart';
 import 'package:apple_shop/screens/profile_screen.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,12 @@ void main() async {
       providers: [
         BlocProvider(
           create: (context) => ScrollCubit(),
+        ),
+        BlocProvider(
+          create: (context) => AuthBloc(),
+        ),
+        BlocProvider(
+          create: (context) => CategoryBloc(),
         ),
       ],
       child: const MyApp(),
@@ -135,14 +142,13 @@ class _MyAppState extends State<MyApp> {
             );
           },
         ),
-        body: LoginScreen(),
-        // SafeArea(
-        //   bottom: false,
-        //   child: IndexedStack(
-        //     index: selectedBottomNavigationIndex,
-        //     children: getScreens(),
-        //   ),
-        // ),
+        body: SafeArea(
+          bottom: false,
+          child: IndexedStack(
+            index: selectedBottomNavigationIndex,
+            children: getScreens(),
+          ),
+        ),
       ),
     );
   }

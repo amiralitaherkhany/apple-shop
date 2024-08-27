@@ -14,8 +14,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
-    super.initState();
     context.read<ScrollCubit>().show();
+    super.initState();
   }
 
   @override
@@ -23,7 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Column(
       children: [
         const SizedBox(
-          height: 20,
+          height: 10,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 44),

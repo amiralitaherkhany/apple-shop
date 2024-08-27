@@ -19,11 +19,11 @@ class _HomeScreenState extends State<HomeScreen> {
   late final ScrollController scrollController;
   @override
   void initState() {
-    super.initState();
     scrollController = ScrollController();
     scrollController.addListener(
       _scrollListener,
     );
+    super.initState();
   }
 
   void _scrollListener() {
@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
       slivers: [
         const SliverToBoxAdapter(
           child: SizedBox(
-            height: 20,
+            height: 10,
           ),
         ),
         SliverAppBar(

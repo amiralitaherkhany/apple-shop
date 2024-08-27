@@ -18,11 +18,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
   late final ScrollController scrollController;
   @override
   void initState() {
-    super.initState();
     scrollController = ScrollController();
     scrollController.addListener(
       _scrollListener,
     );
+    super.initState();
   }
 
   void _scrollListener() {
@@ -50,7 +50,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
           slivers: [
             const SliverToBoxAdapter(
               child: SizedBox(
-                height: 20,
+                height: 10,
               ),
             ),
             SliverAppBar(

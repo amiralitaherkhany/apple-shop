@@ -1,5 +1,8 @@
+import 'package:apple_shop/bloc/category/bloc/category_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/cubit/scroll/cubit/scroll_cubit.dart';
+import 'package:apple_shop/model/category.dart';
+import 'package:apple_shop/widgets/cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,11 +18,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
   late final ScrollController scrollController;
   @override
   void initState() {
-    super.initState();
     scrollController = ScrollController();
     scrollController.addListener(
       _scrollListener,
     );
+
+    context.read<CategoryBloc>().add(CategoryRequestList());
+    super.initState();
   }
 
   void _scrollListener() {
@@ -45,7 +50,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       slivers: [
         const SliverToBoxAdapter(
           child: SizedBox(
-            height: 20,
+            height: 10,
           ),
         ),
         SliverAppBar(
@@ -89,26 +94,58 @@ class _CategoryScreenState extends State<CategoryScreen> {
             height: 32,
           ),
         ),
-        SliverPadding(
-          padding: const EdgeInsets.symmetric(horizontal: 44),
-          sliver: SliverGrid.builder(
-            itemCount: 20,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20,
-            ),
-            itemBuilder: (context, index) {
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: Container(
-                  color: MyColors.myBlue,
-                ),
+        BlocBuilder<CategoryBloc, CategoryState>(
+          builder: (context, state) {
+            if (state is CategoryInitial || state is CategoryLoading) {
+              return const SliverToBoxAdapter(
+                child: CircularProgressIndicator(),
               );
-            },
-          ),
+            } else if (state is CategoryResponse) {
+              return state.response.fold(
+                (l) {
+                  return SliverToBoxAdapter(
+                    child: Text(l),
+                  );
+                },
+                (r) {
+                  return CategoryList(categoryList: r);
+                },
+              );
+            } else {
+              return const SliverToBoxAdapter(
+                child: Text('error'),
+              );
+            }
+          },
+        ),
+        const SliverPadding(
+          padding: EdgeInsets.only(bottom: 80),
         ),
       ],
+    );
+  }
+}
+
+class CategoryList extends StatelessWidget {
+  const CategoryList({super.key, required this.categoryList});
+
+  final List<Category> categoryList;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(horizontal: 44),
+      sliver: SliverGrid.builder(
+        itemCount: categoryList.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
+        ),
+        itemBuilder: (context, index) {
+          return CachedImage(imageUrl: categoryList[index].thumbnail!);
+        },
+      ),
     );
   }
 }

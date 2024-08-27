@@ -15,7 +15,7 @@ class ProductDetailScreen extends StatelessWidget {
           slivers: [
             const SliverToBoxAdapter(
               child: SizedBox(
-                height: 20,
+                height: 10,
               ),
             ),
             SliverAppBar(
