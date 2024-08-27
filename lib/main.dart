@@ -48,6 +48,12 @@ class _MyAppState extends State<MyApp> {
       ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 0,
+          backgroundColor: MyColors.myWhite,
+          elevation: 0,
+          scrolledUnderElevation: 0,
+        ),
         extendBody: true,
         bottomNavigationBar: BlocBuilder<ScrollCubit, bool>(
           builder: (context, state) {
