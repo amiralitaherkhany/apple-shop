@@ -6,6 +6,7 @@ import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/screens/card_screen.dart';
 import 'package:apple_shop/screens/category_screen.dart';
 import 'package:apple_shop/screens/home_screen.dart';
+import 'package:apple_shop/screens/login_screen.dart';
 import 'package:apple_shop/screens/profile_screen.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
@@ -134,13 +135,14 @@ class _MyAppState extends State<MyApp> {
             );
           },
         ),
-        body: SafeArea(
-          bottom: false,
-          child: IndexedStack(
-            index: selectedBottomNavigationIndex,
-            children: getScreens(),
-          ),
-        ),
+        body: LoginScreen(),
+        // SafeArea(
+        //   bottom: false,
+        //   child: IndexedStack(
+        //     index: selectedBottomNavigationIndex,
+        //     children: getScreens(),
+        //   ),
+        // ),
       ),
     );
   }

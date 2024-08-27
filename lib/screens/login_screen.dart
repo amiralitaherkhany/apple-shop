@@ -2,26 +2,145 @@ import 'package:apple_shop/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
-
+  LoginScreen({super.key});
+  final TextEditingController _usernameTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: MyColors.myBlue,
-      body: Column(
-        children: [
-          Expanded(
-            child: Column(
-              children: [
-                Image.asset(
-                  'assets/images/icon_application.png',
-                  width: 100,
-                  height: 100,
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: MyColors.myBlue,
+        body: SafeArea(
+          child: ListView(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 2 - 150,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/icon_application.png',
+                      width: 100,
+                      height: 100,
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const Text(
+                      'اپل شاپ',
+                      style: TextStyle(
+                        fontFamily: 'SB',
+                        fontSize: 24,
+                        color: Colors.white,
+                      ),
+                    )
+                  ],
                 ),
-              ],
-            ),
-          )
-        ],
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 2,
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  margin: const EdgeInsets.all(20),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: _usernameTextController,
+                        decoration: const InputDecoration(
+                          labelText: 'نام کاربری',
+                          labelStyle: TextStyle(
+                            fontFamily: 'SM',
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                              width: 2,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                            borderSide: BorderSide(
+                              color: MyColors.myBlue,
+                              width: 3,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextField(
+                        controller: _passwordTextController,
+                        decoration: const InputDecoration(
+                          labelText: 'رمز عبور',
+                          labelStyle: TextStyle(
+                            fontFamily: 'SM',
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                              width: 2,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                            borderSide: BorderSide(
+                              color: MyColors.myBlue,
+                              width: 3,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: MyColors.myBlue,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          maximumSize: const Size(200, 48),
+                        ),
+                        child: const Text(
+                          'ورود به حساب کاربری',
+                          style: TextStyle(
+                            fontFamily: 'SB',
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
