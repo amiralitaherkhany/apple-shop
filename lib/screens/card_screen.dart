@@ -8,104 +8,100 @@ class CardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            CustomScrollView(
-              slivers: [
-                const SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 20,
-                  ),
-                ),
-                SliverAppBar(
-                  backgroundColor: Colors.transparent,
-                  elevation: 0,
-                  expandedHeight: 46.0,
-                  floating: true,
-                  pinned: false,
-                  flexibleSpace: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 44),
-                    child: Container(
-                      width: 340,
-                      height: 46,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.white,
-                      ),
-                      child: Stack(
-                        alignment: AlignmentDirectional.center,
-                        children: [
-                          const Text(
-                            'سبد خرید',
-                            style: TextStyle(
-                              fontFamily: 'SB',
-                              fontSize: 16,
-                              color: MyColors.myBlue,
-                            ),
-                          ),
-                          Positioned(
-                            left: 15,
-                            top: 10,
-                            child: Image.asset(
-                              'assets/images/icon_apple_blue.png',
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                const SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 32,
-                  ),
-                ),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    childCount: 3,
-                    (context, index) {
-                      return const Padding(
-                        padding: EdgeInsets.only(bottom: 20.0),
-                        child: CardBasketitem(),
-                      );
-                    },
-                  ),
-                ),
-                const SliverPadding(
-                  padding: EdgeInsets.only(bottom: 70),
-                )
-              ],
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        CustomScrollView(
+          slivers: [
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 20,
+              ),
             ),
-            Positioned(
-              bottom: 20,
-              right: 44,
-              left: 44,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(53),
-                  backgroundColor: MyColors.myGreen,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
+            SliverAppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              expandedHeight: 46.0,
+              floating: true,
+              pinned: false,
+              flexibleSpace: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 44),
+                child: Container(
+                  width: 340,
+                  height: 46,
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
-                onPressed: () {},
-                child: const Text(
-                  'ادامه فرآیند خرید',
-                  style: TextStyle(
-                    fontFamily: 'SB',
-                    fontSize: 16,
                     color: Colors.white,
+                  ),
+                  child: Stack(
+                    alignment: AlignmentDirectional.center,
+                    children: [
+                      const Text(
+                        'سبد خرید',
+                        style: TextStyle(
+                          fontFamily: 'SB',
+                          fontSize: 16,
+                          color: MyColors.myBlue,
+                        ),
+                      ),
+                      Positioned(
+                        left: 15,
+                        top: 10,
+                        child: Image.asset(
+                          'assets/images/icon_apple_blue.png',
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 32,
+              ),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                childCount: 3,
+                (context, index) {
+                  return const Padding(
+                    padding: EdgeInsets.only(bottom: 20.0),
+                    child: CardBasketitem(),
+                  );
+                },
+              ),
+            ),
+            const SliverPadding(
+              padding: EdgeInsets.only(bottom: 70),
             )
           ],
         ),
-      ),
+        Positioned(
+          bottom: 95,
+          right: 44,
+          left: 44,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size.fromHeight(53),
+              backgroundColor: MyColors.myGreen,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+            onPressed: () {},
+            child: const Text(
+              'ادامه فرآیند خرید',
+              style: TextStyle(
+                fontFamily: 'SB',
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 }

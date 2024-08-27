@@ -48,12 +48,6 @@ class _MyAppState extends State<MyApp> {
       ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 0,
-          backgroundColor: MyColors.myWhite,
-          elevation: 0,
-          scrolledUnderElevation: 0,
-        ),
         extendBody: true,
         bottomNavigationBar: BlocBuilder<ScrollCubit, bool>(
           builder: (context, state) {
@@ -68,31 +62,12 @@ class _MyAppState extends State<MyApp> {
               firstChild: ClipRRect(
                 child: BackdropFilter(
                   filter: ImageFilter.blur(
-                    sigmaX: 5,
-                    sigmaY: 5,
+                    sigmaX: 13,
+                    sigmaY: 13,
                   ),
-                  child: Container(
+                  child: SizedBox(
                     height: 75,
                     width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      backgroundBlendMode: BlendMode.overlay,
-                      gradient: const LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Color.fromRGBO(255, 255, 255, 1),
-                          Color.fromRGBO(255, 255, 255, 0.1),
-                        ],
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.25),
-                          offset: const Offset(0, -4),
-                          blurRadius: 60,
-                          spreadRadius: -30,
-                        ),
-                      ],
-                    ),
                     child: BottomNavigationBar(
                       onTap: (int index) async {
                         setState(
@@ -125,7 +100,7 @@ class _MyAppState extends State<MyApp> {
                       iconSize: 30,
                       elevation: 0,
                       type: BottomNavigationBarType.fixed,
-                      backgroundColor: Colors.transparent,
+                      backgroundColor: Colors.white.withOpacity(0.7),
                       items: const [
                         BottomNavigationBarItem(
                           activeIcon: Icon(IconsaxBold.profile_circle),
@@ -159,9 +134,12 @@ class _MyAppState extends State<MyApp> {
             );
           },
         ),
-        body: IndexedStack(
-          index: selectedBottomNavigationIndex,
-          children: getScreens(),
+        body: SafeArea(
+          bottom: false,
+          child: IndexedStack(
+            index: selectedBottomNavigationIndex,
+            children: getScreens(),
+          ),
         ),
       ),
     );
