@@ -14,6 +14,7 @@ class CategoryItemChip extends StatelessWidget {
     return Column(
       children: [
         Container(
+          padding: const EdgeInsets.all(13.0),
           width: 56,
           height: 56,
           decoration: ShapeDecoration(
@@ -61,12 +62,23 @@ class CategoryItemChip extends StatelessWidget {
             color: Color(categoryColor),
           ),
           child: CachedNetworkImage(
+            fit: BoxFit.contain,
             imageUrl: category.icon!,
             placeholder: (context, url) => Container(
-              color: Colors.grey,
+              decoration: ShapeDecoration(
+                color: Colors.grey,
+                shape: ContinuousRectangleBorder(
+                  borderRadius: BorderRadius.circular(45),
+                ),
+              ),
             ),
             errorWidget: (context, url, error) => Container(
-              color: Colors.red[500],
+              decoration: ShapeDecoration(
+                color: Colors.red,
+                shape: ContinuousRectangleBorder(
+                  borderRadius: BorderRadius.circular(45),
+                ),
+              ),
             ),
           ),
         ),
