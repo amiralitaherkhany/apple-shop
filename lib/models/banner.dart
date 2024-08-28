@@ -1,17 +1,17 @@
-class Banner {
+class BannerModel {
   String? collectionId;
   String? categoryId;
   String? id;
   String? thumbnail;
-  Banner({
+  BannerModel({
     this.collectionId,
     this.categoryId,
     this.id,
     this.thumbnail,
   });
 
-  factory Banner.fromMapJson(Map<String, dynamic> map) {
-    return Banner(
+  factory BannerModel.fromMapJson(Map<String, dynamic> map) {
+    return BannerModel(
       collectionId: map['collectionId'],
       categoryId: map['categoryId'],
       id: map['id'],

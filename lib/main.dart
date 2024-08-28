@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:apple_shop/bloc/authentication/bloc/auth_bloc.dart';
 import 'package:apple_shop/bloc/category/bloc/category_bloc.dart';
+import 'package:apple_shop/bloc/home/bloc/home_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/cubit/scroll/cubit/scroll_cubit.dart';
 import 'package:apple_shop/di/di.dart';
@@ -27,6 +28,9 @@ void main() async {
         ),
         BlocProvider(
           create: (context) => CategoryBloc(),
+        ),
+        BlocProvider(
+          create: (context) => HomeBloc(),
         ),
       ],
       child: const MyApp(),
@@ -56,6 +60,11 @@ class _MyAppState extends State<MyApp> {
       ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 0,
+          backgroundColor: MyColors.myWhite,
+          scrolledUnderElevation: 0,
+        ),
         extendBody: true,
         bottomNavigationBar: BlocBuilder<ScrollCubit, bool>(
           builder: (context, state) {
@@ -77,7 +86,7 @@ class _MyAppState extends State<MyApp> {
                     height: 75,
                     width: MediaQuery.of(context).size.width,
                     child: BottomNavigationBar(
-                      onTap: (int index) async {
+                      onTap: (int index) {
                         setState(
                           () {
                             selectedBottomNavigationIndex = index;

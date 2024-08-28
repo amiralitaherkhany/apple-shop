@@ -2,7 +2,7 @@ import 'package:apple_shop/bloc/category/bloc/category_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/cubit/scroll/cubit/scroll_cubit.dart';
 import 'package:apple_shop/models/category.dart';
-import 'package:apple_shop/widgets/cached_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -98,22 +98,39 @@ class _CategoryScreenState extends State<CategoryScreen> {
           builder: (context, state) {
             if (state is CategoryInitial || state is CategoryLoading) {
               return const SliverToBoxAdapter(
-                child: CircularProgressIndicator(),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(
+                      color: MyColors.myBlue,
+                    ),
+                  ],
+                ),
               );
             } else if (state is CategoryResponse) {
               return state.response.fold(
-                (l) {
+                (exception) {
                   return SliverToBoxAdapter(
-                    child: Text(l),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(exception),
+                      ],
+                    ),
                   );
                 },
-                (r) {
-                  return CategoryList(categoryList: r);
+                (categoryList) {
+                  return CategoryList(categoryList: categoryList);
                 },
               );
             } else {
               return const SliverToBoxAdapter(
-                child: Text('error'),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('error'),
+                  ],
+                ),
               );
             }
           },
@@ -143,7 +160,18 @@ class CategoryList extends StatelessWidget {
           mainAxisSpacing: 20,
         ),
         itemBuilder: (context, index) {
-          return CachedImage(imageUrl: categoryList[index].thumbnail!);
+          return CachedNetworkImage(
+            placeholder: (context, url) => Container(
+              color: Colors.grey,
+            ),
+            errorWidget: (context, url, error) => Container(
+              color: Colors.red[500],
+            ),
+            imageUrl: categoryList[index].thumbnail!,
+            width: 160,
+            height: 160,
+            fit: BoxFit.cover,
+          );
         },
       ),
     );

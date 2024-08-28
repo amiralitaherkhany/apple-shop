@@ -18,7 +18,8 @@ class Category {
     return Category(
       collectionId: map['collectionId'],
       color: map['color'],
-      icon: map['icon'],
+      icon:
+          'https://startflutter.ir/api/files/${map['collectionId']}/${map['id']}/${map['icon']}',
       id: map['id'],
       thumbnail:
           'https://startflutter.ir/api/files/${map['collectionId']}/${map['id']}/${map['thumbnail']}',

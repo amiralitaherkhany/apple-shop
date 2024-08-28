@@ -1,6 +1,5 @@
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/cubit/scroll/cubit/scroll_cubit.dart';
-import 'package:apple_shop/widgets/category_item_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -86,16 +85,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
             runSpacing: 20,
             textDirection: TextDirection.rtl,
             children: [
-              CategoryItemChip(),
-              CategoryItemChip(),
-              CategoryItemChip(),
-              CategoryItemChip(),
-              CategoryItemChip(),
-              CategoryItemChip(),
-              CategoryItemChip(),
-              CategoryItemChip(),
-              CategoryItemChip(),
-              CategoryItemChip(),
+              SizedBox(
+                width: 20,
+                height: 20,
+              ),
+              SizedBox(
+                width: 20,
+                height: 20,
+              ),
+              SizedBox(
+                width: 20,
+                height: 20,
+              ),
+              SizedBox(
+                width: 20,
+                height: 20,
+              ),
+              // CategoryItemChip(),
+              // CategoryItemChip(),
+              // CategoryItemChip(),
+              // CategoryItemChip(),
+              // CategoryItemChip(),
+              // CategoryItemChip(),
+              // CategoryItemChip(),
+              // CategoryItemChip(),
+              // CategoryItemChip(),
+              // CategoryItemChip(),
             ],
           ),
         ),
