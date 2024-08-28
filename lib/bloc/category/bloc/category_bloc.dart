@@ -1,6 +1,6 @@
 import 'package:apple_shop/data/repository/category_repository.dart';
 import 'package:apple_shop/di/di.dart';
-import 'package:apple_shop/model/category.dart';
+import 'package:apple_shop/models/category.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';

@@ -1,5 +1,5 @@
 import 'package:apple_shop/di/di.dart';
-import 'package:apple_shop/model/category.dart';
+import 'package:apple_shop/models/category.dart';
 import 'package:apple_shop/util/api_exception.dart';
 import 'package:dio/dio.dart';
 

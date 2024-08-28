@@ -1,7 +1,7 @@
 import 'package:apple_shop/bloc/category/bloc/category_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/cubit/scroll/cubit/scroll_cubit.dart';
-import 'package:apple_shop/model/category.dart';
+import 'package:apple_shop/models/category.dart';
 import 'package:apple_shop/widgets/cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
