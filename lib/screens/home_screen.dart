@@ -49,221 +49,151 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      controller: scrollController,
-      slivers: [
-        const SliverToBoxAdapter(
-          child: SizedBox(
-            height: 10,
-          ),
-        ),
-        _getAppBar(),
-        const SliverToBoxAdapter(
-          child: SizedBox(
-            height: 32,
-          ),
-        ),
-        BlocBuilder<HomeBloc, HomeState>(
-          builder: (context, state) {
-            if (state is HomeLoading || state is HomeInitial) {
-              return const SliverToBoxAdapter(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(
-                      color: MyColors.myBlue,
-                    ),
-                  ],
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        return RefreshIndicator(
+          color: MyColors.myBlue,
+          backgroundColor: MyColors.myWhite,
+          onRefresh: () async {
+            context.read<HomeBloc>().add(HomeRequestData());
+            await Future.delayed(Durations.short1);
+          },
+          child: CustomScrollView(
+            controller: scrollController,
+            slivers: [
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 10,
                 ),
-              );
-            } else if (state is HomeResponseSuccess) {
-              return state.bannerList.fold(
-                (exception) {
-                  return SliverToBoxAdapter(
-                    child: Row(
+              ),
+              _getAppBar(),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 32,
+                ),
+              ),
+              if (state is HomeInitial || state is HomeLoading) ...[
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height - 250,
+                    child: const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(exception),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircularProgressIndicator(
+                              color: MyColors.myBlue,
+                            )
+                          ],
+                        ),
                       ],
                     ),
-                  );
-                },
-                (bannerList) {
-                  return _getBanners(bannerList);
-                },
-              );
-            } else {
-              return const SliverToBoxAdapter(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('error'),
-                  ],
+                  ),
                 ),
-              );
-            }
-          },
-        ),
-        const SliverToBoxAdapter(
-          child: SizedBox(
-            height: 32,
+              ],
+              if (state is HomeResponseSuccess) ...[
+                state.bannerList.fold(
+                  (exception) {
+                    return SliverToBoxAdapter(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(exception),
+                        ],
+                      ),
+                    );
+                  },
+                  (bannerList) {
+                    return _getBanners(bannerList);
+                  },
+                ),
+                const SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 32,
+                  ),
+                ),
+                _getCategoryListTitle(),
+                const SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 20,
+                  ),
+                ),
+                state.categoryList.fold(
+                  (exception) {
+                    return SliverToBoxAdapter(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(exception),
+                        ],
+                      ),
+                    );
+                  },
+                  (categoryList) {
+                    return _getCategoryList(categoryList);
+                  },
+                ),
+                const SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 32,
+                  ),
+                ),
+                _getBestSellTitle(),
+                const SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 20,
+                  ),
+                ),
+                state.productBestSellerList.fold(
+                  (exception) {
+                    return SliverToBoxAdapter(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(exception),
+                        ],
+                      ),
+                    );
+                  },
+                  (productBestSellerList) {
+                    return _getBestSellList(productBestSellerList);
+                  },
+                ),
+                const SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 32,
+                  ),
+                ),
+                _getMostPopularTitle(),
+                const SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 20,
+                  ),
+                ),
+                state.productHottestList.fold(
+                  (exception) {
+                    return SliverToBoxAdapter(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(exception),
+                        ],
+                      ),
+                    );
+                  },
+                  (productHottestList) {
+                    return _getMostPopularList(productHottestList);
+                  },
+                ),
+                const SliverPadding(
+                  padding: EdgeInsets.only(bottom: 100),
+                ),
+              ],
+            ],
           ),
-        ),
-        _getCategoryListTitle(),
-        const SliverToBoxAdapter(
-          child: SizedBox(
-            height: 20,
-          ),
-        ),
-        BlocBuilder<HomeBloc, HomeState>(
-          builder: (context, state) {
-            if (state is HomeLoading || state is HomeInitial) {
-              return const SliverToBoxAdapter(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(
-                      color: MyColors.myBlue,
-                    ),
-                  ],
-                ),
-              );
-            } else if (state is HomeResponseSuccess) {
-              return state.categoryList.fold(
-                (exception) {
-                  return SliverToBoxAdapter(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(exception),
-                      ],
-                    ),
-                  );
-                },
-                (categoryList) {
-                  return _getCategoryList(categoryList);
-                },
-              );
-            } else {
-              return const SliverToBoxAdapter(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('error'),
-                  ],
-                ),
-              );
-            }
-          },
-        ),
-        const SliverToBoxAdapter(
-          child: SizedBox(
-            height: 32,
-          ),
-        ),
-        _getBestSellTitle(),
-        const SliverToBoxAdapter(
-          child: SizedBox(
-            height: 20,
-          ),
-        ),
-        BlocBuilder<HomeBloc, HomeState>(
-          builder: (context, state) {
-            if (state is HomeLoading || state is HomeInitial) {
-              return const SliverToBoxAdapter(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(
-                      color: MyColors.myBlue,
-                    ),
-                  ],
-                ),
-              );
-            } else if (state is HomeResponseSuccess) {
-              return state.productBestSellerList.fold(
-                (exception) {
-                  return SliverToBoxAdapter(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(exception),
-                      ],
-                    ),
-                  );
-                },
-                (productBestSellerList) {
-                  return _getBestSellList(productBestSellerList);
-                },
-              );
-            } else {
-              return const SliverToBoxAdapter(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('error'),
-                  ],
-                ),
-              );
-            }
-          },
-        ),
-        const SliverToBoxAdapter(
-          child: SizedBox(
-            height: 32,
-          ),
-        ),
-        _getMostPopularTitle(),
-        const SliverToBoxAdapter(
-          child: SizedBox(
-            height: 20,
-          ),
-        ),
-        BlocBuilder<HomeBloc, HomeState>(
-          builder: (context, state) {
-            if (state is HomeLoading || state is HomeInitial) {
-              return const SliverToBoxAdapter(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(
-                      color: MyColors.myBlue,
-                    ),
-                  ],
-                ),
-              );
-            } else if (state is HomeResponseSuccess) {
-              return state.productHottestList.fold(
-                (exception) {
-                  return SliverToBoxAdapter(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(exception),
-                      ],
-                    ),
-                  );
-                },
-                (productHottestList) {
-                  return _getMostPopularList(productHottestList);
-                },
-              );
-            } else {
-              return const SliverToBoxAdapter(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('error'),
-                  ],
-                ),
-              );
-            }
-          },
-        ),
-        const SliverPadding(
-          padding: EdgeInsets.only(bottom: 100),
-        ),
-      ],
+        );
+      },
     );
   }
 
