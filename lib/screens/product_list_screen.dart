@@ -1,5 +1,4 @@
 import 'package:apple_shop/constants/colors.dart';
-import 'package:apple_shop/widgets/card_item.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -114,7 +113,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
                   mainAxisExtent: 216,
                 ),
                 itemBuilder: (context, index) {
-                  return const CardItem();
+                  // return const CardItem();
+                  return const Text('data');
                 },
               ),
             )

@@ -3,6 +3,7 @@ import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/cubit/scroll/cubit/scroll_cubit.dart';
 import 'package:apple_shop/models/banner.dart';
 import 'package:apple_shop/models/category.dart';
+import 'package:apple_shop/models/product.dart';
 import 'package:apple_shop/widgets/banner_slider.dart';
 import 'package:apple_shop/widgets/card_item.dart';
 import 'package:apple_shop/widgets/category_item_chip.dart';
@@ -166,7 +167,47 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 20,
           ),
         ),
-        _getBestSellList(),
+        BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, state) {
+            if (state is HomeLoading || state is HomeInitial) {
+              return const SliverToBoxAdapter(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(
+                      color: MyColors.myBlue,
+                    ),
+                  ],
+                ),
+              );
+            } else if (state is HomeResponseSuccess) {
+              return state.productBestSellerList.fold(
+                (exception) {
+                  return SliverToBoxAdapter(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(exception),
+                      ],
+                    ),
+                  );
+                },
+                (productBestSellerList) {
+                  return _getBestSellList(productBestSellerList);
+                },
+              );
+            } else {
+              return const SliverToBoxAdapter(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('error'),
+                  ],
+                ),
+              );
+            }
+          },
+        ),
         const SliverToBoxAdapter(
           child: SizedBox(
             height: 32,
@@ -178,7 +219,47 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 20,
           ),
         ),
-        _getMostPopularList(),
+        BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, state) {
+            if (state is HomeLoading || state is HomeInitial) {
+              return const SliverToBoxAdapter(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(
+                      color: MyColors.myBlue,
+                    ),
+                  ],
+                ),
+              );
+            } else if (state is HomeResponseSuccess) {
+              return state.productHottestList.fold(
+                (exception) {
+                  return SliverToBoxAdapter(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(exception),
+                      ],
+                    ),
+                  );
+                },
+                (productHottestList) {
+                  return _getMostPopularList(productHottestList);
+                },
+              );
+            } else {
+              return const SliverToBoxAdapter(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('error'),
+                  ],
+                ),
+              );
+            }
+          },
+        ),
         const SliverPadding(
           padding: EdgeInsets.only(bottom: 100),
         ),
@@ -186,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  SliverToBoxAdapter _getMostPopularList() {
+  SliverToBoxAdapter _getMostPopularList(List<Product> productHottestList) {
     return SliverToBoxAdapter(
       child: SizedBox(
         height: 217,
@@ -196,11 +277,13 @@ class _HomeScreenState extends State<HomeScreen> {
           itemBuilder: (context, index) {
             return Padding(
               padding: EdgeInsets.only(left: 20.0, right: index == 0 ? 44 : 0),
-              child: const CardItem(),
+              child: CardItem(
+                product: productHottestList[index],
+              ),
             );
           },
           scrollDirection: Axis.horizontal,
-          itemCount: 10,
+          itemCount: productHottestList.length,
         ),
       ),
     );
@@ -244,7 +327,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  SliverToBoxAdapter _getBestSellList() {
+  SliverToBoxAdapter _getBestSellList(List<Product> productBestSellerList) {
     return SliverToBoxAdapter(
       child: SizedBox(
         height: 217,
@@ -254,11 +337,13 @@ class _HomeScreenState extends State<HomeScreen> {
           itemBuilder: (context, index) {
             return Padding(
               padding: EdgeInsets.only(left: 20.0, right: index == 0 ? 44 : 0),
-              child: const CardItem(),
+              child: CardItem(
+                product: productBestSellerList[index],
+              ),
             );
           },
           scrollDirection: Axis.horizontal,
-          itemCount: 10,
+          itemCount: productBestSellerList.length,
         ),
       ),
     );

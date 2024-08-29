@@ -13,16 +13,13 @@ class CategoryRemoteDataSource implements ICategoryDataSource {
   Future<List<Category>> getCategories() async {
     try {
       var response = await _dio.get('collections/category/records');
-      if (response.statusCode == 200) {
-        return response.data['items']
-            .map<Category>((jsonObject) => Category.fromMapJson(jsonObject))
-            .toList();
-      }
+      return response.data['items']
+          .map<Category>((jsonObject) => Category.fromMapJson(jsonObject))
+          .toList();
     } on DioException catch (e) {
       throw ApiException(e.response?.statusCode, e.response?.data['message']);
     } catch (e) {
       throw ApiException(0, 'unknown error');
     }
-    return [];
   }
 }

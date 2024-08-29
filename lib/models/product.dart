@@ -26,7 +26,8 @@ class Product {
     return Product(
       id: map['id'] ?? '',
       collectionId: map['collectionId'] ?? '',
-      thumbnail: map['thumbnail'] ?? '',
+      thumbnail:
+          'https://startflutter.ir/api/files/${map['collectionId']}/${map['id']}/${map['thumbnail']}',
       description: map['description'] ?? '',
       discountPrice: map['discount_price']?.toInt() ?? 0,
       price: map['price']?.toInt() ?? 0,

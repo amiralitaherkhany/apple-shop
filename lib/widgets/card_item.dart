@@ -1,14 +1,20 @@
 import 'package:apple_shop/constants/colors.dart';
+import 'package:apple_shop/models/product.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 
 class CardItem extends StatelessWidget {
   const CardItem({
     super.key,
+    required this.product,
   });
-
+  final Product product;
   @override
   Widget build(BuildContext context) {
+    int realPrice = product.price - product.discountPrice;
+    String percent =
+        '%${(((product.price - realPrice) * 100) / product.price).round()}';
     return Container(
       width: 160,
       height: 216,
@@ -25,7 +31,14 @@ class CardItem extends StatelessWidget {
             alignment: Alignment.center,
             children: [
               const Center(),
-              Image.asset('assets/images/iphone.png'),
+              CachedNetworkImage(
+                width: 100,
+                height: 100,
+                imageUrl: product.thumbnail,
+                errorWidget: (context, url, error) {
+                  return Image.asset('assets/images/no-image-icon-6.png');
+                },
+              ),
               const Positioned(
                 top: 0,
                 right: 10,
@@ -38,19 +51,26 @@ class CardItem extends StatelessWidget {
                 bottom: 0,
                 left: 10,
                 child: Container(
+                  padding: const EdgeInsets.all(1),
                   width: 25,
                   height: 15,
                   decoration: BoxDecoration(
                     color: MyColors.myRed,
                     borderRadius: BorderRadius.circular(7.5),
                   ),
-                  child: const Center(
-                    child: Text(
-                      '%۳',
-                      style: TextStyle(
-                        fontFamily: 'SB',
-                        color: Colors.white,
-                        fontSize: 10,
+                  child: Center(
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          percent,
+                          style: const TextStyle(
+                            fontFamily: 'SB',
+                            color: Colors.white,
+                            fontSize: 10,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -61,18 +81,20 @@ class CardItem extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                'آیفون 13 پرو مکس',
-                style: TextStyle(
+                maxLines: 1,
+                product.name,
+                style: const TextStyle(
                   fontFamily: 'SB',
                   color: Colors.black,
                   fontSize: 14,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
             ],
@@ -125,14 +147,14 @@ class CardItem extends StatelessWidget {
                 ),
               ],
             ),
-            child: const Row(
+            child: Row(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
-                Text(
+                const Text(
                   'تومان',
                   style: TextStyle(
                     fontFamily: 'SM',
@@ -140,40 +162,47 @@ class CardItem extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      '۴۶٬۰۰۰٬۰۰۰',
-                      style: TextStyle(
-                        decoration: TextDecoration.lineThrough,
-                        decorationColor: Colors.white,
-                        decorationThickness: 2,
-                        fontFamily: 'SM',
-                        fontSize: 12,
-                        color: Colors.white,
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        product.price.toString(),
+                        style: const TextStyle(
+                          decoration: TextDecoration.lineThrough,
+                          decorationColor: Colors.white,
+                          decorationThickness: 2,
+                          fontFamily: 'SM',
+                          fontSize: 12,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                    Text(
-                      '۴۵٬۳۵۰٬۰۰۰',
-                      style: TextStyle(
-                        fontFamily: 'SM',
-                        fontSize: 16,
-                        color: Colors.white,
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        realPrice.toString(),
+                        style: const TextStyle(
+                          fontFamily: 'SM',
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(
-                  width: 12,
-                ),
-                Icon(
+                const Spacer(),
+                const Icon(
                   IconsaxBold.arrow_right,
                   color: MyColors.myWhite,
+                ),
+                const SizedBox(
+                  width: 15,
                 ),
               ],
             ),

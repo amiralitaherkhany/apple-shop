@@ -13,17 +13,13 @@ class BannerRemoteDataSource implements IBannerDataSource {
   Future<List<BannerModel>> getBanners() async {
     try {
       var response = await _dio.get('collections/banner/records');
-      if (response.statusCode == 200) {
-        return response.data['items']
-            .map<BannerModel>(
-                (jsonObject) => BannerModel.fromMapJson(jsonObject))
-            .toList();
-      }
+      return response.data['items']
+          .map<BannerModel>((jsonObject) => BannerModel.fromMapJson(jsonObject))
+          .toList();
     } on DioException catch (e) {
       throw ApiException(e.response?.statusCode, e.response?.data['message']);
     } catch (e) {
       throw ApiException(0, 'unknown error');
     }
-    return [];
   }
 }
