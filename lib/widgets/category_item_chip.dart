@@ -14,7 +14,7 @@ class CategoryItemChip extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.all(13.0),
+          padding: const EdgeInsets.all(15.0),
           width: 56,
           height: 56,
           decoration: ShapeDecoration(

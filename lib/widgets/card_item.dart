@@ -42,6 +42,7 @@ class CardItem extends StatelessWidget {
                   width: 100,
                   height: 100,
                   imageUrl: product.thumbnail,
+                  errorListener: (value) => print(value.toString()),
                   errorWidget: (context, url, error) {
                     return Image.asset('assets/images/no-image-icon-6.png');
                   },

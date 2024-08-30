@@ -4,6 +4,11 @@ plugins {
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
 }
+dependencies {
+
+  // Add this in addition to your other dependencies
+  implementation "androidx.activity:activity:1.6.0-alpha05"
+}
 
 android {
     namespace = "com.example.apple_shop"
@@ -42,3 +47,5 @@ android {
 flutter {
     source = "../.."
 }
+
+

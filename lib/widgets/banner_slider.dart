@@ -22,29 +22,35 @@ class _BannerSliderState extends State<BannerSlider> {
   static int currentPage = 0;
   final PageController pageController =
       PageController(viewportFraction: 0.9, initialPage: currentPage);
-  @override
-  void initState() {
-    timer = Timer.periodic(
-      const Duration(seconds: 5),
-      (Timer timer) {
-        if (currentPage < widget.bannerList.length - 1) {
-          currentPage++;
-        } else {
-          currentPage = 0;
-        }
-        pageController.animateToPage(currentPage,
-            duration: const Duration(seconds: 1), curve: Easing.legacy);
-      },
-    );
+  // @override
+  // void initState() {
+  //   // timer = Timer.periodic(
+  //   //   const Duration(seconds: 5),
+  //   //   (Timer timer) {
+  //   //     if (currentPage < widget.bannerList.length - 1) {
+  //   //       currentPage++;
+  //   //     } else {
+  //   //       currentPage = 0;
+  //   //     }
+  //   //     pageController.animateToPage(currentPage,
+  //   //         duration: const Duration(seconds: 1), curve: Easing.legacy);
+  //   //   },
+  //   // );
 
-    super.initState();
-  }
+  //   super.initState();
+  // }
 
-  @override
-  void dispose() {
-    timer.cancel();
-    super.dispose();
-  }
+  // @override
+  // void deactivate() {
+  //   timer.cancel();
+  //   super.deactivate();
+  // }
+
+  // @override
+  // void dispose() {
+  //   timer.cancel();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {

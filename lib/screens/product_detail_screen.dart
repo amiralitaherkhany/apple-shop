@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:apple_shop/bloc/product/bloc/product_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
+import 'package:apple_shop/models/product_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,6 +57,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     ),
                   ),
                   SliverAppBar(
+                    automaticallyImplyLeading: false,
                     backgroundColor: Colors.transparent,
                     elevation: 0,
                     expandedHeight: 46.0,
@@ -86,11 +89,16 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               child: Image.asset(
                                   'assets/images/icon_apple_blue.png'),
                             ),
-                            const Positioned(
-                              right: 15,
-                              child: Icon(
-                                IconsaxOutline.arrow_circle_right,
-                                size: 30,
+                            Positioned(
+                              right: 5,
+                              child: IconButton(
+                                iconSize: 30,
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: const Icon(
+                                  IconsaxOutline.arrow_circle_right,
+                                ),
                               ),
                             ),
                           ],
@@ -119,120 +127,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       height: 20,
                     ),
                   ),
-                  SliverToBoxAdapter(
-                    child: Container(
-                      height: 284,
-                      margin: const EdgeInsets.symmetric(horizontal: 44),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.0335),
-                            offset: const Offset(0, 2.77),
-                            blurRadius: 2.21,
-                            spreadRadius: 0,
-                          ),
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.0412),
-                            offset: const Offset(0, 6.65),
-                            blurRadius: 5.32,
-                            spreadRadius: 0,
-                          ),
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.0455),
-                            offset: const Offset(0, 12.52),
-                            blurRadius: 10.02,
-                            spreadRadius: 0,
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10.0),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Icon(
-                                    IconsaxBold.star,
-                                    color: Color(0xffFFBF00),
-                                    size: 28,
-                                  ),
-                                  const SizedBox(
-                                    width: 6,
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsets.only(top: 6.0),
-                                    child: Text(
-                                      '4.6',
-                                      style: TextStyle(
-                                        fontFamily: 'SM',
-                                        fontSize: 12,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  SizedBox(
-                                    height: double.infinity,
-                                    child:
-                                        Image.asset('assets/images/iphone.png'),
-                                  ),
-                                  const Spacer(),
-                                  const Icon(
-                                    IconsaxBold.heart_circle,
-                                    color: MyColors.myGrey,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 70,
-                            child: ListView.builder(
-                              itemCount: 5,
-                              scrollDirection: Axis.horizontal,
-                              reverse: true,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  margin: EdgeInsets.only(
-                                    left: 20,
-                                    right: index == 0 ? 35 : 0,
-                                  ),
-                                  width: 70,
-                                  height: 70,
-                                  decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    border: Border.all(
-                                      color: MyColors.myGrey,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.asset(
-                                      'assets/images/product_picture.png',
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                        ],
-                      ),
-                    ),
+                  state.productImageList.fold(
+                    (exception) {
+                      return SliverToBoxAdapter(child: Text(exception));
+                    },
+                    (productImageList) {
+                      return GalleryWidget(productImageList: productImageList);
+                    },
                   ),
                   const SliverToBoxAdapter(
                     child: SizedBox(
@@ -660,6 +561,156 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               ],
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class GalleryWidget extends StatefulWidget {
+  const GalleryWidget({
+    super.key,
+    required this.productImageList,
+  });
+  final List<ProductImage> productImageList;
+
+  @override
+  State<GalleryWidget> createState() => _GalleryWidgetState();
+}
+
+class _GalleryWidgetState extends State<GalleryWidget> {
+  int selectedImage = 0;
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Container(
+        height: 284,
+        margin: const EdgeInsets.symmetric(horizontal: 44),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.0335),
+              offset: const Offset(0, 2.77),
+              blurRadius: 2.21,
+              spreadRadius: 0,
+            ),
+            BoxShadow(
+              color: Colors.black.withOpacity(0.0412),
+              offset: const Offset(0, 6.65),
+              blurRadius: 5.32,
+              spreadRadius: 0,
+            ),
+            BoxShadow(
+              color: Colors.black.withOpacity(0.0455),
+              offset: const Offset(0, 12.52),
+              blurRadius: 10.02,
+              spreadRadius: 0,
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Stack(
+                  alignment: Alignment.topCenter,
+                  children: [
+                    AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 500),
+                      child: Center(
+                        key: Key(widget.productImageList[selectedImage].image),
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              widget.productImageList[selectedImage].image,
+                        ),
+                      ),
+                    ),
+                    const Positioned(
+                      top: 10,
+                      left: 5,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            IconsaxBold.star,
+                            color: Color(0xffFFBF00),
+                            size: 28,
+                          ),
+                          Text(
+                            '4.6',
+                            style: TextStyle(
+                              fontFamily: 'SM',
+                              fontSize: 12,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Positioned(
+                      top: 10,
+                      right: 5,
+                      child: Icon(
+                        IconsaxBold.heart_circle,
+                        color: MyColors.myGrey,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 70,
+              child: ListView.builder(
+                itemCount: widget.productImageList.length,
+                scrollDirection: Axis.horizontal,
+                reverse: true,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      setState(() {
+                        selectedImage = index;
+                      });
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 500),
+                      margin: EdgeInsets.only(
+                        left: 20,
+                        right: index == 0 ? 35 : 0,
+                      ),
+                      padding: const EdgeInsets.all(10),
+                      width: 70,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        border: Border.all(
+                          color: index == selectedImage
+                              ? MyColors.myBlue
+                              : MyColors.myGrey,
+                          width: index == selectedImage ? 3 : 1,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: CachedNetworkImage(
+                          imageUrl: widget.productImageList[index].image,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+          ],
         ),
       ),
     );
