@@ -4,6 +4,7 @@ import 'package:apple_shop/cubit/scroll/cubit/scroll_cubit.dart';
 import 'package:apple_shop/models/banner.dart';
 import 'package:apple_shop/models/category.dart';
 import 'package:apple_shop/models/product.dart';
+import 'package:apple_shop/util/responsive.dart';
 import 'package:apple_shop/widgets/banner_slider.dart';
 import 'package:apple_shop/widgets/card_item.dart';
 import 'package:apple_shop/widgets/category_item_chip.dart';
@@ -61,15 +62,15 @@ class _HomeScreenState extends State<HomeScreen> {
           child: CustomScrollView(
             controller: scrollController,
             slivers: [
-              const SliverToBoxAdapter(
+              SliverToBoxAdapter(
                 child: SizedBox(
-                  height: 10,
+                  height: Responsive.scaleFromFigma(context, 10),
                 ),
               ),
               _getAppBar(),
-              const SliverToBoxAdapter(
+              SliverToBoxAdapter(
                 child: SizedBox(
-                  height: 32,
+                  height: Responsive.scaleFromFigma(context, 32),
                 ),
               ),
               if (state is HomeInitial || state is HomeLoading) ...[
@@ -108,15 +109,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     return _getBanners(bannerList);
                   },
                 ),
-                const SliverToBoxAdapter(
+                SliverToBoxAdapter(
                   child: SizedBox(
-                    height: 32,
+                    height: Responsive.scaleFromFigma(context, 32),
                   ),
                 ),
                 _getCategoryListTitle(),
-                const SliverToBoxAdapter(
+                SliverToBoxAdapter(
                   child: SizedBox(
-                    height: 20,
+                    height: Responsive.scaleFromFigma(context, 20),
                   ),
                 ),
                 state.categoryList.fold(
@@ -134,15 +135,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     return _getCategoryList(categoryList);
                   },
                 ),
-                const SliverToBoxAdapter(
+                SliverToBoxAdapter(
                   child: SizedBox(
-                    height: 32,
+                    height: Responsive.scaleFromFigma(context, 32),
                   ),
                 ),
                 _getBestSellTitle(),
-                const SliverToBoxAdapter(
+                SliverToBoxAdapter(
                   child: SizedBox(
-                    height: 20,
+                    height: Responsive.scaleFromFigma(context, 20),
                   ),
                 ),
                 state.productBestSellerList.fold(
@@ -160,15 +161,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     return _getBestSellList(productBestSellerList);
                   },
                 ),
-                const SliverToBoxAdapter(
+                SliverToBoxAdapter(
                   child: SizedBox(
-                    height: 32,
+                    height: Responsive.scaleFromFigma(context, 32),
                   ),
                 ),
                 _getMostPopularTitle(),
-                const SliverToBoxAdapter(
+                SliverToBoxAdapter(
                   child: SizedBox(
-                    height: 20,
+                    height: Responsive.scaleFromFigma(context, 20),
                   ),
                 ),
                 state.productHottestList.fold(
@@ -186,8 +187,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     return _getMostPopularList(productHottestList);
                   },
                 ),
-                const SliverPadding(
-                  padding: EdgeInsets.only(bottom: 100),
+                SliverPadding(
+                  padding: EdgeInsets.only(
+                      bottom: Responsive.scaleFromFigma(context, 100)),
                 ),
               ],
             ],
@@ -200,13 +202,16 @@ class _HomeScreenState extends State<HomeScreen> {
   SliverToBoxAdapter _getMostPopularList(List<Product> productHottestList) {
     return SliverToBoxAdapter(
       child: SizedBox(
-        height: 217,
+        height: Responsive.scaleFromFigma(context, 217),
         child: ListView.builder(
           clipBehavior: Clip.none,
           reverse: true,
           itemBuilder: (context, index) {
             return Padding(
-              padding: EdgeInsets.only(left: 20.0, right: index == 0 ? 44 : 0),
+              padding: EdgeInsets.only(
+                  left: Responsive.scaleFromFigma(context, 20),
+                  right:
+                      index == 0 ? Responsive.scaleFromFigma(context, 44) : 0),
               child: CardItem(
                 product: productHottestList[index],
               ),
@@ -220,34 +225,35 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   SliverToBoxAdapter _getMostPopularTitle() {
-    return const SliverToBoxAdapter(
+    return SliverToBoxAdapter(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 44.0),
+        padding: EdgeInsets.symmetric(
+            horizontal: Responsive.scaleFromFigma(context, 44)),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               IconsaxOutline.arrow_circle_left,
               color: MyColors.myBlue,
             ),
             SizedBox(
-              width: 10,
+              width: Responsive.scaleFromFigma(context, 10),
             ),
             Text(
               'مشاهده همه',
               style: TextStyle(
                 fontFamily: 'SB',
-                fontSize: 12,
+                fontSize: Responsive.scaleFromFigma(context, 12),
                 color: MyColors.myBlue,
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Text(
               'پر بازدید ترین ها',
               style: TextStyle(
                 fontFamily: 'SB',
-                fontSize: 12,
+                fontSize: Responsive.scaleFromFigma(context, 12),
                 color: MyColors.myGrey,
               ),
             )
@@ -260,13 +266,16 @@ class _HomeScreenState extends State<HomeScreen> {
   SliverToBoxAdapter _getBestSellList(List<Product> productBestSellerList) {
     return SliverToBoxAdapter(
       child: SizedBox(
-        height: 217,
+        height: Responsive.scaleFromFigma(context, 217),
         child: ListView.builder(
           clipBehavior: Clip.none,
           reverse: true,
           itemBuilder: (context, index) {
             return Padding(
-              padding: EdgeInsets.only(left: 20.0, right: index == 0 ? 44 : 0),
+              padding: EdgeInsets.only(
+                  left: Responsive.scaleFromFigma(context, 20),
+                  right:
+                      index == 0 ? Responsive.scaleFromFigma(context, 44) : 0),
               child: CardItem(
                 product: productBestSellerList[index],
               ),
@@ -280,34 +289,35 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   SliverToBoxAdapter _getBestSellTitle() {
-    return const SliverToBoxAdapter(
+    return SliverToBoxAdapter(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 44.0),
+        padding: EdgeInsets.symmetric(
+            horizontal: Responsive.scaleFromFigma(context, 44)),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               IconsaxOutline.arrow_circle_left,
               color: MyColors.myBlue,
             ),
             SizedBox(
-              width: 10,
+              width: Responsive.scaleFromFigma(context, 10),
             ),
             Text(
               'مشاهده همه',
               style: TextStyle(
                 fontFamily: 'SB',
-                fontSize: 12,
+                fontSize: Responsive.scaleFromFigma(context, 12),
                 color: MyColors.myBlue,
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Text(
               'پر فروش ترین ها',
               style: TextStyle(
                 fontFamily: 'SB',
-                fontSize: 12,
+                fontSize: Responsive.scaleFromFigma(context, 12),
                 color: MyColors.myGrey,
               ),
             )
@@ -320,7 +330,7 @@ class _HomeScreenState extends State<HomeScreen> {
   SliverToBoxAdapter _getCategoryList(List<Category> categoryList) {
     return SliverToBoxAdapter(
       child: SizedBox(
-        height: 83,
+        height: Responsive.scaleFromFigma(context, 90),
         child: ListView.builder(
           clipBehavior: Clip.none,
           reverse: true,
@@ -328,7 +338,10 @@ class _HomeScreenState extends State<HomeScreen> {
           itemCount: categoryList.length,
           itemBuilder: (context, index) {
             return Padding(
-              padding: EdgeInsets.only(left: 20.0, right: index == 0 ? 44 : 0),
+              padding: EdgeInsets.only(
+                  left: Responsive.scaleFromFigma(context, 20),
+                  right:
+                      index == 0 ? Responsive.scaleFromFigma(context, 44) : 0),
               child: CategoryItemChip(
                 category: categoryList[index],
               ),
@@ -340,7 +353,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   SliverToBoxAdapter _getCategoryListTitle() {
-    return const SliverToBoxAdapter(
+    return SliverToBoxAdapter(
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.end,
@@ -350,12 +363,12 @@ class _HomeScreenState extends State<HomeScreen> {
             'دسته بندی',
             style: TextStyle(
               fontFamily: 'SB',
-              fontSize: 12,
+              fontSize: Responsive.scaleFromFigma(context, 12),
               color: MyColors.myGrey,
             ),
           ),
           SizedBox(
-            width: 44,
+            width: Responsive.scaleFromFigma(context, 44),
           )
         ],
       ),
@@ -374,31 +387,37 @@ class _HomeScreenState extends State<HomeScreen> {
     return SliverAppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
-      expandedHeight: 46.0,
+      expandedHeight: Responsive.scaleFromFigma(context, 46),
       floating: true,
       pinned: false,
       flexibleSpace: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 44),
+        padding: EdgeInsets.symmetric(
+            horizontal: Responsive.scaleFromFigma(context, 44)),
         child: Container(
-          width: 340,
-          height: 46,
+          width: Responsive.scaleFromFigma(context, 340),
+          height: Responsive.scaleFromFigma(context, 46),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Colors.white,
           ),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(
-                width: 15,
+              SizedBox(
+                width: Responsive.scaleFromFigma(context, 15),
               ),
-              Image.asset('assets/images/icon_apple_blue.png'),
-              const Expanded(
+              Image.asset(
+                'assets/images/icon_apple_blue.png',
+                width: Responsive.scaleFromFigma(context, 21),
+                height: Responsive.scaleFromFigma(context, 26),
+              ),
+              Expanded(
                 child: Directionality(
                   textDirection: TextDirection.rtl,
                   child: TextField(
                     style: TextStyle(
                       fontFamily: 'SB',
-                      fontSize: 16,
+                      fontSize: Responsive.scaleFromFigma(context, 16),
                       color: MyColors.myGrey,
                     ),
                     textDirection: TextDirection.rtl,
@@ -406,7 +425,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       hintText: 'جستجوی محصولات',
                       hintStyle: TextStyle(
                         fontFamily: 'SB',
-                        fontSize: 16,
+                        fontSize: Responsive.scaleFromFigma(context, 16),
                         color: MyColors.myGrey,
                       ),
                       border: InputBorder.none,
@@ -414,16 +433,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 10,
+              SizedBox(
+                width: Responsive.scaleFromFigma(context, 10),
               ),
-              const Icon(
+              Icon(
                 IconsaxOutline.search_normal_1,
-                size: 30,
+                size: Responsive.scaleFromFigma(context, 30),
                 color: Colors.black,
               ),
-              const SizedBox(
-                width: 15,
+              SizedBox(
+                width: Responsive.scaleFromFigma(context, 15),
               ),
             ],
           ),

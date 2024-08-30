@@ -10,6 +10,7 @@ import 'package:apple_shop/screens/card_screen.dart';
 import 'package:apple_shop/screens/category_screen.dart';
 import 'package:apple_shop/screens/home_screen.dart';
 import 'package:apple_shop/screens/profile_screen.dart';
+import 'package:apple_shop/util/responsive.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -84,7 +85,7 @@ class _MyAppState extends State<MyApp> {
                     sigmaY: 13,
                   ),
                   child: SizedBox(
-                    height: 75,
+                    height: Responsive.scaleFromFigma(context, 75),
                     width: MediaQuery.of(context).size.width,
                     child: BottomNavigationBar(
                       onTap: (int index) {
@@ -97,16 +98,17 @@ class _MyAppState extends State<MyApp> {
                       currentIndex: selectedBottomNavigationIndex,
                       selectedItemColor: MyColors.myBlue,
                       unselectedItemColor: Colors.black,
-                      selectedFontSize: 20,
-                      unselectedFontSize: 10,
+                      selectedFontSize: Responsive.scaleFromFigma(context, 20),
+                      unselectedFontSize:
+                          Responsive.scaleFromFigma(context, 10),
                       showSelectedLabels: true,
-                      unselectedLabelStyle: const TextStyle(
+                      unselectedLabelStyle: TextStyle(
                         fontFamily: 'SB',
-                        fontSize: 10,
+                        fontSize: Responsive.scaleFromFigma(context, 10),
                       ),
-                      selectedLabelStyle: const TextStyle(
+                      selectedLabelStyle: TextStyle(
                         fontFamily: 'SB',
-                        fontSize: 10,
+                        fontSize: Responsive.scaleFromFigma(context, 10),
                       ),
                       unselectedIconTheme: const IconThemeData(
                         color: Colors.black,
@@ -115,7 +117,7 @@ class _MyAppState extends State<MyApp> {
                       selectedIconTheme: const IconThemeData(
                         color: MyColors.myBlue,
                       ),
-                      iconSize: 30,
+                      iconSize: Responsive.scaleFromFigma(context, 30),
                       elevation: 0,
                       type: BottomNavigationBarType.fixed,
                       backgroundColor: Colors.white.withOpacity(0.7),

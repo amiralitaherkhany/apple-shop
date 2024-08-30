@@ -1,4 +1,5 @@
 import 'package:apple_shop/models/category.dart';
+import 'package:apple_shop/util/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -14,9 +15,9 @@ class CategoryItemChip extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.all(15.0),
-          width: 56,
-          height: 56,
+          padding: EdgeInsets.all(Responsive.scaleFromFigma(context, 15)),
+          width: Responsive.scaleFromFigma(context, 56),
+          height: Responsive.scaleFromFigma(context, 56),
           decoration: ShapeDecoration(
             shadows: [
               BoxShadow(
@@ -57,7 +58,8 @@ class CategoryItemChip extends StatelessWidget {
               ),
             ],
             shape: ContinuousRectangleBorder(
-              borderRadius: BorderRadius.circular(45),
+              borderRadius:
+                  BorderRadius.circular(Responsive.scaleFromFigma(context, 45)),
             ),
             color: Color(categoryColor),
           ),
@@ -82,15 +84,15 @@ class CategoryItemChip extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(
-          height: 10,
+        SizedBox(
+          height: Responsive.scaleFromFigma(context, 10),
         ),
         Text(
           category.title!,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'SB',
             color: Colors.black,
-            fontSize: 12,
+            fontSize: Responsive.scaleFromFigma(context, 12),
           ),
         )
       ],

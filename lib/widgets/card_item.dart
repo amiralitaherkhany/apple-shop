@@ -2,6 +2,7 @@ import 'package:apple_shop/bloc/product/bloc/product_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/models/product.dart';
 import 'package:apple_shop/screens/product_detail_screen.dart';
+import 'package:apple_shop/util/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
@@ -30,24 +31,24 @@ class CardItem extends StatelessWidget {
         ));
       },
       child: Container(
-        width: 160,
-        height: 216,
+        width: Responsive.scaleFromFigma(context, 160),
+        height: Responsive.scaleFromFigma(context, 216),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
         ),
         child: Column(
           children: [
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: Responsive.scaleFromFigma(context, 10),
             ),
             Stack(
               alignment: Alignment.center,
               children: [
                 const Center(),
                 CachedNetworkImage(
-                  width: 100,
-                  height: 100,
+                  width: Responsive.scaleFromFigma(context, 100),
+                  height: Responsive.scaleFromFigma(context, 100),
                   imageUrl: product.thumbnail,
                   errorListener: (value) => print(value.toString()),
                   errorWidget: (context, url, error) {
@@ -67,11 +68,12 @@ class CardItem extends StatelessWidget {
                   left: 10,
                   child: Container(
                     padding: const EdgeInsets.all(1),
-                    width: 25,
-                    height: 15,
+                    width: Responsive.scaleFromFigma(context, 25),
+                    height: Responsive.scaleFromFigma(context, 15),
                     decoration: BoxDecoration(
                       color: MyColors.myRed,
-                      borderRadius: BorderRadius.circular(7.5),
+                      borderRadius: BorderRadius.circular(
+                          Responsive.scaleFromFigma(context, 7.5)),
                     ),
                     child: Center(
                       child: FittedBox(
@@ -80,10 +82,10 @@ class CardItem extends StatelessWidget {
                           fit: BoxFit.scaleDown,
                           child: Text(
                             percent,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: 'SB',
                               color: Colors.white,
-                              fontSize: 10,
+                              fontSize: Responsive.scaleFromFigma(context, 10),
                             ),
                           ),
                         ),
@@ -93,8 +95,8 @@ class CardItem extends StatelessWidget {
                 )
               ],
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: Responsive.scaleFromFigma(context, 20),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -102,21 +104,21 @@ class CardItem extends StatelessWidget {
                 Text(
                   maxLines: 1,
                   product.name,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'SB',
                     color: Colors.black,
-                    fontSize: 14,
+                    fontSize: Responsive.scaleFromFigma(context, 14),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                const SizedBox(
-                  width: 10,
+                SizedBox(
+                  width: Responsive.scaleFromFigma(context, 10),
                 ),
               ],
             ),
             const Spacer(),
             Container(
-              height: 53,
+              height: Responsive.scaleFromFigma(context, 53),
               decoration: BoxDecoration(
                 color: MyColors.myBlue,
                 borderRadius: const BorderRadius.only(
@@ -166,19 +168,19 @@ class CardItem extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(
-                    width: 10,
+                  SizedBox(
+                    width: Responsive.scaleFromFigma(context, 10),
                   ),
-                  const Text(
+                  Text(
                     'تومان',
                     style: TextStyle(
                       fontFamily: 'SM',
-                      fontSize: 12,
+                      fontSize: Responsive.scaleFromFigma(context, 12),
                       color: Colors.white,
                     ),
                   ),
-                  const SizedBox(
-                    width: 5,
+                  SizedBox(
+                    width: Responsive.scaleFromFigma(context, 5),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -188,12 +190,12 @@ class CardItem extends StatelessWidget {
                         fit: BoxFit.scaleDown,
                         child: Text(
                           product.price.toString(),
-                          style: const TextStyle(
+                          style: TextStyle(
                             decoration: TextDecoration.lineThrough,
                             decorationColor: Colors.white,
                             decorationThickness: 2,
                             fontFamily: 'SM',
-                            fontSize: 12,
+                            fontSize: Responsive.scaleFromFigma(context, 12),
                             color: Colors.white,
                           ),
                         ),
@@ -202,9 +204,9 @@ class CardItem extends StatelessWidget {
                         fit: BoxFit.scaleDown,
                         child: Text(
                           realPrice.toString(),
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'SM',
-                            fontSize: 16,
+                            fontSize: Responsive.scaleFromFigma(context, 16),
                             color: Colors.white,
                           ),
                         ),
@@ -216,8 +218,8 @@ class CardItem extends StatelessWidget {
                     IconsaxBold.arrow_right,
                     color: MyColors.myWhite,
                   ),
-                  const SizedBox(
-                    width: 15,
+                  SizedBox(
+                    width: Responsive.scaleFromFigma(context, 15),
                   ),
                 ],
               ),

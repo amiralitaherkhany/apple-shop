@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/models/banner.dart';
+import 'package:apple_shop/util/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -22,40 +23,40 @@ class _BannerSliderState extends State<BannerSlider> {
   static int currentPage = 0;
   final PageController pageController =
       PageController(viewportFraction: 0.9, initialPage: currentPage);
-  // @override
-  // void initState() {
-  //   // timer = Timer.periodic(
-  //   //   const Duration(seconds: 5),
-  //   //   (Timer timer) {
-  //   //     if (currentPage < widget.bannerList.length - 1) {
-  //   //       currentPage++;
-  //   //     } else {
-  //   //       currentPage = 0;
-  //   //     }
-  //   //     pageController.animateToPage(currentPage,
-  //   //         duration: const Duration(seconds: 1), curve: Easing.legacy);
-  //   //   },
-  //   // );
+  @override
+  void initState() {
+    timer = Timer.periodic(
+      const Duration(seconds: 5),
+      (Timer timer) {
+        if (currentPage < widget.bannerList.length - 1) {
+          currentPage++;
+        } else {
+          currentPage = 0;
+        }
+        pageController.animateToPage(currentPage,
+            duration: const Duration(seconds: 1), curve: Easing.legacy);
+      },
+    );
 
-  //   super.initState();
-  // }
+    super.initState();
+  }
 
-  // @override
-  // void deactivate() {
-  //   timer.cancel();
-  //   super.deactivate();
-  // }
+  @override
+  void deactivate() {
+    timer.cancel();
+    super.deactivate();
+  }
 
-  // @override
-  // void dispose() {
-  //   timer.cancel();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 177,
+      height: Responsive.scaleFromFigma(context, 177),
       child: Stack(
         alignment: AlignmentDirectional.bottomCenter,
         children: [
@@ -64,7 +65,9 @@ class _BannerSliderState extends State<BannerSlider> {
             itemCount: widget.bannerList.length,
             itemBuilder: (context, index) {
               return Padding(
-                padding: const EdgeInsets.only(left: 10.0, right: 10),
+                padding: EdgeInsets.only(
+                    left: Responsive.scaleFromFigma(context, 10),
+                    right: Responsive.scaleFromFigma(context, 10)),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
                   child: CachedNetworkImage(
@@ -75,8 +78,8 @@ class _BannerSliderState extends State<BannerSlider> {
                       color: Colors.red[500],
                     ),
                     imageUrl: widget.bannerList[index].thumbnail!,
-                    width: 340,
-                    height: 177,
+                    width: Responsive.scaleFromFigma(context, 340),
+                    height: Responsive.scaleFromFigma(context, 177),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -88,13 +91,13 @@ class _BannerSliderState extends State<BannerSlider> {
             child: SmoothPageIndicator(
               controller: pageController,
               count: widget.bannerList.length,
-              effect: const ExpandingDotsEffect(
-                expansionFactor: 5,
+              effect: ExpandingDotsEffect(
+                expansionFactor: Responsive.scaleFromFigma(context, 5),
                 activeDotColor: MyColors.myBlue,
                 dotColor: Colors.white,
-                dotHeight: 5,
-                dotWidth: 5,
-                spacing: 2,
+                dotHeight: Responsive.scaleFromFigma(context, 5),
+                dotWidth: Responsive.scaleFromFigma(context, 5),
+                spacing: Responsive.scaleFromFigma(context, 2),
               ),
             ),
           )
