@@ -1,6 +1,7 @@
 import 'package:apple_shop/data/repository/product_detail_repository.dart';
 import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/models/product_image.dart';
+import 'package:apple_shop/models/product_variant.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
@@ -15,7 +16,12 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<ProductInitialize>((event, emit) async {
       emit(ProductLoading());
       var productImageList = await _productDetailRepository.getGallery();
-      emit(ProductResponse(productImageList: productImageList));
+      // var variantTypeList = await _productDetailRepository.getVariantTypes();
+      var productVariantsList =
+          await _productDetailRepository.getProductVariants();
+      emit(ProductResponse(
+          productImageList: productImageList,
+          productVariantList: productVariantsList));
     });
   }
 }

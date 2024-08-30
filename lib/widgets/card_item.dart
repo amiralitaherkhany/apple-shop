@@ -1,9 +1,11 @@
+import 'package:apple_shop/bloc/product/bloc/product_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/models/product.dart';
 import 'package:apple_shop/screens/product_detail_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CardItem extends StatelessWidget {
   const CardItem({
@@ -19,7 +21,12 @@ class CardItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const ProductDetailScreen(),
+          builder: (context) => BlocProvider(
+            create: (context) => ProductBloc()..add(ProductInitialize()),
+            child: ProductDetailScreen(
+              product: product,
+            ),
+          ),
         ));
       },
       child: Container(

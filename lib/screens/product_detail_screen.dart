@@ -2,26 +2,25 @@ import 'dart:ui';
 
 import 'package:apple_shop/bloc/product/bloc/product_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
+import 'package:apple_shop/models/product.dart';
 import 'package:apple_shop/models/product_image.dart';
+import 'package:apple_shop/models/variant_type.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductDetailScreen extends StatefulWidget {
-  const ProductDetailScreen({super.key});
-
+  const ProductDetailScreen({
+    super.key,
+    required this.product,
+  });
+  final Product product;
   @override
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
-  @override
-  void initState() {
-    context.read<ProductBloc>().add(ProductInitialize());
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,9 +74,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         child: Stack(
                           alignment: AlignmentDirectional.center,
                           children: [
-                            const Text(
-                              'آیفون',
-                              style: TextStyle(
+                            Text(
+                              widget.product.name,
+                              style: const TextStyle(
                                 fontFamily: 'SB',
                                 fontSize: 16,
                                 color: MyColors.myBlue,
@@ -140,61 +139,21 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       height: 20,
                     ),
                   ),
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 44),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          const Text(
-                            'انتخاب رنگ',
-                            style: TextStyle(
-                              fontFamily: 'SB',
-                              fontSize: 12,
-                              color: Colors.black,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Container(
-                                width: 26,
-                                height: 26,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: MyColors.myRed,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Container(
-                                width: 26,
-                                height: 26,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: MyColors.myRed,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Container(
-                                width: 26,
-                                height: 26,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: MyColors.myRed,
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
+                  state.productVariantList.fold(
+                    (exception) {
+                      return SliverToBoxAdapter(child: Text(exception));
+                    },
+                    (productVariantList) {
+                      for (var productVariant in productVariantList) {
+                        print(productVariant.variantType.title);
+                        for (var variantObject in productVariant.variantList) {
+                          print(variantObject.name);
+                        }
+                      }
+                      return const SliverToBoxAdapter(
+                        child: Text('data'),
+                      );
+                    },
                   ),
                   const SliverToBoxAdapter(
                     child: SizedBox(
@@ -561,6 +520,73 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               ],
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class ColorVariants extends StatelessWidget {
+  const ColorVariants({
+    super.key,
+    required this.variantType,
+  });
+  final VariantType variantType;
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 44),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              variantType.title,
+              style: const TextStyle(
+                fontFamily: 'SB',
+                fontSize: 12,
+                color: Colors.black,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  width: 26,
+                  height: 26,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: MyColors.myRed,
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  width: 26,
+                  height: 26,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: MyColors.myRed,
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  width: 26,
+                  height: 26,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: MyColors.myRed,
+                  ),
+                ),
+              ],
+            )
+          ],
         ),
       ),
     );
