@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:apple_shop/bloc/authentication/bloc/auth_bloc.dart';
 import 'package:apple_shop/bloc/category/bloc/category_bloc.dart';
 import 'package:apple_shop/bloc/home/bloc/home_bloc.dart';
+import 'package:apple_shop/bloc/product/bloc/product_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/cubit/scroll/cubit/scroll_cubit.dart';
 import 'package:apple_shop/di/di.dart';
@@ -31,6 +32,9 @@ void main() async {
         ),
         BlocProvider(
           create: (context) => HomeBloc(),
+        ),
+        BlocProvider(
+          create: (context) => ProductBloc(),
         ),
       ],
       child: const MyApp(),
@@ -61,6 +65,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           toolbarHeight: 0,
           backgroundColor: MyColors.myWhite,
           scrolledUnderElevation: 0,
