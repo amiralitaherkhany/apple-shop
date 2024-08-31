@@ -1,5 +1,6 @@
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/cubit/scroll/cubit/scroll_cubit.dart';
+import 'package:apple_shop/util/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,15 +21,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const SizedBox(
-          height: 10,
+        SizedBox(
+          height: Responsive.scaleFromFigma(context, 10),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 44),
+          padding: EdgeInsets.symmetric(
+              horizontal: Responsive.scaleFromFigma(context, 44)),
           child: Container(
-            width: 340,
-            height: 46,
+            width: Responsive.scaleFromFigma(context, 340),
+            height: Responsive.scaleFromFigma(context, 46),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               color: Colors.white,
@@ -36,55 +39,62 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Stack(
               alignment: AlignmentDirectional.center,
               children: [
-                const Text(
+                Text(
                   'حساب کاربری',
                   style: TextStyle(
                     fontFamily: 'SB',
-                    fontSize: 16,
+                    fontSize: Responsive.scaleFromFigma(context, 16),
                     color: MyColors.myBlue,
                   ),
                 ),
                 Positioned(
-                  left: 15,
-                  top: 10,
-                  child: Image.asset('assets/images/icon_apple_blue.png'),
+                  left: Responsive.scaleFromFigma(context, 15),
+                  top: Responsive.scaleFromFigma(context, 10),
+                  child: Image.asset(
+                    'assets/images/icon_apple_blue.png',
+                    width: Responsive.scaleFromFigma(context, 21),
+                    height: Responsive.scaleFromFigma(context, 26),
+                  ),
                 ),
               ],
             ),
           ),
         ),
-        const SizedBox(
-          height: 32,
+        SizedBox(
+          height: Responsive.scaleFromFigma(context, 32),
         ),
-        const Text(
+        Text(
+          textAlign: TextAlign.center,
           'امیرعلی طاهرخانی',
           style: TextStyle(
             fontFamily: 'SB',
-            fontSize: 16,
+            fontSize: Responsive.scaleFromFigma(context, 16),
             color: Colors.black,
           ),
         ),
-        const SizedBox(
-          height: 6,
+        SizedBox(
+          height: Responsive.scaleFromFigma(context, 6),
         ),
-        const Text(
+        Text(
+          textAlign: TextAlign.center,
           '09942024303',
           style: TextStyle(
             fontFamily: 'SM',
-            fontSize: 10,
+            fontSize: Responsive.scaleFromFigma(context, 10),
             color: MyColors.myGrey,
           ),
         ),
-        const SizedBox(
-          height: 20,
+        SizedBox(
+          height: Responsive.scaleFromFigma(context, 20),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 44.0),
+        Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: Responsive.scaleFromFigma(context, 44)),
           child: Wrap(
-            spacing: 33,
-            runSpacing: 20,
+            spacing: Responsive.scaleFromFigma(context, 38),
+            runSpacing: Responsive.scaleFromFigma(context, 20),
             textDirection: TextDirection.rtl,
-            children: [
+            children: const [
               SizedBox(
                 width: 20,
                 height: 20,
@@ -115,38 +125,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         const Spacer(),
-        const Text(
+        Text(
+          textAlign: TextAlign.center,
           'اپل شاپ',
           style: TextStyle(
             fontFamily: 'SM',
-            fontSize: 10,
+            fontSize: Responsive.scaleFromFigma(context, 10),
             color: MyColors.myGrey,
           ),
         ),
-        const SizedBox(
-          height: 5,
+        SizedBox(
+          height: Responsive.scaleFromFigma(context, 5),
         ),
-        const Text(
+        Text(
+          textAlign: TextAlign.center,
           'V-1.0.00',
           style: TextStyle(
             fontFamily: 'SM',
-            fontSize: 10,
+            fontSize: Responsive.scaleFromFigma(context, 10),
             color: MyColors.myGrey,
           ),
         ),
-        const SizedBox(
-          height: 5,
+        SizedBox(
+          height: Responsive.scaleFromFigma(context, 5),
         ),
-        const Text(
+        Text(
+          textAlign: TextAlign.center,
           'Instagram.com/Mojavad-dev',
           style: TextStyle(
             fontFamily: 'SM',
-            fontSize: 10,
+            fontSize: Responsive.scaleFromFigma(context, 10),
             color: MyColors.myGrey,
           ),
         ),
-        const SizedBox(
-          height: 107,
+        SizedBox(
+          height: Responsive.scaleFromFigma(context, 107),
         ),
       ],
     );

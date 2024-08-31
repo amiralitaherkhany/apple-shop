@@ -1,4 +1,5 @@
 import 'package:apple_shop/constants/colors.dart';
+import 'package:apple_shop/util/responsive.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
@@ -13,22 +14,23 @@ class CardScreen extends StatelessWidget {
       children: [
         CustomScrollView(
           slivers: [
-            const SliverToBoxAdapter(
+            SliverToBoxAdapter(
               child: SizedBox(
-                height: 10,
+                height: Responsive.scaleFromFigma(context, 10),
               ),
             ),
             SliverAppBar(
               backgroundColor: Colors.transparent,
               elevation: 0,
-              expandedHeight: 46.0,
+              expandedHeight: Responsive.scaleFromFigma(context, 46),
               floating: true,
               pinned: false,
               flexibleSpace: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 44),
+                padding: EdgeInsets.symmetric(
+                    horizontal: Responsive.scaleFromFigma(context, 44)),
                 child: Container(
-                  width: 340,
-                  height: 46,
+                  width: Responsive.scaleFromFigma(context, 340),
+                  height: Responsive.scaleFromFigma(context, 46),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: Colors.white,
@@ -36,19 +38,21 @@ class CardScreen extends StatelessWidget {
                   child: Stack(
                     alignment: AlignmentDirectional.center,
                     children: [
-                      const Text(
+                      Text(
                         'سبد خرید',
                         style: TextStyle(
                           fontFamily: 'SB',
-                          fontSize: 16,
+                          fontSize: Responsive.scaleFromFigma(context, 16),
                           color: MyColors.myBlue,
                         ),
                       ),
                       Positioned(
-                        left: 15,
-                        top: 10,
+                        left: Responsive.scaleFromFigma(context, 15),
+                        top: Responsive.scaleFromFigma(context, 10),
                         child: Image.asset(
                           'assets/images/icon_apple_blue.png',
+                          width: Responsive.scaleFromFigma(context, 21),
+                          height: Responsive.scaleFromFigma(context, 26),
                         ),
                       ),
                     ],
@@ -56,34 +60,37 @@ class CardScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const SliverToBoxAdapter(
+            SliverToBoxAdapter(
               child: SizedBox(
-                height: 32,
+                height: Responsive.scaleFromFigma(context, 32),
               ),
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 childCount: 3,
                 (context, index) {
-                  return const Padding(
-                    padding: EdgeInsets.only(bottom: 20.0),
-                    child: CardBasketitem(),
+                  return Padding(
+                    padding: EdgeInsets.only(
+                        bottom: Responsive.scaleFromFigma(context, 20)),
+                    child: const CardBasketitem(),
                   );
                 },
               ),
             ),
-            const SliverPadding(
-              padding: EdgeInsets.only(bottom: 70),
+            SliverPadding(
+              padding: EdgeInsets.only(
+                  bottom: Responsive.scaleFromFigma(context, 70)),
             )
           ],
         ),
         Positioned(
-          bottom: 95,
-          right: 44,
-          left: 44,
+          bottom: Responsive.scaleFromFigma(context, 95),
+          right: Responsive.scaleFromFigma(context, 44),
+          left: Responsive.scaleFromFigma(context, 44),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              minimumSize: const Size.fromHeight(53),
+              minimumSize:
+                  Size.fromHeight(Responsive.scaleFromFigma(context, 53)),
               backgroundColor: MyColors.myGreen,
               foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(
@@ -91,11 +98,11 @@ class CardScreen extends StatelessWidget {
               ),
             ),
             onPressed: () {},
-            child: const Text(
+            child: Text(
               'ادامه فرآیند خرید',
               style: TextStyle(
                 fontFamily: 'SB',
-                fontSize: 16,
+                fontSize: Responsive.scaleFromFigma(context, 16),
                 color: Colors.white,
               ),
             ),
@@ -114,9 +121,10 @@ class CardBasketitem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 44),
+      padding: EdgeInsets.symmetric(
+          horizontal: Responsive.scaleFromFigma(context, 44)),
       child: Container(
-        height: 239,
+        height: Responsive.scaleFromFigma(context, 239),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
@@ -160,148 +168,114 @@ class CardBasketitem extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.only(top: 17.0),
+          padding: EdgeInsets.only(top: Responsive.scaleFromFigma(context, 17)),
           child: Column(
             children: [
               Expanded(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      width: 10,
+                    SizedBox(
+                      width: Responsive.scaleFromFigma(context, 10),
                     ),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             textDirection: TextDirection.rtl,
                             'آیفون ۱۳ پرومکس دوسیم کارت',
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             style: TextStyle(
                               fontFamily: 'SB',
-                              fontSize: 16,
+                              fontSize: Responsive.scaleFromFigma(context, 16),
                               color: Colors.black,
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
+                          SizedBox(
+                            height: Responsive.scaleFromFigma(context, 10),
                           ),
-                          const Text(
+                          Text(
                             textDirection: TextDirection.rtl,
                             'گارانتی 18 ماه مدیا پردازش',
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             style: TextStyle(
                               fontFamily: 'SM',
-                              fontSize: 10,
+                              fontSize: Responsive.scaleFromFigma(context, 10),
                               color: MyColors.myGrey,
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
+                          SizedBox(
+                            height: Responsive.scaleFromFigma(context, 10),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Container(
-                                width: 25,
-                                height: 15,
+                                width: Responsive.scaleFromFigma(context, 25),
+                                height: Responsive.scaleFromFigma(context, 15),
                                 decoration: BoxDecoration(
                                   color: MyColors.myRed,
                                   borderRadius: BorderRadius.circular(7.5),
                                 ),
-                                child: const Center(
+                                child: Center(
                                   child: Text(
                                     '%۳',
                                     style: TextStyle(
                                       fontFamily: 'SB',
                                       color: Colors.white,
-                                      fontSize: 10,
+                                      fontSize: Responsive.scaleFromFigma(
+                                          context, 10),
                                     ),
                                   ),
                                 ),
                               ),
-                              const SizedBox(
-                                width: 5,
+                              SizedBox(
+                                width: Responsive.scaleFromFigma(context, 5),
                               ),
-                              const Text(
+                              Text(
                                 textDirection: TextDirection.rtl,
                                 'تومان',
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 style: TextStyle(
                                   fontFamily: 'SM',
-                                  fontSize: 10,
+                                  fontSize:
+                                      Responsive.scaleFromFigma(context, 10),
                                   color: MyColors.myGrey,
                                 ),
                               ),
-                              const SizedBox(
-                                width: 5,
+                              SizedBox(
+                                width: Responsive.scaleFromFigma(context, 5),
                               ),
-                              const Text(
+                              Text(
                                 textDirection: TextDirection.rtl,
                                 '۴۶٬۰۰۰٬۰۰۰',
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 style: TextStyle(
                                   fontFamily: 'SM',
-                                  fontSize: 10,
+                                  fontSize:
+                                      Responsive.scaleFromFigma(context, 10),
                                   color: MyColors.myGrey,
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 10,
+                          SizedBox(
+                            height: Responsive.scaleFromFigma(context, 10),
                           ),
                           Wrap(
                             textDirection: TextDirection.rtl,
-                            runSpacing: 10,
-                            spacing: 3,
+                            runSpacing: Responsive.scaleFromFigma(context, 10),
+                            spacing: Responsive.scaleFromFigma(context, 10),
                             children: [
                               Container(
-                                width: 94,
-                                height: 24,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color: const Color(0xffE5E5E5),
-                                    width: 1,
-                                  ),
-                                ),
-                                child: const Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Icon(
-                                      IconsaxOutline.arrow_swap_horizontal,
-                                      size: 11,
-                                      color: MyColors.myGrey,
-                                    ),
-                                    Spacer(),
-                                    Text(
-                                      textDirection: TextDirection.rtl,
-                                      '256 گیگابایت',
-                                      style: TextStyle(
-                                        fontFamily: 'SM',
-                                        fontSize: 10,
-                                        color: MyColors.myGrey,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: 108,
-                                height: 24,
+                                width: Responsive.scaleFromFigma(context, 94),
+                                height: Responsive.scaleFromFigma(context, 24),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: Colors.white,
@@ -312,43 +286,37 @@ class CardBasketitem extends StatelessWidget {
                                 ),
                                 child: Row(
                                   children: [
-                                    const SizedBox(
-                                      width: 10,
+                                    SizedBox(
+                                      width: Responsive.scaleFromFigma(
+                                          context, 10),
                                     ),
-                                    const Icon(
+                                    Icon(
                                       IconsaxOutline.arrow_swap_horizontal,
-                                      size: 11,
+                                      size: Responsive.scaleFromFigma(
+                                          context, 11),
                                       color: MyColors.myGrey,
                                     ),
                                     const Spacer(),
-                                    const Text(
+                                    Text(
                                       textDirection: TextDirection.rtl,
-                                      'سبز کله غازی',
+                                      '256 گیگابایت',
                                       style: TextStyle(
                                         fontFamily: 'SM',
-                                        fontSize: 10,
+                                        fontSize: Responsive.scaleFromFigma(
+                                            context, 10),
                                         color: MyColors.myGrey,
                                       ),
                                     ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    Container(
-                                      width: 10,
-                                      height: 10,
-                                      decoration: const ShapeDecoration(
-                                          color: MyColors.myBlue,
-                                          shape: CircleBorder()),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
+                                    SizedBox(
+                                      width: Responsive.scaleFromFigma(
+                                          context, 10),
                                     ),
                                   ],
                                 ),
                               ),
                               Container(
-                                width: 45,
-                                height: 24,
+                                width: Responsive.scaleFromFigma(context, 108),
+                                height: Responsive.scaleFromFigma(context, 24),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: Colors.white,
@@ -357,10 +325,65 @@ class CardBasketitem extends StatelessWidget {
                                     width: 1,
                                   ),
                                 ),
-                                child: const Row(
+                                child: Row(
                                   children: [
                                     SizedBox(
-                                      width: 10,
+                                      width: Responsive.scaleFromFigma(
+                                          context, 10),
+                                    ),
+                                    Icon(
+                                      IconsaxOutline.arrow_swap_horizontal,
+                                      size: Responsive.scaleFromFigma(
+                                          context, 11),
+                                      color: MyColors.myGrey,
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      textDirection: TextDirection.rtl,
+                                      'سبز کله غازی',
+                                      style: TextStyle(
+                                        fontFamily: 'SM',
+                                        fontSize: Responsive.scaleFromFigma(
+                                            context, 10),
+                                        color: MyColors.myGrey,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width:
+                                          Responsive.scaleFromFigma(context, 5),
+                                    ),
+                                    Container(
+                                      width: Responsive.scaleFromFigma(
+                                          context, 10),
+                                      height: Responsive.scaleFromFigma(
+                                          context, 10),
+                                      decoration: const ShapeDecoration(
+                                          color: MyColors.myBlue,
+                                          shape: CircleBorder()),
+                                    ),
+                                    SizedBox(
+                                      width: Responsive.scaleFromFigma(
+                                          context, 10),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: Responsive.scaleFromFigma(context, 45),
+                                height: Responsive.scaleFromFigma(context, 24),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: const Color(0xffE5E5E5),
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: Responsive.scaleFromFigma(
+                                          context, 10),
                                     ),
                                     Column(
                                       mainAxisAlignment:
@@ -368,35 +391,39 @@ class CardBasketitem extends StatelessWidget {
                                       children: [
                                         Icon(
                                           IconsaxBold.arrow_up_1,
-                                          size: 11,
+                                          size: Responsive.scaleFromFigma(
+                                              context, 8),
                                           color: MyColors.myGrey,
                                         ),
                                         Icon(
                                           IconsaxBold.arrow_down,
-                                          size: 11,
+                                          size: Responsive.scaleFromFigma(
+                                              context, 8),
                                           color: MyColors.myGrey,
                                         )
                                       ],
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Text(
                                       textDirection: TextDirection.rtl,
                                       '1',
                                       style: TextStyle(
                                         fontFamily: 'SM',
-                                        fontSize: 10,
+                                        fontSize: Responsive.scaleFromFigma(
+                                            context, 10),
                                         color: MyColors.myGrey,
                                       ),
                                     ),
                                     SizedBox(
-                                      width: 10,
+                                      width: Responsive.scaleFromFigma(
+                                          context, 10),
                                     ),
                                   ],
                                 ),
                               ),
                               Container(
-                                width: 69,
-                                height: 24,
+                                width: Responsive.scaleFromFigma(context, 69),
+                                height: Responsive.scaleFromFigma(context, 24),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: Colors.white,
@@ -405,36 +432,40 @@ class CardBasketitem extends StatelessWidget {
                                     width: 1,
                                   ),
                                 ),
-                                child: const Row(
+                                child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     SizedBox(
-                                      width: 10,
+                                      width: Responsive.scaleFromFigma(
+                                          context, 10),
                                     ),
                                     Text(
                                       textDirection: TextDirection.rtl,
                                       'ذخیره',
                                       style: TextStyle(
                                         fontFamily: 'SM',
-                                        fontSize: 10,
+                                        fontSize: Responsive.scaleFromFigma(
+                                            context, 10),
                                         color: MyColors.myGrey,
                                       ),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Icon(
                                       IconsaxBold.heart_circle,
                                       color: MyColors.myBlue,
-                                      size: 17,
+                                      size: Responsive.scaleFromFigma(
+                                          context, 17),
                                     ),
                                     SizedBox(
-                                      width: 10,
+                                      width: Responsive.scaleFromFigma(
+                                          context, 10),
                                     ),
                                   ],
                                 ),
                               ),
                               Container(
-                                width: 62,
-                                height: 24,
+                                width: Responsive.scaleFromFigma(context, 62),
+                                height: Responsive.scaleFromFigma(context, 24),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: Colors.white,
@@ -443,29 +474,33 @@ class CardBasketitem extends StatelessWidget {
                                     width: 1,
                                   ),
                                 ),
-                                child: const Row(
+                                child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     SizedBox(
-                                      width: 10,
+                                      width: Responsive.scaleFromFigma(
+                                          context, 10),
                                     ),
                                     Text(
                                       textDirection: TextDirection.rtl,
                                       'حذف',
                                       style: TextStyle(
                                         fontFamily: 'SM',
-                                        fontSize: 10,
+                                        fontSize: Responsive.scaleFromFigma(
+                                            context, 10),
                                         color: MyColors.myGrey,
                                       ),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Icon(
                                       IconsaxBold.trash,
                                       color: MyColors.myGrey,
-                                      size: 15,
+                                      size: Responsive.scaleFromFigma(
+                                          context, 15),
                                     ),
                                     SizedBox(
-                                      width: 10,
+                                      width: Responsive.scaleFromFigma(
+                                          context, 10),
                                     ),
                                   ],
                                 ),
@@ -475,39 +510,42 @@ class CardBasketitem extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      width: 18,
+                    SizedBox(
+                      width: Responsive.scaleFromFigma(context, 18),
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
                           'assets/images/iphone.png',
+                          width: Responsive.scaleFromFigma(context, 79),
+                          height: Responsive.scaleFromFigma(context, 104),
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      width: 10,
+                    SizedBox(
+                      width: Responsive.scaleFromFigma(context, 10),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: Responsive.scaleFromFigma(context, 10),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: Responsive.scaleFromFigma(context, 10)),
                 child: DottedLine(
                   dashColor: MyColors.myWhite,
-                  lineThickness: 3,
-                  dashLength: 8,
-                  dashGapLength: 3,
+                  lineThickness: Responsive.scaleFromFigma(context, 3),
+                  dashLength: Responsive.scaleFromFigma(context, 8),
+                  dashGapLength: Responsive.scaleFromFigma(context, 3),
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: Responsive.scaleFromFigma(context, 20),
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
@@ -515,26 +553,26 @@ class CardBasketitem extends StatelessWidget {
                     ' تومان',
                     style: TextStyle(
                       fontFamily: 'SB',
-                      fontSize: 12,
+                      fontSize: Responsive.scaleFromFigma(context, 12),
                       color: Colors.black,
                     ),
                   ),
                   SizedBox(
-                    width: 5,
+                    width: Responsive.scaleFromFigma(context, 5),
                   ),
                   Text(
                     textDirection: TextDirection.rtl,
                     '۴۵٬۳۵۰٬۰۰۰',
                     style: TextStyle(
                       fontFamily: 'SB',
-                      fontSize: 16,
+                      fontSize: Responsive.scaleFromFigma(context, 16),
                       color: Colors.black,
                     ),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: Responsive.scaleFromFigma(context, 20),
               ),
             ],
           ),

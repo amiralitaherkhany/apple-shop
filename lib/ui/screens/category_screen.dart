@@ -2,6 +2,7 @@ import 'package:apple_shop/bloc/category/bloc/category_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/cubit/scroll/cubit/scroll_cubit.dart';
 import 'package:apple_shop/models/category.dart';
+import 'package:apple_shop/util/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -48,22 +49,23 @@ class _CategoryScreenState extends State<CategoryScreen> {
     return CustomScrollView(
       controller: scrollController,
       slivers: [
-        const SliverToBoxAdapter(
+        SliverToBoxAdapter(
           child: SizedBox(
-            height: 10,
+            height: Responsive.scaleFromFigma(context, 10),
           ),
         ),
         SliverAppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          expandedHeight: 46.0,
+          expandedHeight: Responsive.scaleFromFigma(context, 46),
           floating: true,
           pinned: false,
           flexibleSpace: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 44),
+            padding: EdgeInsets.symmetric(
+                horizontal: Responsive.scaleFromFigma(context, 44)),
             child: Container(
-              width: 340,
-              height: 46,
+              width: Responsive.scaleFromFigma(context, 340),
+              height: Responsive.scaleFromFigma(context, 46),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 color: Colors.white,
@@ -71,27 +73,31 @@ class _CategoryScreenState extends State<CategoryScreen> {
               child: Stack(
                 alignment: AlignmentDirectional.center,
                 children: [
-                  const Text(
+                  Text(
                     'دسته بندی',
                     style: TextStyle(
                       fontFamily: 'SB',
-                      fontSize: 16,
+                      fontSize: Responsive.scaleFromFigma(context, 16),
                       color: MyColors.myBlue,
                     ),
                   ),
                   Positioned(
-                    left: 15,
-                    top: 10,
-                    child: Image.asset('assets/images/icon_apple_blue.png'),
+                    left: Responsive.scaleFromFigma(context, 15),
+                    top: Responsive.scaleFromFigma(context, 10),
+                    child: Image.asset(
+                      'assets/images/icon_apple_blue.png',
+                      width: Responsive.scaleFromFigma(context, 21),
+                      height: Responsive.scaleFromFigma(context, 26),
+                    ),
                   ),
                 ],
               ),
             ),
           ),
         ),
-        const SliverToBoxAdapter(
+        SliverToBoxAdapter(
           child: SizedBox(
-            height: 32,
+            height: Responsive.scaleFromFigma(context, 32),
           ),
         ),
         BlocBuilder<CategoryBloc, CategoryState>(
@@ -135,8 +141,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
             }
           },
         ),
-        const SliverPadding(
-          padding: EdgeInsets.only(bottom: 80),
+        SliverPadding(
+          padding:
+              EdgeInsets.only(bottom: Responsive.scaleFromFigma(context, 80)),
         ),
       ],
     );
@@ -151,13 +158,14 @@ class CategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
-      padding: const EdgeInsets.symmetric(horizontal: 44),
+      padding: EdgeInsets.symmetric(
+          horizontal: Responsive.scaleFromFigma(context, 44)),
       sliver: SliverGrid.builder(
         itemCount: categoryList.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 20,
+          crossAxisSpacing: Responsive.scaleFromFigma(context, 20),
+          mainAxisSpacing: Responsive.scaleFromFigma(context, 20),
         ),
         itemBuilder: (context, index) {
           return CachedNetworkImage(
@@ -168,8 +176,8 @@ class CategoryList extends StatelessWidget {
               color: Colors.red[500],
             ),
             imageUrl: categoryList[index].thumbnail!,
-            width: 160,
-            height: 160,
+            width: Responsive.scaleFromFigma(context, 160),
+            height: Responsive.scaleFromFigma(context, 160),
             fit: BoxFit.cover,
           );
         },

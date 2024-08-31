@@ -1,7 +1,7 @@
 import 'package:apple_shop/bloc/product/bloc/product_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/models/product.dart';
-import 'package:apple_shop/screens/product_detail_screen.dart';
+import 'package:apple_shop/ui/screens/product_detail_screen.dart';
 import 'package:apple_shop/util/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ficonsax/ficonsax.dart';
@@ -55,17 +55,18 @@ class CardItem extends StatelessWidget {
                     return Image.asset('assets/images/no-image-icon-6.png');
                   },
                 ),
-                const Positioned(
+                Positioned(
                   top: 0,
-                  right: 10,
+                  right: Responsive.scaleFromFigma(context, 10),
                   child: Icon(
                     IconsaxBold.heart_circle,
                     color: MyColors.myBlue,
+                    size: Responsive.scaleFromFigma(context, 21),
                   ),
                 ),
                 Positioned(
                   bottom: 0,
-                  left: 10,
+                  left: Responsive.scaleFromFigma(context, 10),
                   child: Container(
                     padding: const EdgeInsets.all(1),
                     width: Responsive.scaleFromFigma(context, 25),
@@ -76,18 +77,12 @@ class CardItem extends StatelessWidget {
                           Responsive.scaleFromFigma(context, 7.5)),
                     ),
                     child: Center(
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            percent,
-                            style: TextStyle(
-                              fontFamily: 'SB',
-                              color: Colors.white,
-                              fontSize: Responsive.scaleFromFigma(context, 10),
-                            ),
-                          ),
+                      child: Text(
+                        percent,
+                        style: TextStyle(
+                          fontFamily: 'SB',
+                          color: Colors.white,
+                          fontSize: Responsive.scaleFromFigma(context, 10),
                         ),
                       ),
                     ),

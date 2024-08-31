@@ -4,10 +4,10 @@ import 'package:apple_shop/cubit/scroll/cubit/scroll_cubit.dart';
 import 'package:apple_shop/models/banner.dart';
 import 'package:apple_shop/models/category.dart';
 import 'package:apple_shop/models/product.dart';
+import 'package:apple_shop/ui/widgets/banner_slider.dart';
+import 'package:apple_shop/ui/widgets/card_item.dart';
+import 'package:apple_shop/ui/widgets/category_item_chip.dart';
 import 'package:apple_shop/util/responsive.dart';
-import 'package:apple_shop/widgets/banner_slider.dart';
-import 'package:apple_shop/widgets/card_item.dart';
-import 'package:apple_shop/widgets/category_item_chip.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -412,29 +412,34 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: Responsive.scaleFromFigma(context, 26),
               ),
               Expanded(
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: TextField(
-                    style: TextStyle(
-                      fontFamily: 'SB',
-                      fontSize: Responsive.scaleFromFigma(context, 16),
-                      color: MyColors.myGrey,
-                    ),
-                    textDirection: TextDirection.rtl,
-                    decoration: InputDecoration(
-                      hintText: 'جستجوی محصولات',
-                      hintStyle: TextStyle(
-                        fontFamily: 'SB',
-                        fontSize: Responsive.scaleFromFigma(context, 16),
-                        color: MyColors.myGrey,
+                child: Stack(
+                  alignment: Alignment.topRight,
+                  children: [
+                    Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: TextField(
+                        style: TextStyle(
+                          fontFamily: 'SB',
+                          fontSize: Responsive.scaleFromFigma(context, 16),
+                          color: MyColors.myGrey,
+                        ),
+                        textDirection: TextDirection.rtl,
+                        decoration: InputDecoration(
+                          isDense: true,
+                          contentPadding: EdgeInsets.all(
+                              Responsive.scaleFromFigma(context, 8)),
+                          hintText: 'جستجوی محصولات',
+                          hintStyle: TextStyle(
+                            fontFamily: 'SB',
+                            fontSize: Responsive.scaleFromFigma(context, 16),
+                            color: MyColors.myGrey,
+                          ),
+                          border: InputBorder.none,
+                        ),
                       ),
-                      border: InputBorder.none,
                     ),
-                  ),
+                  ],
                 ),
-              ),
-              SizedBox(
-                width: Responsive.scaleFromFigma(context, 10),
               ),
               Icon(
                 IconsaxOutline.search_normal_1,

@@ -1,10 +1,11 @@
 import 'package:apple_shop/constants/colors.dart';
+import 'package:apple_shop/util/responsive.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../cubit/scroll/cubit/scroll_cubit.dart';
+import '../../../cubit/scroll/cubit/scroll_cubit.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
@@ -47,49 +48,50 @@ class _ProductListScreenState extends State<ProductListScreen> {
         child: CustomScrollView(
           controller: scrollController,
           slivers: [
-            const SliverToBoxAdapter(
+            SliverToBoxAdapter(
               child: SizedBox(
-                height: 10,
+                height: Responsive.scaleFromFigma(context, 10),
               ),
             ),
             SliverAppBar(
               backgroundColor: Colors.transparent,
               elevation: 0,
-              expandedHeight: 46.0,
+              expandedHeight: Responsive.scaleFromFigma(context, 46),
               floating: true,
               pinned: false,
               flexibleSpace: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 44),
+                padding: EdgeInsets.symmetric(
+                    horizontal: Responsive.scaleFromFigma(context, 44)),
                 child: Container(
-                  width: 340,
-                  height: 46,
+                  width: Responsive.scaleFromFigma(context, 340),
+                  height: Responsive.scaleFromFigma(context, 46),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: Colors.white,
                   ),
-                  child: const Stack(
+                  child: Stack(
                     alignment: AlignmentDirectional.center,
                     children: [
                       Text(
                         'پرفروش ترین ها',
                         style: TextStyle(
                           fontFamily: 'SB',
-                          fontSize: 16,
+                          fontSize: Responsive.scaleFromFigma(context, 16),
                           color: MyColors.myBlue,
                         ),
                       ),
                       Positioned(
-                        left: 15,
+                        left: Responsive.scaleFromFigma(context, 15),
                         child: Icon(
                           IconsaxOutline.filter,
-                          size: 30,
+                          size: Responsive.scaleFromFigma(context, 30),
                         ),
                       ),
                       Positioned(
-                        right: 15,
+                        right: Responsive.scaleFromFigma(context, 15),
                         child: Icon(
                           IconsaxOutline.arrow_circle_right,
-                          size: 30,
+                          size: Responsive.scaleFromFigma(context, 30),
                         ),
                       ),
                     ],
@@ -97,20 +99,21 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 ),
               ),
             ),
-            const SliverToBoxAdapter(
+            SliverToBoxAdapter(
               child: SizedBox(
-                height: 32,
+                height: Responsive.scaleFromFigma(context, 32),
               ),
             ),
             SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 38),
+              padding: EdgeInsets.symmetric(
+                  horizontal: Responsive.scaleFromFigma(context, 38)),
               sliver: SliverGrid.builder(
                 itemCount: 20,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                  mainAxisExtent: 216,
+                  crossAxisSpacing: Responsive.scaleFromFigma(context, 20),
+                  mainAxisSpacing: Responsive.scaleFromFigma(context, 20),
+                  mainAxisExtent: Responsive.scaleFromFigma(context, 216),
                 ),
                 itemBuilder: (context, index) {
                   // return const CardItem();
