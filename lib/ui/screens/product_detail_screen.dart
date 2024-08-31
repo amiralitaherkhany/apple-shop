@@ -4,6 +4,8 @@ import 'package:apple_shop/bloc/product/bloc/product_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/models/product.dart';
 import 'package:apple_shop/models/product_image.dart';
+import 'package:apple_shop/models/product_variant.dart';
+import 'package:apple_shop/models/variant.dart';
 import 'package:apple_shop/models/variant_type.dart';
 import 'package:apple_shop/util/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -114,7 +116,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                   SliverToBoxAdapter(
                     child: SizedBox(
-                      height: Responsive.scaleFromFigma(context, 32),
+                      height: Responsive.scaleFromFigma(context, 22),
                     ),
                   ),
                   SliverToBoxAdapter(
@@ -151,123 +153,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       return SliverToBoxAdapter(child: Text(exception));
                     },
                     (productVariantList) {
-                      for (var productVariant in productVariantList) {
-                        print(productVariant.variantType.title);
-                        for (var variantObject in productVariant.variantList) {
-                          print(variantObject.name);
-                        }
-                      }
-                      return const SliverToBoxAdapter(
-                        child: Text('data'),
+                      return SliverToBoxAdapter(
+                        child: VariantContainerGenerator(
+                            productVariantList: productVariantList),
                       );
                     },
-                  ),
-                  SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: Responsive.scaleFromFigma(context, 20),
-                    ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: Responsive.scaleFromFigma(context, 44)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            'انتخاب حافظه داخلی',
-                            style: TextStyle(
-                              fontFamily: 'SB',
-                              fontSize: Responsive.scaleFromFigma(context, 12),
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            height: Responsive.scaleFromFigma(context, 10),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Container(
-                                width: Responsive.scaleFromFigma(context, 74),
-                                height: Responsive.scaleFromFigma(context, 26),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    width: 0.5,
-                                    color: MyColors.myGrey,
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    '128',
-                                    style: TextStyle(
-                                      fontFamily: 'SB',
-                                      fontSize: Responsive.scaleFromFigma(
-                                          context, 12),
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: Responsive.scaleFromFigma(context, 10),
-                              ),
-                              Container(
-                                width: Responsive.scaleFromFigma(context, 74),
-                                height: Responsive.scaleFromFigma(context, 26),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    width: 0.5,
-                                    color: MyColors.myGrey,
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    '128',
-                                    style: TextStyle(
-                                      fontFamily: 'SB',
-                                      fontSize: Responsive.scaleFromFigma(
-                                          context, 12),
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: Responsive.scaleFromFigma(context, 10),
-                              ),
-                              Container(
-                                width: Responsive.scaleFromFigma(context, 74),
-                                height: Responsive.scaleFromFigma(context, 26),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    width: 0.5,
-                                    color: MyColors.myGrey,
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    '128',
-                                    style: TextStyle(
-                                      fontFamily: 'SB',
-                                      fontSize: Responsive.scaleFromFigma(
-                                          context, 12),
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
                   ),
                   SliverToBoxAdapter(
                     child: SizedBox(
@@ -564,11 +454,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: Responsive.scaleFromFigma(context, 44)),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          PriceTagButton(),
-                          AddToBasketButton(),
+                          const PriceTagButton(),
+                          SizedBox(
+                            width: Responsive.scaleFromFigma(context, 44),
+                          ),
+                          const AddToBasketButton(),
                         ],
                       ),
                     ),
@@ -588,72 +481,58 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 }
 
-class ColorVariants extends StatelessWidget {
-  const ColorVariants({
+class VariantContainerGenerator extends StatelessWidget {
+  const VariantContainerGenerator({
     super.key,
-    required this.variantType,
+    required this.productVariantList,
   });
-  final VariantType variantType;
+  final List<ProductVariant> productVariantList;
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: Responsive.scaleFromFigma(context, 44)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(
-              variantType.title,
-              style: TextStyle(
-                fontFamily: 'SB',
-                fontSize: Responsive.scaleFromFigma(context, 12),
-                color: Colors.black,
-              ),
+    return Column(
+      children: [
+        for (var productVariant in productVariantList) ...{
+          if (productVariant.variantList.isNotEmpty) ...{
+            VariantGeneratorChild(productVariant: productVariant)
+          },
+        }
+      ],
+    );
+  }
+}
+
+class VariantGeneratorChild extends StatelessWidget {
+  const VariantGeneratorChild({
+    super.key,
+    required this.productVariant,
+  });
+  final ProductVariant productVariant;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: Responsive.scaleFromFigma(context, 44)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(
+            productVariant.variantType.title,
+            style: TextStyle(
+              fontFamily: 'SB',
+              fontSize: Responsive.scaleFromFigma(context, 12),
+              color: Colors.black,
             ),
-            SizedBox(
-              height: Responsive.scaleFromFigma(context, 10),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  width: Responsive.scaleFromFigma(context, 26),
-                  height: Responsive.scaleFromFigma(context, 26),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                        Responsive.scaleFromFigma(context, 8)),
-                    color: MyColors.myRed,
-                  ),
-                ),
-                SizedBox(
-                  width: Responsive.scaleFromFigma(context, 10),
-                ),
-                Container(
-                  width: Responsive.scaleFromFigma(context, 26),
-                  height: 26,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                        Responsive.scaleFromFigma(context, 8)),
-                    color: MyColors.myRed,
-                  ),
-                ),
-                SizedBox(
-                  width: Responsive.scaleFromFigma(context, 10),
-                ),
-                Container(
-                  width: Responsive.scaleFromFigma(context, 26),
-                  height: Responsive.scaleFromFigma(context, 26),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                        Responsive.scaleFromFigma(context, 8)),
-                    color: MyColors.myRed,
-                  ),
-                ),
-              ],
-            )
+          ),
+          SizedBox(
+            height: Responsive.scaleFromFigma(context, 10),
+          ),
+          if (productVariant.variantType.type == VariantTypeEnum.Color) ...[
+            ColorVariantList(variantList: productVariant.variantList),
           ],
-        ),
+          if (productVariant.variantType.type == VariantTypeEnum.Storage) ...[
+            StorageVariantList(variantList: productVariant.variantList)
+          ],
+        ],
       ),
     );
   }
@@ -789,7 +668,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                           color: index == selectedImage
                               ? MyColors.myBlue
                               : MyColors.myGrey,
-                          width: index == selectedImage ? 3 : 1,
+                          width: index == selectedImage ? 2 : 1,
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -986,6 +865,139 @@ class PriceTagButton extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+}
+
+class ColorVariantList extends StatefulWidget {
+  const ColorVariantList({
+    super.key,
+    required this.variantList,
+  });
+  final List<Variant> variantList;
+
+  @override
+  State<ColorVariantList> createState() => _ColorVariantListState();
+}
+
+class _ColorVariantListState extends State<ColorVariantList> {
+  int selectedColor = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: Responsive.scaleFromFigma(context, 26),
+      child: ListView.builder(
+        itemCount: widget.variantList.length,
+        scrollDirection: Axis.horizontal,
+        reverse: true,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                selectedColor = index;
+              });
+            },
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 500),
+              margin:
+                  EdgeInsets.only(left: Responsive.scaleFromFigma(context, 10)),
+              width: index == selectedColor
+                  ? Responsive.scaleFromFigma(context, 77)
+                  : Responsive.scaleFromFigma(context, 26),
+              height: Responsive.scaleFromFigma(context, 26),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: index == selectedColor ? 2 : 0,
+                  color: MyColors.myBlue,
+                ),
+                borderRadius: BorderRadius.circular(
+                    Responsive.scaleFromFigma(context, 8)),
+                color: Color(int.parse('FF${widget.variantList[index].value}',
+                    radix: 16)),
+              ),
+              child: AnimatedScale(
+                scale: selectedColor == index ? 1 : 0,
+                duration: const Duration(
+                  milliseconds: 500,
+                ),
+                child: Center(
+                  child: Text(
+                    textAlign: TextAlign.center,
+                    widget.variantList[index].name,
+                    style: TextStyle(
+                      fontFamily: 'SB',
+                      fontSize: Responsive.scaleFromFigma(context, 12),
+                      color: MyColors.myGrey,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class StorageVariantList extends StatefulWidget {
+  const StorageVariantList({
+    super.key,
+    required this.variantList,
+  });
+  final List<Variant> variantList;
+
+  @override
+  State<StorageVariantList> createState() => _StorageVariantListState();
+}
+
+class _StorageVariantListState extends State<StorageVariantList> {
+  int selectedStorage = 0;
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: Responsive.scaleFromFigma(context, 26),
+      child: ListView.builder(
+        itemCount: widget.variantList.length,
+        scrollDirection: Axis.horizontal,
+        reverse: true,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                selectedStorage = index;
+              });
+            },
+            child: Container(
+              margin:
+                  EdgeInsets.only(left: Responsive.scaleFromFigma(context, 10)),
+              width: Responsive.scaleFromFigma(context, 74),
+              height: Responsive.scaleFromFigma(context, 26),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.white,
+                border: Border.all(
+                  width: selectedStorage == index ? 2 : 0.5,
+                  color: selectedStorage == index
+                      ? MyColors.myBlue
+                      : MyColors.myGrey,
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  widget.variantList[index].value,
+                  style: TextStyle(
+                    fontFamily: 'SB',
+                    fontSize: Responsive.scaleFromFigma(context, 12),
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
