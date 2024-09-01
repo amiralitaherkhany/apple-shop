@@ -11,7 +11,10 @@ final class ProductResponse extends ProductState {
   final Either<String, List<ProductImage>> productImageList;
   // final Either<String, List<VariantType>> variantTypeList;
   final Either<String, List<ProductVariant>> productVariantList;
+  final Either<String, Category> productCategory;
 
   ProductResponse(
-      {required this.productImageList, required this.productVariantList});
+      {required this.productCategory,
+      required this.productImageList,
+      required this.productVariantList});
 }

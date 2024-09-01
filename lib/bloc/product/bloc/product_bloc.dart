@@ -1,5 +1,6 @@
 import 'package:apple_shop/data/repository/product_detail_repository.dart';
 import 'package:apple_shop/di/di.dart';
+import 'package:apple_shop/models/category.dart';
 import 'package:apple_shop/models/product_image.dart';
 import 'package:apple_shop/models/product_variant.dart';
 import 'package:bloc/bloc.dart';
@@ -15,13 +16,20 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ProductBloc() : super(ProductInitial()) {
     on<ProductInitialize>((event, emit) async {
       emit(ProductLoading());
-      var productImageList = await _productDetailRepository.getGallery();
+      var productImageList =
+          await _productDetailRepository.getGallery(event.productId);
       // var variantTypeList = await _productDetailRepository.getVariantTypes();
       var productVariantsList =
-          await _productDetailRepository.getProductVariants();
-      emit(ProductResponse(
+          await _productDetailRepository.getProductVariants(event.productId);
+      var productCategory =
+          await _productDetailRepository.getProductCategory(event.categoryId);
+      emit(
+        ProductResponse(
           productImageList: productImageList,
-          productVariantList: productVariantsList));
+          productVariantList: productVariantsList,
+          productCategory: productCategory,
+        ),
+      );
     });
   }
 }

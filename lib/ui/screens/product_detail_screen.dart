@@ -79,7 +79,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           alignment: AlignmentDirectional.center,
                           children: [
                             Text(
-                              widget.product.name,
+                              state.productCategory.fold(
+                                (exception) {
+                                  return 'دسته بندی';
+                                },
+                                (category) {
+                                  return category.title!;
+                                },
+                              ),
                               style: TextStyle(
                                 fontFamily: 'SB',
                                 fontSize:
@@ -122,7 +129,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   SliverToBoxAdapter(
                     child: Text(
                       textAlign: TextAlign.center,
-                      'SE 2022 آیفون  ',
+                      widget.product.name,
                       style: TextStyle(
                         fontFamily: 'SB',
                         fontSize: Responsive.scaleFromFigma(context, 16),
@@ -140,7 +147,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       return SliverToBoxAdapter(child: Text(exception));
                     },
                     (productImageList) {
-                      return GalleryWidget(productImageList: productImageList);
+                      return GalleryWidget(
+                        productImageList: productImageList,
+                        defaultProductThumbnail: widget.product.thumbnail,
+                      );
                     },
                   ),
                   SliverToBoxAdapter(
@@ -542,8 +552,10 @@ class GalleryWidget extends StatefulWidget {
   const GalleryWidget({
     super.key,
     required this.productImageList,
+    required this.defaultProductThumbnail,
   });
   final List<ProductImage> productImageList;
+  final String defaultProductThumbnail;
 
   @override
   State<GalleryWidget> createState() => _GalleryWidgetState();
@@ -595,10 +607,18 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                     AnimatedSwitcher(
                       duration: const Duration(milliseconds: 500),
                       child: Center(
-                        key: Key(widget.productImageList[selectedImage].image),
+                        key: Key(widget.defaultProductThumbnail),
                         child: CachedNetworkImage(
-                          imageUrl:
-                              widget.productImageList[selectedImage].image,
+                          width: Responsive.scaleFromFigma(context, 150),
+                          height: Responsive.scaleFromFigma(context, 150),
+                          imageUrl: widget.productImageList.isEmpty
+                              ? widget.defaultProductThumbnail
+                              : widget.productImageList[selectedImage].image,
+                          errorWidget: (context, url, error) => Image.asset(
+                            'assets/images/no-image-icon-6.png',
+                            width: Responsive.scaleFromFigma(context, 150),
+                            height: Responsive.scaleFromFigma(context, 150),
+                          ),
                         ),
                       ),
                     ),
@@ -640,7 +660,9 @@ class _GalleryWidgetState extends State<GalleryWidget> {
             SizedBox(
               height: Responsive.scaleFromFigma(context, 70),
               child: ListView.builder(
-                itemCount: widget.productImageList.length,
+                itemCount: widget.productImageList.isEmpty
+                    ? 1
+                    : widget.productImageList.length,
                 scrollDirection: Axis.horizontal,
                 reverse: true,
                 itemBuilder: (context, index) {
@@ -675,7 +697,9 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: CachedNetworkImage(
-                          imageUrl: widget.productImageList[index].image,
+                          imageUrl: widget.productImageList.isEmpty
+                              ? widget.defaultProductThumbnail
+                              : widget.productImageList[index].image,
                         ),
                       ),
                     ),

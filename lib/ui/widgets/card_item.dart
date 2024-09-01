@@ -23,7 +23,9 @@ class CardItem extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => ProductBloc()..add(ProductInitialize()),
+            create: (context) => ProductBloc()
+              ..add(ProductInitialize(
+                  productId: product.id, categoryId: product.category)),
             child: ProductDetailScreen(
               product: product,
             ),
