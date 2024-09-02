@@ -2,6 +2,7 @@ import 'package:apple_shop/data/dataSource/product_detail_data_source.dart';
 import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/models/category.dart';
 import 'package:apple_shop/models/product_image.dart';
+import 'package:apple_shop/models/product_property.dart';
 import 'package:apple_shop/models/product_variant.dart';
 // import 'package:apple_shop/models/variant_type.dart';
 import 'package:apple_shop/util/api_exception.dart';
@@ -9,6 +10,7 @@ import 'package:dartz/dartz.dart';
 
 abstract class IProductDetailRepository {
   Future<Either<String, List<ProductImage>>> getGallery(String productId);
+  Future<Either<String, List<Property>>> getProductProperties(String productId);
   // Future<Either<String, List<VariantType>>> getVariantTypes();
   Future<Either<String, List<ProductVariant>>> getProductVariants(
       String productId);
@@ -57,6 +59,18 @@ class ProductDetailRepository implements IProductDetailRepository {
       Category productCategory =
           await _dataSource.getProductCategory(categoryId);
       return right(productCategory);
+    } on ApiException catch (e) {
+      return left(e.message ?? 'خطا محتوای متنی ندارد');
+    }
+  }
+
+  @override
+  Future<Either<String, List<Property>>> getProductProperties(
+      String productId) async {
+    try {
+      List<Property> productProperties =
+          await _dataSource.getProductProperties(productId);
+      return right(productProperties);
     } on ApiException catch (e) {
       return left(e.message ?? 'خطا محتوای متنی ندارد');
     }

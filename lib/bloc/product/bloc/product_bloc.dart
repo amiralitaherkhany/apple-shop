@@ -2,6 +2,7 @@ import 'package:apple_shop/data/repository/product_detail_repository.dart';
 import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/models/category.dart';
 import 'package:apple_shop/models/product_image.dart';
+import 'package:apple_shop/models/product_property.dart';
 import 'package:apple_shop/models/product_variant.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
@@ -23,8 +24,11 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           await _productDetailRepository.getProductVariants(event.productId);
       var productCategory =
           await _productDetailRepository.getProductCategory(event.categoryId);
+      var productProperties =
+          await _productDetailRepository.getProductProperties(event.productId);
       emit(
         ProductResponse(
+          productProperties: productProperties,
           productImageList: productImageList,
           productVariantList: productVariantsList,
           productCategory: productCategory,

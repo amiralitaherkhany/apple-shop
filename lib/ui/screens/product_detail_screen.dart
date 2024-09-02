@@ -4,6 +4,7 @@ import 'package:apple_shop/bloc/product/bloc/product_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/models/product.dart';
 import 'package:apple_shop/models/product_image.dart';
+import 'package:apple_shop/models/product_property.dart';
 import 'package:apple_shop/models/product_variant.dart';
 import 'package:apple_shop/models/variant.dart';
 import 'package:apple_shop/models/variant_type.dart';
@@ -174,57 +175,25 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       height: Responsive.scaleFromFigma(context, 20),
                     ),
                   ),
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: Responsive.scaleFromFigma(context, 44)),
-                      child: Container(
-                        height: Responsive.scaleFromFigma(context, 46),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: MyColors.myGrey,
-                            width: 1,
+                  state.productProperties.fold(
+                    (exception) {
+                      return SliverToBoxAdapter(
+                        child: Text(exception),
+                      );
+                    },
+                    (productProperties) {
+                      if (productProperties.isNotEmpty) {
+                        return ProductProperties(
+                            productProperties: productProperties);
+                      } else {
+                        return const SliverToBoxAdapter(
+                          child: SizedBox(
+                            width: 0,
+                            height: 0,
                           ),
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  Responsive.scaleFromFigma(context, 10)),
-                          child: Row(
-                            children: [
-                              const Icon(
-                                IconsaxOutline.arrow_circle_left,
-                                color: MyColors.myBlue,
-                              ),
-                              SizedBox(
-                                width: Responsive.scaleFromFigma(context, 10),
-                              ),
-                              Text(
-                                'مشاهده',
-                                style: TextStyle(
-                                  fontFamily: 'SB',
-                                  fontSize:
-                                      Responsive.scaleFromFigma(context, 12),
-                                  color: MyColors.myBlue,
-                                ),
-                              ),
-                              const Spacer(),
-                              Text(
-                                ':مشخصات فنی ',
-                                style: TextStyle(
-                                  fontFamily: 'SB',
-                                  fontSize:
-                                      Responsive.scaleFromFigma(context, 12),
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                        );
+                      }
+                    },
                   ),
                   SliverToBoxAdapter(
                     child: SizedBox(
@@ -436,6 +405,117 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               ],
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class ProductProperties extends StatefulWidget {
+  const ProductProperties({
+    super.key,
+    required this.productProperties,
+  });
+  final List<Property> productProperties;
+  @override
+  State<ProductProperties> createState() => _ProductPropertiesState();
+}
+
+class _ProductPropertiesState extends State<ProductProperties> {
+  bool _isCollapsed = false;
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: Responsive.scaleFromFigma(context, 44)),
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: ExpansionTile(
+            onExpansionChanged: (value) {
+              setState(() {
+                _isCollapsed = !_isCollapsed;
+              });
+            },
+            initiallyExpanded: _isCollapsed,
+            expansionAnimationStyle: AnimationStyle(
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+              reverseCurve: Curves.easeInOut,
+            ),
+            tilePadding: EdgeInsets.symmetric(
+                horizontal: Responsive.scaleFromFigma(context, 10)),
+            childrenPadding:
+                EdgeInsets.all(Responsive.scaleFromFigma(context, 16)),
+            minTileHeight: Responsive.scaleFromFigma(context, 46),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'مشاهده',
+                  style: TextStyle(
+                    fontFamily: 'SB',
+                    fontSize: Responsive.scaleFromFigma(context, 12),
+                    color: MyColors.myBlue,
+                  ),
+                ),
+                SizedBox(
+                  width: Responsive.scaleFromFigma(context, 10),
+                ),
+                Icon(
+                  _isCollapsed
+                      ? IconsaxOutline.arrow_circle_down
+                      : IconsaxOutline.arrow_circle_left,
+                  color: MyColors.myBlue,
+                ),
+              ],
+            ),
+            collapsedShape: RoundedRectangleBorder(
+              side: const BorderSide(
+                color: MyColors.myGrey,
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            shape: RoundedRectangleBorder(
+              side: const BorderSide(
+                color: MyColors.myGrey,
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            collapsedBackgroundColor: Colors.white,
+            backgroundColor: Colors.white,
+            expandedAlignment: Alignment.centerRight,
+            title: Text(
+              textDirection: TextDirection.ltr,
+              textAlign: TextAlign.end,
+              ':مشخصات فنی',
+              style: TextStyle(
+                fontFamily: 'SB',
+                fontSize: Responsive.scaleFromFigma(context, 12),
+                color: Colors.black,
+              ),
+            ),
+            children: [
+              ...List.generate(
+                widget.productProperties.length,
+                (index) {
+                  return Text(
+                    '${widget.productProperties[index].title} :  ${widget.productProperties[index].value}',
+                    textAlign: TextAlign.justify,
+                    textDirection: TextDirection.rtl,
+                    style: TextStyle(
+                      fontFamily: 'SB',
+                      fontSize: Responsive.scaleFromFigma(context, 14),
+                      color: Colors.black,
+                      height: 2,
+                    ),
+                  );
+                },
+              )
+            ],
+          ),
         ),
       ),
     );
