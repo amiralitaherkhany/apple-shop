@@ -79,7 +79,7 @@ class CardScreen extends StatelessWidget {
             ),
             SliverPadding(
               padding: EdgeInsets.only(
-                  bottom: Responsive.scaleFromFigma(context, 70)),
+                  bottom: Responsive.scaleFromFigma(context, 180)),
             )
           ],
         ),

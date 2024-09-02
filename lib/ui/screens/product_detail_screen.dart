@@ -231,57 +231,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       height: Responsive.scaleFromFigma(context, 20),
                     ),
                   ),
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: Responsive.scaleFromFigma(context, 44)),
-                      child: Container(
-                        height: Responsive.scaleFromFigma(context, 46),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: MyColors.myGrey,
-                            width: 1,
-                          ),
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  Responsive.scaleFromFigma(context, 10)),
-                          child: Row(
-                            children: [
-                              const Icon(
-                                IconsaxOutline.arrow_circle_left,
-                                color: MyColors.myBlue,
-                              ),
-                              SizedBox(
-                                width: Responsive.scaleFromFigma(context, 10),
-                              ),
-                              Text(
-                                'مشاهده',
-                                style: TextStyle(
-                                  fontFamily: 'SB',
-                                  fontSize:
-                                      Responsive.scaleFromFigma(context, 12),
-                                  color: MyColors.myBlue,
-                                ),
-                              ),
-                              const Spacer(),
-                              Text(
-                                ':توضیحات محصول ',
-                                style: TextStyle(
-                                  fontFamily: 'SB',
-                                  fontSize:
-                                      Responsive.scaleFromFigma(context, 12),
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                  ProductDescription(
+                    productDescription: widget.product.description,
                   ),
                   SliverToBoxAdapter(
                     child: SizedBox(
@@ -485,6 +436,112 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               ],
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class ProductDescription extends StatefulWidget {
+  const ProductDescription({
+    super.key,
+    required this.productDescription,
+  });
+  final String productDescription;
+
+  @override
+  State<ProductDescription> createState() => _ProductDescriptionState();
+}
+
+class _ProductDescriptionState extends State<ProductDescription> {
+  bool _isCollapsed = false;
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: Responsive.scaleFromFigma(context, 44)),
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: ExpansionTile(
+            onExpansionChanged: (value) {
+              setState(() {
+                _isCollapsed = !_isCollapsed;
+              });
+            },
+            initiallyExpanded: _isCollapsed,
+            expansionAnimationStyle: AnimationStyle(
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+              reverseCurve: Curves.easeInOut,
+            ),
+            tilePadding: EdgeInsets.symmetric(
+                horizontal: Responsive.scaleFromFigma(context, 10)),
+            childrenPadding:
+                EdgeInsets.all(Responsive.scaleFromFigma(context, 16)),
+            minTileHeight: Responsive.scaleFromFigma(context, 46),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'مشاهده',
+                  style: TextStyle(
+                    fontFamily: 'SB',
+                    fontSize: Responsive.scaleFromFigma(context, 12),
+                    color: MyColors.myBlue,
+                  ),
+                ),
+                SizedBox(
+                  width: Responsive.scaleFromFigma(context, 10),
+                ),
+                Icon(
+                  _isCollapsed
+                      ? IconsaxOutline.arrow_circle_down
+                      : IconsaxOutline.arrow_circle_left,
+                  color: MyColors.myBlue,
+                ),
+              ],
+            ),
+            collapsedShape: RoundedRectangleBorder(
+              side: const BorderSide(
+                color: MyColors.myGrey,
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            shape: RoundedRectangleBorder(
+              side: const BorderSide(
+                color: MyColors.myGrey,
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            collapsedBackgroundColor: Colors.white,
+            backgroundColor: Colors.white,
+            title: Text(
+              textDirection: TextDirection.ltr,
+              textAlign: TextAlign.end,
+              ':توضیحات محصول ',
+              style: TextStyle(
+                fontFamily: 'SB',
+                fontSize: Responsive.scaleFromFigma(context, 12),
+                color: Colors.black,
+              ),
+            ),
+            children: [
+              Text(
+                widget.productDescription,
+                textAlign: TextAlign.justify,
+                textDirection: TextDirection.rtl,
+                style: TextStyle(
+                  fontFamily: 'SB',
+                  fontSize: Responsive.scaleFromFigma(context, 14),
+                  color: Colors.black,
+                  height: 2,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
