@@ -61,6 +61,11 @@ class _BannerSliderState extends State<BannerSlider> {
         alignment: AlignmentDirectional.bottomCenter,
         children: [
           PageView.builder(
+            onPageChanged: (index) {
+              setState(() {
+                currentPage = index;
+              });
+            },
             controller: pageController,
             itemCount: widget.bannerList.length,
             itemBuilder: (context, index) {
