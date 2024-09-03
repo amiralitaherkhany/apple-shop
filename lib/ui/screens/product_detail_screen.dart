@@ -8,6 +8,7 @@ import 'package:apple_shop/models/product_property.dart';
 import 'package:apple_shop/models/product_variant.dart';
 import 'package:apple_shop/models/variant.dart';
 import 'package:apple_shop/models/variant_type.dart';
+import 'package:apple_shop/util/extensions/string_extensions.dart';
 import 'package:apple_shop/util/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ficonsax/ficonsax.dart';
@@ -744,7 +745,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                     AnimatedSwitcher(
                       duration: const Duration(milliseconds: 500),
                       child: Center(
-                        key: Key(widget.defaultProductThumbnail),
+                        key: UniqueKey(),
                         child: CachedNetworkImage(
                           width: Responsive.scaleFromFigma(context, 150),
                           height: Responsive.scaleFromFigma(context, 150),
@@ -1074,8 +1075,7 @@ class _ColorVariantListState extends State<ColorVariantList> {
                 ),
                 borderRadius: BorderRadius.circular(
                     Responsive.scaleFromFigma(context, 8)),
-                color: Color(int.parse('FF${widget.variantList[index].value}',
-                    radix: 16)),
+                color: widget.variantList[index].value.parseToColor(),
               ),
               child: AnimatedScale(
                 scale: selectedColor == index ? 1 : 0,

@@ -52,7 +52,7 @@ class CardItem extends StatelessWidget {
                   width: Responsive.scaleFromFigma(context, 100),
                   height: Responsive.scaleFromFigma(context, 100),
                   imageUrl: product.thumbnail,
-                  errorListener: (value) => print(value.toString()),
+                  errorListener: (value) {},
                   errorWidget: (context, url, error) {
                     return Image.asset('assets/images/no-image-icon-6.png');
                   },

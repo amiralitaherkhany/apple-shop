@@ -1,7 +1,9 @@
 import 'package:apple_shop/bloc/category/bloc/category_bloc.dart';
+import 'package:apple_shop/bloc/categoryProduct/bloc/category_product_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/cubit/scroll/cubit/scroll_cubit.dart';
 import 'package:apple_shop/models/category.dart';
+import 'package:apple_shop/ui/screens/product_list_screen.dart';
 import 'package:apple_shop/util/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -168,17 +170,29 @@ class CategoryList extends StatelessWidget {
           mainAxisSpacing: Responsive.scaleFromFigma(context, 20),
         ),
         itemBuilder: (context, index) {
-          return CachedNetworkImage(
-            placeholder: (context, url) => Container(
-              color: Colors.grey,
+          return InkWell(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => BlocProvider(
+                  create: (context) => CategoryProductBloc()
+                    ..add(CategoryProductRequestData(
+                        categoryId: categoryList[index].id!)),
+                  child: ProductListScreen(category: categoryList[index]),
+                ),
+              ));
+            },
+            child: CachedNetworkImage(
+              placeholder: (context, url) => Container(
+                color: Colors.grey,
+              ),
+              errorWidget: (context, url, error) => Container(
+                color: Colors.red[500],
+              ),
+              imageUrl: categoryList[index].thumbnail!,
+              width: Responsive.scaleFromFigma(context, 160),
+              height: Responsive.scaleFromFigma(context, 160),
+              fit: BoxFit.cover,
             ),
-            errorWidget: (context, url, error) => Container(
-              color: Colors.red[500],
-            ),
-            imageUrl: categoryList[index].thumbnail!,
-            width: Responsive.scaleFromFigma(context, 160),
-            height: Responsive.scaleFromFigma(context, 160),
-            fit: BoxFit.cover,
           );
         },
       ),

@@ -272,239 +272,12 @@ class CardBasketitem extends StatelessWidget {
                             textDirection: TextDirection.rtl,
                             runSpacing: Responsive.scaleFromFigma(context, 10),
                             spacing: Responsive.scaleFromFigma(context, 10),
-                            children: [
-                              Container(
-                                width: Responsive.scaleFromFigma(context, 94),
-                                height: Responsive.scaleFromFigma(context, 24),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color: const Color(0xffE5E5E5),
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: Responsive.scaleFromFigma(
-                                          context, 10),
-                                    ),
-                                    Icon(
-                                      IconsaxOutline.arrow_swap_horizontal,
-                                      size: Responsive.scaleFromFigma(
-                                          context, 11),
-                                      color: MyColors.myGrey,
-                                    ),
-                                    const Spacer(),
-                                    Text(
-                                      textDirection: TextDirection.rtl,
-                                      '256 گیگابایت',
-                                      style: TextStyle(
-                                        fontFamily: 'SM',
-                                        fontSize: Responsive.scaleFromFigma(
-                                            context, 10),
-                                        color: MyColors.myGrey,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: Responsive.scaleFromFigma(
-                                          context, 10),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: Responsive.scaleFromFigma(context, 108),
-                                height: Responsive.scaleFromFigma(context, 24),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color: const Color(0xffE5E5E5),
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: Responsive.scaleFromFigma(
-                                          context, 10),
-                                    ),
-                                    Icon(
-                                      IconsaxOutline.arrow_swap_horizontal,
-                                      size: Responsive.scaleFromFigma(
-                                          context, 11),
-                                      color: MyColors.myGrey,
-                                    ),
-                                    const Spacer(),
-                                    Text(
-                                      textDirection: TextDirection.rtl,
-                                      'سبز کله غازی',
-                                      style: TextStyle(
-                                        fontFamily: 'SM',
-                                        fontSize: Responsive.scaleFromFigma(
-                                            context, 10),
-                                        color: MyColors.myGrey,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width:
-                                          Responsive.scaleFromFigma(context, 5),
-                                    ),
-                                    Container(
-                                      width: Responsive.scaleFromFigma(
-                                          context, 10),
-                                      height: Responsive.scaleFromFigma(
-                                          context, 10),
-                                      decoration: const ShapeDecoration(
-                                          color: MyColors.myBlue,
-                                          shape: CircleBorder()),
-                                    ),
-                                    SizedBox(
-                                      width: Responsive.scaleFromFigma(
-                                          context, 10),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: Responsive.scaleFromFigma(context, 45),
-                                height: Responsive.scaleFromFigma(context, 24),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color: const Color(0xffE5E5E5),
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: Responsive.scaleFromFigma(
-                                          context, 10),
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          IconsaxBold.arrow_up_1,
-                                          size: Responsive.scaleFromFigma(
-                                              context, 8),
-                                          color: MyColors.myGrey,
-                                        ),
-                                        Icon(
-                                          IconsaxBold.arrow_down,
-                                          size: Responsive.scaleFromFigma(
-                                              context, 8),
-                                          color: MyColors.myGrey,
-                                        )
-                                      ],
-                                    ),
-                                    const Spacer(),
-                                    Text(
-                                      textDirection: TextDirection.rtl,
-                                      '1',
-                                      style: TextStyle(
-                                        fontFamily: 'SM',
-                                        fontSize: Responsive.scaleFromFigma(
-                                            context, 10),
-                                        color: MyColors.myGrey,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: Responsive.scaleFromFigma(
-                                          context, 10),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: Responsive.scaleFromFigma(context, 69),
-                                height: Responsive.scaleFromFigma(context, 24),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color: const Color(0xffE5E5E5),
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      width: Responsive.scaleFromFigma(
-                                          context, 10),
-                                    ),
-                                    Text(
-                                      textDirection: TextDirection.rtl,
-                                      'ذخیره',
-                                      style: TextStyle(
-                                        fontFamily: 'SM',
-                                        fontSize: Responsive.scaleFromFigma(
-                                            context, 10),
-                                        color: MyColors.myGrey,
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    Icon(
-                                      IconsaxBold.heart_circle,
-                                      color: MyColors.myBlue,
-                                      size: Responsive.scaleFromFigma(
-                                          context, 17),
-                                    ),
-                                    SizedBox(
-                                      width: Responsive.scaleFromFigma(
-                                          context, 10),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: Responsive.scaleFromFigma(context, 62),
-                                height: Responsive.scaleFromFigma(context, 24),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color: const Color(0xffE5E5E5),
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      width: Responsive.scaleFromFigma(
-                                          context, 10),
-                                    ),
-                                    Text(
-                                      textDirection: TextDirection.rtl,
-                                      'حذف',
-                                      style: TextStyle(
-                                        fontFamily: 'SM',
-                                        fontSize: Responsive.scaleFromFigma(
-                                            context, 10),
-                                        color: MyColors.myGrey,
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    Icon(
-                                      IconsaxBold.trash,
-                                      color: MyColors.myGrey,
-                                      size: Responsive.scaleFromFigma(
-                                          context, 15),
-                                    ),
-                                    SizedBox(
-                                      width: Responsive.scaleFromFigma(
-                                          context, 10),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                            children: const [
+                              StorageVariantCheap(),
+                              ColorVariantCheap(),
+                              NumberOfProductCheap(),
+                              SaveProductCheap(),
+                              DeleteProductCheap(),
                             ],
                           )
                         ],
@@ -577,6 +350,241 @@ class CardBasketitem extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class DeleteProductCheap extends StatelessWidget {
+  const DeleteProductCheap({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: Responsive.scaleFromFigma(context, 62),
+      height: Responsive.scaleFromFigma(context, 24),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+        border: Border.all(
+          color: const Color(0xffE5E5E5),
+          width: 1,
+        ),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: Responsive.scaleFromFigma(context, 10),
+          ),
+          Text(
+            textDirection: TextDirection.rtl,
+            'حذف',
+            style: TextStyle(
+              fontFamily: 'SM',
+              fontSize: Responsive.scaleFromFigma(context, 10),
+              color: MyColors.myGrey,
+            ),
+          ),
+          const Spacer(),
+          Icon(
+            IconsaxBold.trash,
+            color: MyColors.myGrey,
+            size: Responsive.scaleFromFigma(context, 15),
+          ),
+          SizedBox(
+            width: Responsive.scaleFromFigma(context, 10),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SaveProductCheap extends StatelessWidget {
+  const SaveProductCheap({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: Responsive.scaleFromFigma(context, 69),
+      height: Responsive.scaleFromFigma(context, 24),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+        border: Border.all(
+          color: const Color(0xffE5E5E5),
+          width: 1,
+        ),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: Responsive.scaleFromFigma(context, 10),
+          ),
+          Text(
+            textDirection: TextDirection.rtl,
+            'ذخیره',
+            style: TextStyle(
+              fontFamily: 'SM',
+              fontSize: Responsive.scaleFromFigma(context, 10),
+              color: MyColors.myGrey,
+            ),
+          ),
+          const Spacer(),
+          Icon(
+            IconsaxBold.heart_circle,
+            color: MyColors.myBlue,
+            size: Responsive.scaleFromFigma(context, 17),
+          ),
+          SizedBox(
+            width: Responsive.scaleFromFigma(context, 10),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class NumberOfProductCheap extends StatelessWidget {
+  const NumberOfProductCheap({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: Responsive.scaleFromFigma(context, 45),
+      height: Responsive.scaleFromFigma(context, 24),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+        border: Border.all(
+          color: const Color(0xffE5E5E5),
+          width: 1,
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            textDirection: TextDirection.rtl,
+            '1',
+            style: TextStyle(
+              fontFamily: 'SM',
+              fontSize: Responsive.scaleFromFigma(context, 10),
+              color: MyColors.myGrey,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ColorVariantCheap extends StatelessWidget {
+  const ColorVariantCheap({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: Responsive.scaleFromFigma(context, 108),
+      height: Responsive.scaleFromFigma(context, 24),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+        border: Border.all(
+          color: const Color(0xffE5E5E5),
+          width: 1,
+        ),
+      ),
+      child: Row(
+        children: [
+          SizedBox(
+            width: Responsive.scaleFromFigma(context, 10),
+          ),
+          Icon(
+            IconsaxOutline.arrow_swap_horizontal,
+            size: Responsive.scaleFromFigma(context, 11),
+            color: MyColors.myGrey,
+          ),
+          const Spacer(),
+          Text(
+            textDirection: TextDirection.rtl,
+            'سبز کله غازی',
+            style: TextStyle(
+              fontFamily: 'SM',
+              fontSize: Responsive.scaleFromFigma(context, 10),
+              color: MyColors.myGrey,
+            ),
+          ),
+          SizedBox(
+            width: Responsive.scaleFromFigma(context, 5),
+          ),
+          Container(
+            width: Responsive.scaleFromFigma(context, 10),
+            height: Responsive.scaleFromFigma(context, 10),
+            decoration: const ShapeDecoration(
+                color: MyColors.myBlue, shape: CircleBorder()),
+          ),
+          SizedBox(
+            width: Responsive.scaleFromFigma(context, 10),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class StorageVariantCheap extends StatelessWidget {
+  const StorageVariantCheap({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: Responsive.scaleFromFigma(context, 94),
+      height: Responsive.scaleFromFigma(context, 24),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+        border: Border.all(
+          color: const Color(0xffE5E5E5),
+          width: 1,
+        ),
+      ),
+      child: Row(
+        children: [
+          SizedBox(
+            width: Responsive.scaleFromFigma(context, 10),
+          ),
+          Icon(
+            IconsaxOutline.arrow_swap_horizontal,
+            size: Responsive.scaleFromFigma(context, 11),
+            color: MyColors.myGrey,
+          ),
+          const Spacer(),
+          Text(
+            textDirection: TextDirection.rtl,
+            '256 گیگابایت',
+            style: TextStyle(
+              fontFamily: 'SM',
+              fontSize: Responsive.scaleFromFigma(context, 10),
+              color: MyColors.myGrey,
+            ),
+          ),
+          SizedBox(
+            width: Responsive.scaleFromFigma(context, 10),
+          ),
+        ],
       ),
     );
   }
