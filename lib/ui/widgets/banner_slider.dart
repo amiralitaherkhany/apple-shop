@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/models/banner.dart';
-import 'package:apple_shop/util/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class BannerSlider extends StatefulWidget {
@@ -56,7 +56,7 @@ class _BannerSliderState extends State<BannerSlider> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: Responsive.scaleFromFigma(context, 177),
+      height: 177.h,
       child: Stack(
         alignment: AlignmentDirectional.bottomCenter,
         children: [
@@ -70,9 +70,7 @@ class _BannerSliderState extends State<BannerSlider> {
             itemCount: widget.bannerList.length,
             itemBuilder: (context, index) {
               return Padding(
-                padding: EdgeInsets.only(
-                    left: Responsive.scaleFromFigma(context, 10),
-                    right: Responsive.scaleFromFigma(context, 10)),
+                padding: EdgeInsets.only(left: 10.w, right: 10.w),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
                   child: CachedNetworkImage(
@@ -83,8 +81,8 @@ class _BannerSliderState extends State<BannerSlider> {
                       color: Colors.red[500],
                     ),
                     imageUrl: widget.bannerList[index].thumbnail!,
-                    width: Responsive.scaleFromFigma(context, 340),
-                    height: Responsive.scaleFromFigma(context, 177),
+                    width: 340.w,
+                    height: 177.h,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -97,12 +95,12 @@ class _BannerSliderState extends State<BannerSlider> {
               controller: pageController,
               count: widget.bannerList.length,
               effect: ExpandingDotsEffect(
-                expansionFactor: Responsive.scaleFromFigma(context, 5),
+                expansionFactor: 5.w,
                 activeDotColor: MyColors.myBlue,
                 dotColor: Colors.white,
-                dotHeight: Responsive.scaleFromFigma(context, 5),
-                dotWidth: Responsive.scaleFromFigma(context, 5),
-                spacing: Responsive.scaleFromFigma(context, 2),
+                dotHeight: 5.h,
+                dotWidth: 5.w,
+                spacing: 2.w,
               ),
             ),
           )

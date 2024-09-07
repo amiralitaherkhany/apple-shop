@@ -9,11 +9,11 @@ import 'package:apple_shop/models/product_variant.dart';
 import 'package:apple_shop/models/variant.dart';
 import 'package:apple_shop/models/variant_type.dart';
 import 'package:apple_shop/util/extensions/string_extensions.dart';
-import 'package:apple_shop/util/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   const ProductDetailScreen({
@@ -57,22 +57,21 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 if (state is ProductResponse) ...[
                   SliverToBoxAdapter(
                     child: SizedBox(
-                      height: Responsive.scaleFromFigma(context, 10),
+                      height: 10.h,
                     ),
                   ),
                   SliverAppBar(
                     automaticallyImplyLeading: false,
                     backgroundColor: Colors.transparent,
                     elevation: 0,
-                    expandedHeight: Responsive.scaleFromFigma(context, 46),
+                    expandedHeight: 46.h,
                     floating: true,
                     pinned: false,
                     flexibleSpace: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: Responsive.scaleFromFigma(context, 44)),
+                      padding: EdgeInsets.symmetric(horizontal: 44.w),
                       child: Container(
-                        width: Responsive.scaleFromFigma(context, 340),
-                        height: Responsive.scaleFromFigma(context, 46),
+                        width: 340.w,
+                        height: 46.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           color: Colors.white,
@@ -91,25 +90,23 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               ),
                               style: TextStyle(
                                 fontFamily: 'SB',
-                                fontSize:
-                                    Responsive.scaleFromFigma(context, 16),
+                                fontSize: 16.sp,
                                 color: MyColors.myBlue,
                               ),
                             ),
                             Positioned(
-                              left: Responsive.scaleFromFigma(context, 15),
-                              top: Responsive.scaleFromFigma(context, 10),
+                              left: 15.w,
+                              top: 10.h,
                               child: Image.asset(
                                 'assets/images/icon_apple_blue.png',
-                                width: Responsive.scaleFromFigma(context, 21),
-                                height: Responsive.scaleFromFigma(context, 26),
+                                width: 21.w,
+                                height: 26.h,
                               ),
                             ),
                             Positioned(
-                              right: Responsive.scaleFromFigma(context, 5),
+                              right: 5.w,
                               child: IconButton(
-                                iconSize:
-                                    Responsive.scaleFromFigma(context, 30),
+                                iconSize: 30.w,
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
@@ -125,7 +122,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                   SliverToBoxAdapter(
                     child: SizedBox(
-                      height: Responsive.scaleFromFigma(context, 22),
+                      height: 22.h,
                     ),
                   ),
                   SliverToBoxAdapter(
@@ -134,14 +131,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       widget.product.name,
                       style: TextStyle(
                         fontFamily: 'SB',
-                        fontSize: Responsive.scaleFromFigma(context, 16),
+                        fontSize: 16.sp,
                         color: Colors.black,
                       ),
                     ),
                   ),
                   SliverToBoxAdapter(
                     child: SizedBox(
-                      height: Responsive.scaleFromFigma(context, 20),
+                      height: 20.h,
                     ),
                   ),
                   state.productImageList.fold(
@@ -157,7 +154,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                   SliverToBoxAdapter(
                     child: SizedBox(
-                      height: Responsive.scaleFromFigma(context, 20),
+                      height: 20.h,
                     ),
                   ),
                   state.productVariantList.fold(
@@ -173,7 +170,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                   SliverToBoxAdapter(
                     child: SizedBox(
-                      height: Responsive.scaleFromFigma(context, 10),
+                      height: 10.h,
                     ),
                   ),
                   state.productProperties.fold(
@@ -198,7 +195,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                   SliverToBoxAdapter(
                     child: SizedBox(
-                      height: Responsive.scaleFromFigma(context, 20),
+                      height: 20.h,
                     ),
                   ),
                   ProductDescription(
@@ -206,15 +203,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                   SliverToBoxAdapter(
                     child: SizedBox(
-                      height: Responsive.scaleFromFigma(context, 20),
+                      height: 20.h,
                     ),
                   ),
                   SliverToBoxAdapter(
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: Responsive.scaleFromFigma(context, 44)),
+                      padding: EdgeInsets.symmetric(horizontal: 44.w),
                       child: Container(
-                        height: Responsive.scaleFromFigma(context, 46),
+                        height: 46.h,
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: MyColors.myGrey,
@@ -224,9 +220,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  Responsive.scaleFromFigma(context, 10)),
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
                           child: Row(
                             children: [
                               const Icon(
@@ -234,14 +228,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 color: MyColors.myBlue,
                               ),
                               SizedBox(
-                                width: Responsive.scaleFromFigma(context, 10),
+                                width: 10.w,
                               ),
                               Text(
                                 'مشاهده',
                                 style: TextStyle(
                                   fontFamily: 'SB',
-                                  fontSize:
-                                      Responsive.scaleFromFigma(context, 12),
+                                  fontSize: 12.sp,
                                   color: MyColors.myBlue,
                                 ),
                               ),
@@ -250,14 +243,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 clipBehavior: Clip.none,
                                 children: [
                                   Container(
-                                    width:
-                                        Responsive.scaleFromFigma(context, 26),
-                                    height:
-                                        Responsive.scaleFromFigma(context, 26),
+                                    width: 26.w,
+                                    height: 26.h,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(
-                                          Responsive.scaleFromFigma(
-                                              context, 8)),
+                                      borderRadius: BorderRadius.circular(8.r),
                                       color: Colors.red,
                                       border: Border.all(
                                         color: Colors.white,
@@ -266,17 +255,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     ),
                                   ),
                                   Positioned(
-                                    right:
-                                        Responsive.scaleFromFigma(context, 18),
+                                    right: 18.w,
                                     child: Container(
-                                      width: Responsive.scaleFromFigma(
-                                          context, 26),
-                                      height: Responsive.scaleFromFigma(
-                                          context, 26),
+                                      width: 26.w,
+                                      height: 26.h,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            Responsive.scaleFromFigma(
-                                                context, 8)),
+                                        borderRadius:
+                                            BorderRadius.circular(8.r),
                                         color: Colors.green,
                                         border: Border.all(
                                           color: Colors.white,
@@ -286,17 +271,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     ),
                                   ),
                                   Positioned(
-                                    right:
-                                        Responsive.scaleFromFigma(context, 36),
+                                    right: 36.w,
                                     child: Container(
-                                      width: Responsive.scaleFromFigma(
-                                          context, 26),
-                                      height: Responsive.scaleFromFigma(
-                                          context, 26),
+                                      width: 26.w,
+                                      height: 26.h,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            Responsive.scaleFromFigma(
-                                                context, 8)),
+                                        borderRadius:
+                                            BorderRadius.circular(8.r),
                                         color: Colors.yellow,
                                         border: Border.all(
                                           color: Colors.white,
@@ -306,17 +287,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     ),
                                   ),
                                   Positioned(
-                                    right:
-                                        Responsive.scaleFromFigma(context, 54),
+                                    right: 54.w,
                                     child: Container(
-                                      width: Responsive.scaleFromFigma(
-                                          context, 26),
-                                      height: Responsive.scaleFromFigma(
-                                          context, 26),
+                                      width: 26.w,
+                                      height: 26.h,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            Responsive.scaleFromFigma(
-                                                context, 8)),
+                                        borderRadius:
+                                            BorderRadius.circular(8.r),
                                         color: Colors.blue,
                                         border: Border.all(
                                           color: Colors.white,
@@ -326,17 +303,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     ),
                                   ),
                                   Positioned(
-                                    right:
-                                        Responsive.scaleFromFigma(context, 72),
+                                    right: 72.w,
                                     child: Container(
-                                      width: Responsive.scaleFromFigma(
-                                          context, 26),
-                                      height: Responsive.scaleFromFigma(
-                                          context, 26),
+                                      width: 26.w,
+                                      height: 26.h,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            Responsive.scaleFromFigma(
-                                                context, 8)),
+                                        borderRadius:
+                                            BorderRadius.circular(8.r),
                                         color: MyColors.myGrey,
                                         border: Border.all(
                                           color: Colors.white,
@@ -348,8 +321,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                           '+10',
                                           style: TextStyle(
                                             fontFamily: 'SB',
-                                            fontSize: Responsive.scaleFromFigma(
-                                                context, 10),
+                                            fontSize: 10.sp,
                                             color: Colors.white,
                                           ),
                                         ),
@@ -359,14 +331,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 ],
                               ),
                               SizedBox(
-                                width: Responsive.scaleFromFigma(context, 10),
+                                width: 10.w,
                               ),
                               Text(
                                 ':نظرات کاربران',
                                 style: TextStyle(
                                   fontFamily: 'SB',
-                                  fontSize:
-                                      Responsive.scaleFromFigma(context, 12),
+                                  fontSize: 12.sp,
                                   color: Colors.black,
                                 ),
                               ),
@@ -378,19 +349,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                   SliverToBoxAdapter(
                     child: SizedBox(
-                      height: Responsive.scaleFromFigma(context, 38),
+                      height: 38.h,
                     ),
                   ),
                   SliverToBoxAdapter(
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: Responsive.scaleFromFigma(context, 44)),
+                      padding: EdgeInsets.symmetric(horizontal: 44.w),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const PriceTagButton(),
                           SizedBox(
-                            width: Responsive.scaleFromFigma(context, 44),
+                            width: 44.w,
                           ),
                           AddToBasketButton(
                             product: widget.product,
@@ -401,7 +371,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                   SliverToBoxAdapter(
                     child: SizedBox(
-                      height: Responsive.scaleFromFigma(context, 32),
+                      height: 32.h,
                     ),
                   ),
                 ],
@@ -430,8 +400,7 @@ class _ProductPropertiesState extends State<ProductProperties> {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: Responsive.scaleFromFigma(context, 44)),
+        padding: EdgeInsets.symmetric(horizontal: 44.w),
         child: Directionality(
           textDirection: TextDirection.rtl,
           child: ExpansionTile(
@@ -446,11 +415,9 @@ class _ProductPropertiesState extends State<ProductProperties> {
               curve: Curves.easeInOut,
               reverseCurve: Curves.easeInOut,
             ),
-            tilePadding: EdgeInsets.symmetric(
-                horizontal: Responsive.scaleFromFigma(context, 10)),
-            childrenPadding:
-                EdgeInsets.all(Responsive.scaleFromFigma(context, 16)),
-            minTileHeight: Responsive.scaleFromFigma(context, 46),
+            tilePadding: EdgeInsets.symmetric(horizontal: 10.w),
+            childrenPadding: EdgeInsets.all(16.r),
+            minTileHeight: 46.h,
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -458,12 +425,12 @@ class _ProductPropertiesState extends State<ProductProperties> {
                   'مشاهده',
                   style: TextStyle(
                     fontFamily: 'SB',
-                    fontSize: Responsive.scaleFromFigma(context, 12),
+                    fontSize: 12.sp,
                     color: MyColors.myBlue,
                   ),
                 ),
                 SizedBox(
-                  width: Responsive.scaleFromFigma(context, 10),
+                  width: 10.w,
                 ),
                 Icon(
                   _isCollapsed
@@ -478,14 +445,14 @@ class _ProductPropertiesState extends State<ProductProperties> {
                 color: MyColors.myGrey,
                 width: 1,
               ),
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(15.r),
             ),
             shape: RoundedRectangleBorder(
               side: const BorderSide(
                 color: MyColors.myGrey,
                 width: 1,
               ),
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(15.r),
             ),
             collapsedBackgroundColor: Colors.white,
             backgroundColor: Colors.white,
@@ -496,7 +463,7 @@ class _ProductPropertiesState extends State<ProductProperties> {
               ':مشخصات فنی',
               style: TextStyle(
                 fontFamily: 'SB',
-                fontSize: Responsive.scaleFromFigma(context, 12),
+                fontSize: 12.sp,
                 color: Colors.black,
               ),
             ),
@@ -510,7 +477,7 @@ class _ProductPropertiesState extends State<ProductProperties> {
                     textDirection: TextDirection.rtl,
                     style: TextStyle(
                       fontFamily: 'SB',
-                      fontSize: Responsive.scaleFromFigma(context, 14),
+                      fontSize: 14.sp,
                       color: Colors.black,
                       height: 2,
                     ),
@@ -542,8 +509,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: Responsive.scaleFromFigma(context, 44)),
+        padding: EdgeInsets.symmetric(horizontal: 44.w),
         child: Directionality(
           textDirection: TextDirection.rtl,
           child: ExpansionTile(
@@ -558,11 +524,9 @@ class _ProductDescriptionState extends State<ProductDescription> {
               curve: Curves.easeInOut,
               reverseCurve: Curves.easeInOut,
             ),
-            tilePadding: EdgeInsets.symmetric(
-                horizontal: Responsive.scaleFromFigma(context, 10)),
-            childrenPadding:
-                EdgeInsets.all(Responsive.scaleFromFigma(context, 16)),
-            minTileHeight: Responsive.scaleFromFigma(context, 46),
+            tilePadding: EdgeInsets.symmetric(horizontal: 10.w),
+            childrenPadding: EdgeInsets.all(16.r),
+            minTileHeight: 46.h,
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -570,12 +534,12 @@ class _ProductDescriptionState extends State<ProductDescription> {
                   'مشاهده',
                   style: TextStyle(
                     fontFamily: 'SB',
-                    fontSize: Responsive.scaleFromFigma(context, 12),
+                    fontSize: 12.sp,
                     color: MyColors.myBlue,
                   ),
                 ),
                 SizedBox(
-                  width: Responsive.scaleFromFigma(context, 10),
+                  width: 10.w,
                 ),
                 Icon(
                   _isCollapsed
@@ -607,7 +571,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
               ':توضیحات محصول ',
               style: TextStyle(
                 fontFamily: 'SB',
-                fontSize: Responsive.scaleFromFigma(context, 12),
+                fontSize: 12.sp,
                 color: Colors.black,
               ),
             ),
@@ -618,7 +582,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
                 textDirection: TextDirection.rtl,
                 style: TextStyle(
                   fontFamily: 'SB',
-                  fontSize: Responsive.scaleFromFigma(context, 14),
+                  fontSize: 14.sp,
                   color: Colors.black,
                   height: 2,
                 ),
@@ -660,9 +624,7 @@ class VariantGeneratorChild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: Responsive.scaleFromFigma(context, 44),
-          vertical: Responsive.scaleFromFigma(context, 5)),
+      padding: EdgeInsets.symmetric(horizontal: 44.w, vertical: 5.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -670,12 +632,12 @@ class VariantGeneratorChild extends StatelessWidget {
             productVariant.variantType.title,
             style: TextStyle(
               fontFamily: 'SB',
-              fontSize: Responsive.scaleFromFigma(context, 12),
+              fontSize: 12.sp,
               color: Colors.black,
             ),
           ),
           SizedBox(
-            height: Responsive.scaleFromFigma(context, 10),
+            height: 10.h,
           ),
           if (productVariant.variantType.type == VariantTypeEnum.Color) ...[
             ColorVariantList(variantList: productVariant.variantList),
@@ -708,9 +670,8 @@ class _GalleryWidgetState extends State<GalleryWidget> {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Container(
-        height: Responsive.scaleFromFigma(context, 284),
-        margin: EdgeInsets.symmetric(
-            horizontal: Responsive.scaleFromFigma(context, 44)),
+        height: 284.h,
+        margin: EdgeInsets.symmetric(horizontal: 44.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: Colors.white,
@@ -740,8 +701,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
           children: [
             Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: Responsive.scaleFromFigma(context, 10)),
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
                 child: Stack(
                   alignment: Alignment.topCenter,
                   children: [
@@ -750,22 +710,22 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                       child: Center(
                         key: UniqueKey(),
                         child: CachedNetworkImage(
-                          width: Responsive.scaleFromFigma(context, 150),
-                          height: Responsive.scaleFromFigma(context, 150),
+                          width: 150.w,
+                          height: 150.h,
                           imageUrl: widget.productImageList.isEmpty
                               ? widget.defaultProductThumbnail
                               : widget.productImageList[selectedImage].image,
                           errorWidget: (context, url, error) => Image.asset(
                             'assets/images/no-image-icon-6.png',
-                            width: Responsive.scaleFromFigma(context, 150),
-                            height: Responsive.scaleFromFigma(context, 150),
+                            width: 150.w,
+                            height: 150.h,
                           ),
                         ),
                       ),
                     ),
                     Positioned(
-                      top: Responsive.scaleFromFigma(context, 10),
-                      left: Responsive.scaleFromFigma(context, 5),
+                      top: 10.h,
+                      left: 5.w,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -773,13 +733,13 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                           Icon(
                             IconsaxBold.star,
                             color: const Color(0xffFFBF00),
-                            size: Responsive.scaleFromFigma(context, 28),
+                            size: 28.w,
                           ),
                           Text(
                             '4.6',
                             style: TextStyle(
                               fontFamily: 'SM',
-                              fontSize: Responsive.scaleFromFigma(context, 12),
+                              fontSize: 12.sp,
                               color: Colors.black,
                             ),
                           ),
@@ -787,8 +747,8 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                       ),
                     ),
                     Positioned(
-                      top: Responsive.scaleFromFigma(context, 10),
-                      right: Responsive.scaleFromFigma(context, 5),
+                      top: 10.h,
+                      right: 5.w,
                       child: const Icon(
                         IconsaxBold.heart_circle,
                         color: MyColors.myGrey,
@@ -799,7 +759,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
               ),
             ),
             SizedBox(
-              height: Responsive.scaleFromFigma(context, 70),
+              height: 70.h,
               child: ListView.builder(
                 itemCount: widget.productImageList.isEmpty
                     ? 1
@@ -816,15 +776,12 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 500),
                       margin: EdgeInsets.only(
-                        left: Responsive.scaleFromFigma(context, 20),
-                        right: index == 0
-                            ? Responsive.scaleFromFigma(context, 35)
-                            : 0,
+                        left: 20.w,
+                        right: index == 0 ? 35.w : 0,
                       ),
-                      padding: EdgeInsets.all(
-                          Responsive.scaleFromFigma(context, 10)),
-                      width: Responsive.scaleFromFigma(context, 70),
-                      height: Responsive.scaleFromFigma(context, 70),
+                      padding: EdgeInsets.all(10.r),
+                      width: 70.w,
+                      height: 70.h,
                       decoration: BoxDecoration(
                         color: Colors.transparent,
                         border: Border.all(
@@ -849,7 +806,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
               ),
             ),
             SizedBox(
-              height: Responsive.scaleFromFigma(context, 30),
+              height: 30.h,
             ),
           ],
         ),
@@ -871,15 +828,15 @@ class AddToBasketButton extends StatelessWidget {
       alignment: AlignmentDirectional.topCenter,
       children: [
         Container(
-          width: Responsive.scaleFromFigma(context, 140),
-          height: Responsive.scaleFromFigma(context, 47),
+          width: 140.w,
+          height: 47.h,
           decoration: BoxDecoration(
             color: MyColors.myBlue,
             borderRadius: BorderRadius.circular(15),
           ),
         ),
         Positioned(
-          top: Responsive.scaleFromFigma(context, 5),
+          top: 5.h,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15),
             child: BackdropFilter(
@@ -891,8 +848,8 @@ class AddToBasketButton extends StatelessWidget {
                       .add(ProductAddToBasket(product: product));
                 },
                 child: Container(
-                  width: Responsive.scaleFromFigma(context, 160),
-                  height: Responsive.scaleFromFigma(context, 53),
+                  width: 160.w,
+                  height: 53.h,
                   decoration: BoxDecoration(
                     backgroundBlendMode: BlendMode.overlay,
                     color: Colors.transparent,
@@ -911,7 +868,7 @@ class AddToBasketButton extends StatelessWidget {
                       'افزودن به سبد خرید',
                       style: TextStyle(
                         fontFamily: 'SB',
-                        fontSize: Responsive.scaleFromFigma(context, 16),
+                        fontSize: 16.sp,
                         color: Colors.white,
                       ),
                     ),
@@ -936,22 +893,22 @@ class PriceTagButton extends StatelessWidget {
       alignment: AlignmentDirectional.topCenter,
       children: [
         Container(
-          width: Responsive.scaleFromFigma(context, 140),
-          height: Responsive.scaleFromFigma(context, 47),
+          width: 140.w,
+          height: 47.h,
           decoration: BoxDecoration(
             color: MyColors.myGreen,
             borderRadius: BorderRadius.circular(15),
           ),
         ),
         Positioned(
-          top: Responsive.scaleFromFigma(context, 5),
+          top: 5.h,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15),
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
               child: Container(
-                width: Responsive.scaleFromFigma(context, 160),
-                height: Responsive.scaleFromFigma(context, 53),
+                width: 160.w,
+                height: 53.h,
                 decoration: BoxDecoration(
                   backgroundBlendMode: BlendMode.overlay,
                   color: Colors.transparent,
@@ -970,18 +927,18 @@ class PriceTagButton extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      width: Responsive.scaleFromFigma(context, 10),
+                      width: 10.w,
                     ),
                     Text(
                       'تومان',
                       style: TextStyle(
                         fontFamily: 'SM',
-                        fontSize: Responsive.scaleFromFigma(context, 12),
+                        fontSize: 12.sp,
                         color: Colors.white,
                       ),
                     ),
                     SizedBox(
-                      width: Responsive.scaleFromFigma(context, 5),
+                      width: 5.w,
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -994,7 +951,7 @@ class PriceTagButton extends StatelessWidget {
                             decorationColor: Colors.white,
                             decorationThickness: 2,
                             fontFamily: 'SM',
-                            fontSize: Responsive.scaleFromFigma(context, 12),
+                            fontSize: 12.sp,
                             color: Colors.white,
                           ),
                         ),
@@ -1002,22 +959,21 @@ class PriceTagButton extends StatelessWidget {
                           '۱۶٬۹۸۹٬۰۰۰',
                           style: TextStyle(
                             fontFamily: 'SM',
-                            fontSize: Responsive.scaleFromFigma(context, 16),
+                            fontSize: 16.sp,
                             color: Colors.white,
                           ),
                         ),
                       ],
                     ),
                     SizedBox(
-                      width: Responsive.scaleFromFigma(context, 5),
+                      width: 5.w,
                     ),
                     Container(
-                      width: Responsive.scaleFromFigma(context, 25),
-                      height: Responsive.scaleFromFigma(context, 15),
+                      width: 25.w,
+                      height: 15.h,
                       decoration: BoxDecoration(
                         color: MyColors.myRed,
-                        borderRadius: BorderRadius.circular(
-                            Responsive.scaleFromFigma(context, 7.5)),
+                        borderRadius: BorderRadius.circular(7.5.r),
                       ),
                       child: Center(
                         child: Text(
@@ -1025,13 +981,13 @@ class PriceTagButton extends StatelessWidget {
                           style: TextStyle(
                             fontFamily: 'SB',
                             color: Colors.white,
-                            fontSize: Responsive.scaleFromFigma(context, 10),
+                            fontSize: 10.sp,
                           ),
                         ),
                       ),
                     ),
                     SizedBox(
-                      width: Responsive.scaleFromFigma(context, 10),
+                      width: 10.w,
                     ),
                   ],
                 ),
@@ -1061,7 +1017,7 @@ class _ColorVariantListState extends State<ColorVariantList> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: Responsive.scaleFromFigma(context, 26),
+      height: 26.h,
       child: ListView.builder(
         itemCount: widget.variantList.length,
         scrollDirection: Axis.horizontal,
@@ -1075,19 +1031,15 @@ class _ColorVariantListState extends State<ColorVariantList> {
             },
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 500),
-              margin:
-                  EdgeInsets.only(left: Responsive.scaleFromFigma(context, 10)),
-              width: index == selectedColor
-                  ? Responsive.scaleFromFigma(context, 77)
-                  : Responsive.scaleFromFigma(context, 26),
-              height: Responsive.scaleFromFigma(context, 26),
+              margin: EdgeInsets.only(left: 10.w),
+              width: index == selectedColor ? 77.w : 26.w,
+              height: 26.h,
               decoration: BoxDecoration(
                 border: Border.all(
                   width: index == selectedColor ? 2 : 0,
                   color: MyColors.myBlue,
                 ),
-                borderRadius: BorderRadius.circular(
-                    Responsive.scaleFromFigma(context, 8)),
+                borderRadius: BorderRadius.circular(8.r),
                 color: widget.variantList[index].value.parseToColor(),
               ),
               child: AnimatedScale(
@@ -1101,7 +1053,7 @@ class _ColorVariantListState extends State<ColorVariantList> {
                     widget.variantList[index].name,
                     style: TextStyle(
                       fontFamily: 'SB',
-                      fontSize: Responsive.scaleFromFigma(context, 12),
+                      fontSize: 12.sp,
                       color: MyColors.myGrey,
                     ),
                   ),
@@ -1131,7 +1083,7 @@ class _StorageVariantListState extends State<StorageVariantList> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: Responsive.scaleFromFigma(context, 26),
+      height: 26.h,
       child: ListView.builder(
         itemCount: widget.variantList.length,
         scrollDirection: Axis.horizontal,
@@ -1145,10 +1097,9 @@ class _StorageVariantListState extends State<StorageVariantList> {
             },
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 500),
-              margin:
-                  EdgeInsets.only(left: Responsive.scaleFromFigma(context, 10)),
-              width: Responsive.scaleFromFigma(context, 74),
-              height: Responsive.scaleFromFigma(context, 26),
+              margin: EdgeInsets.only(left: 10.w),
+              width: 74.w,
+              height: 26.h,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 color: Colors.white,
@@ -1164,7 +1115,7 @@ class _StorageVariantListState extends State<StorageVariantList> {
                   widget.variantList[index].value,
                   style: TextStyle(
                     fontFamily: 'SB',
-                    fontSize: Responsive.scaleFromFigma(context, 12),
+                    fontSize: 12.sp,
                     color: Colors.black,
                   ),
                 ),

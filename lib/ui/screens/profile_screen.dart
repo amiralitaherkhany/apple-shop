@@ -1,6 +1,6 @@
 import 'package:apple_shop/constants/colors.dart';
-import 'package:apple_shop/util/responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -11,16 +11,15 @@ class ProfileScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         SizedBox(
-          height: Responsive.scaleFromFigma(context, 10),
+          height: 10.h,
         ),
         Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: Responsive.scaleFromFigma(context, 44)),
+          padding: EdgeInsets.symmetric(horizontal: 44.w),
           child: Container(
-            width: Responsive.scaleFromFigma(context, 340),
-            height: Responsive.scaleFromFigma(context, 46),
+            width: 340.w,
+            height: 46.h,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(15.r),
               color: Colors.white,
             ),
             child: Stack(
@@ -30,17 +29,17 @@ class ProfileScreen extends StatelessWidget {
                   'حساب کاربری',
                   style: TextStyle(
                     fontFamily: 'SB',
-                    fontSize: Responsive.scaleFromFigma(context, 16),
+                    fontSize: 16.sp,
                     color: MyColors.myBlue,
                   ),
                 ),
                 Positioned(
-                  left: Responsive.scaleFromFigma(context, 15),
-                  top: Responsive.scaleFromFigma(context, 10),
+                  left: 15.w,
+                  top: 10.h,
                   child: Image.asset(
                     'assets/images/icon_apple_blue.png',
-                    width: Responsive.scaleFromFigma(context, 21),
-                    height: Responsive.scaleFromFigma(context, 26),
+                    width: 21.w,
+                    height: 26.h,
                   ),
                 ),
               ],
@@ -48,38 +47,37 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: Responsive.scaleFromFigma(context, 32),
+          height: 32.h,
         ),
         Text(
           textAlign: TextAlign.center,
           'امیرعلی طاهرخانی',
           style: TextStyle(
             fontFamily: 'SB',
-            fontSize: Responsive.scaleFromFigma(context, 16),
+            fontSize: 16.sp,
             color: Colors.black,
           ),
         ),
         SizedBox(
-          height: Responsive.scaleFromFigma(context, 6),
+          height: 6.h,
         ),
         Text(
           textAlign: TextAlign.center,
           '09942024303',
           style: TextStyle(
             fontFamily: 'SM',
-            fontSize: Responsive.scaleFromFigma(context, 10),
+            fontSize: 10.sp,
             color: MyColors.myGrey,
           ),
         ),
         SizedBox(
-          height: Responsive.scaleFromFigma(context, 20),
+          height: 20.h,
         ),
         Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: Responsive.scaleFromFigma(context, 44)),
+          padding: EdgeInsets.symmetric(horizontal: 44.w),
           child: Wrap(
-            spacing: Responsive.scaleFromFigma(context, 38),
-            runSpacing: Responsive.scaleFromFigma(context, 20),
+            spacing: 38.w,
+            runSpacing: 20.h,
             textDirection: TextDirection.rtl,
             children: const [
               SizedBox(
@@ -117,36 +115,36 @@ class ProfileScreen extends StatelessWidget {
           'اپل شاپ',
           style: TextStyle(
             fontFamily: 'SM',
-            fontSize: Responsive.scaleFromFigma(context, 10),
+            fontSize: 10.sp,
             color: MyColors.myGrey,
           ),
         ),
         SizedBox(
-          height: Responsive.scaleFromFigma(context, 5),
+          height: 5.h,
         ),
         Text(
           textAlign: TextAlign.center,
           'V-1.0.00',
           style: TextStyle(
             fontFamily: 'SM',
-            fontSize: Responsive.scaleFromFigma(context, 10),
+            fontSize: 10.sp,
             color: MyColors.myGrey,
           ),
         ),
         SizedBox(
-          height: Responsive.scaleFromFigma(context, 5),
+          height: 5.h,
         ),
         Text(
           textAlign: TextAlign.center,
           'Instagram.com/Mojavad-dev',
           style: TextStyle(
             fontFamily: 'SM',
-            fontSize: Responsive.scaleFromFigma(context, 10),
+            fontSize: 10.sp,
             color: MyColors.myGrey,
           ),
         ),
         SizedBox(
-          height: Responsive.scaleFromFigma(context, 107),
+          height: 107.h,
         ),
       ],
     );

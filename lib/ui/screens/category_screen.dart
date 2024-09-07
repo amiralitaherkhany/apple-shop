@@ -4,11 +4,11 @@ import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/cubit/scroll/cubit/scroll_cubit.dart';
 import 'package:apple_shop/models/category.dart';
 import 'package:apple_shop/ui/screens/product_list_screen.dart';
-import 'package:apple_shop/util/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -53,23 +53,22 @@ class _CategoryScreenState extends State<CategoryScreen> {
       slivers: [
         SliverToBoxAdapter(
           child: SizedBox(
-            height: Responsive.scaleFromFigma(context, 10),
+            height: 10.h,
           ),
         ),
         SliverAppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          expandedHeight: Responsive.scaleFromFigma(context, 46),
+          expandedHeight: 46.h,
           floating: true,
           pinned: false,
           flexibleSpace: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: Responsive.scaleFromFigma(context, 44)),
+            padding: EdgeInsets.symmetric(horizontal: 44.w),
             child: Container(
-              width: Responsive.scaleFromFigma(context, 340),
-              height: Responsive.scaleFromFigma(context, 46),
+              width: 340.w,
+              height: 46.h,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(15.r),
                 color: Colors.white,
               ),
               child: Stack(
@@ -79,17 +78,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     'دسته بندی',
                     style: TextStyle(
                       fontFamily: 'SB',
-                      fontSize: Responsive.scaleFromFigma(context, 16),
+                      fontSize: 16.sp,
                       color: MyColors.myBlue,
                     ),
                   ),
                   Positioned(
-                    left: Responsive.scaleFromFigma(context, 15),
-                    top: Responsive.scaleFromFigma(context, 10),
+                    left: 15.w,
+                    top: 10.h,
                     child: Image.asset(
                       'assets/images/icon_apple_blue.png',
-                      width: Responsive.scaleFromFigma(context, 21),
-                      height: Responsive.scaleFromFigma(context, 26),
+                      width: 21.w,
+                      height: 26.h,
                     ),
                   ),
                 ],
@@ -99,7 +98,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         ),
         SliverToBoxAdapter(
           child: SizedBox(
-            height: Responsive.scaleFromFigma(context, 32),
+            height: 32.h,
           ),
         ),
         BlocBuilder<CategoryBloc, CategoryState>(
@@ -144,8 +143,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           },
         ),
         SliverPadding(
-          padding:
-              EdgeInsets.only(bottom: Responsive.scaleFromFigma(context, 80)),
+          padding: EdgeInsets.only(bottom: 80.h),
         ),
       ],
     );
@@ -160,14 +158,13 @@ class CategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
-      padding: EdgeInsets.symmetric(
-          horizontal: Responsive.scaleFromFigma(context, 44)),
+      padding: EdgeInsets.symmetric(horizontal: 44.w),
       sliver: SliverGrid.builder(
         itemCount: categoryList.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          crossAxisSpacing: Responsive.scaleFromFigma(context, 20),
-          mainAxisSpacing: Responsive.scaleFromFigma(context, 20),
+          crossAxisSpacing: 20.w,
+          mainAxisSpacing: 20.h,
         ),
         itemBuilder: (context, index) {
           return InkWell(
@@ -189,8 +186,8 @@ class CategoryList extends StatelessWidget {
                 color: Colors.red[500],
               ),
               imageUrl: categoryList[index].thumbnail!,
-              width: Responsive.scaleFromFigma(context, 160),
-              height: Responsive.scaleFromFigma(context, 160),
+              width: 160.w,
+              height: 160.h,
               fit: BoxFit.cover,
             ),
           );

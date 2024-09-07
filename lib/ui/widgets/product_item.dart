@@ -2,11 +2,11 @@ import 'package:apple_shop/bloc/product/bloc/product_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/models/product.dart';
 import 'package:apple_shop/ui/screens/product_detail_screen.dart';
-import 'package:apple_shop/util/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({
@@ -30,24 +30,24 @@ class ProductItem extends StatelessWidget {
         ));
       },
       child: Container(
-        width: Responsive.scaleFromFigma(context, 160),
-        height: Responsive.scaleFromFigma(context, 216),
+        width: 160.w,
+        height: 216.h,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(15.r),
         ),
         child: Column(
           children: [
             SizedBox(
-              height: Responsive.scaleFromFigma(context, 10),
+              height: 10.h,
             ),
             Stack(
               alignment: Alignment.center,
               children: [
                 const Center(),
                 CachedNetworkImage(
-                  width: Responsive.scaleFromFigma(context, 100),
-                  height: Responsive.scaleFromFigma(context, 100),
+                  width: 100.w,
+                  height: 100.w,
                   imageUrl: product.thumbnail,
                   errorListener: (value) {},
                   errorWidget: (context, url, error) {
@@ -56,24 +56,23 @@ class ProductItem extends StatelessWidget {
                 ),
                 Positioned(
                   top: 0,
-                  right: Responsive.scaleFromFigma(context, 10),
+                  right: 10.w,
                   child: Icon(
                     IconsaxBold.heart_circle,
                     color: MyColors.myBlue,
-                    size: Responsive.scaleFromFigma(context, 21),
+                    size: 21.w,
                   ),
                 ),
                 Positioned(
                   bottom: 0,
-                  left: Responsive.scaleFromFigma(context, 10),
+                  left: 10.w,
                   child: Container(
                     padding: const EdgeInsets.all(1),
-                    width: Responsive.scaleFromFigma(context, 25),
-                    height: Responsive.scaleFromFigma(context, 15),
+                    width: 25.w,
+                    height: 15.h,
                     decoration: BoxDecoration(
                       color: MyColors.myRed,
-                      borderRadius: BorderRadius.circular(
-                          Responsive.scaleFromFigma(context, 7.5)),
+                      borderRadius: BorderRadius.circular(7.5.r),
                     ),
                     child: Center(
                       child: Text(
@@ -81,7 +80,7 @@ class ProductItem extends StatelessWidget {
                         style: TextStyle(
                           fontFamily: 'SB',
                           color: Colors.white,
-                          fontSize: Responsive.scaleFromFigma(context, 10),
+                          fontSize: 10.sp,
                         ),
                       ),
                     ),
@@ -90,7 +89,7 @@ class ProductItem extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: Responsive.scaleFromFigma(context, 20),
+              height: 20.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -101,23 +100,23 @@ class ProductItem extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: 'SB',
                     color: Colors.black,
-                    fontSize: Responsive.scaleFromFigma(context, 14),
+                    fontSize: 14.sp,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 SizedBox(
-                  width: Responsive.scaleFromFigma(context, 10),
+                  width: 10.w,
                 ),
               ],
             ),
             const Spacer(),
             Container(
-              height: Responsive.scaleFromFigma(context, 53),
+              height: 53.h,
               decoration: BoxDecoration(
                 color: MyColors.myBlue,
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(15),
-                  bottomRight: Radius.circular(15),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(15.r),
+                  bottomRight: Radius.circular(15.r),
                 ),
                 boxShadow: [
                   BoxShadow(
@@ -163,18 +162,18 @@ class ProductItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: Responsive.scaleFromFigma(context, 10),
+                    width: 10.w,
                   ),
                   Text(
                     'تومان',
                     style: TextStyle(
                       fontFamily: 'SM',
-                      fontSize: Responsive.scaleFromFigma(context, 12),
+                      fontSize: 12.sp,
                       color: Colors.white,
                     ),
                   ),
                   SizedBox(
-                    width: Responsive.scaleFromFigma(context, 5),
+                    width: 5.w,
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -187,9 +186,9 @@ class ProductItem extends StatelessWidget {
                           style: TextStyle(
                             decoration: TextDecoration.lineThrough,
                             decorationColor: Colors.white,
-                            decorationThickness: 2,
+                            decorationThickness: 2.h,
                             fontFamily: 'SM',
-                            fontSize: Responsive.scaleFromFigma(context, 12),
+                            fontSize: 12.sp,
                             color: Colors.white,
                           ),
                         ),
@@ -200,7 +199,7 @@ class ProductItem extends StatelessWidget {
                           product.realPrice.toString(),
                           style: TextStyle(
                             fontFamily: 'SM',
-                            fontSize: Responsive.scaleFromFigma(context, 16),
+                            fontSize: 16.sp,
                             color: Colors.white,
                           ),
                         ),
@@ -208,12 +207,13 @@ class ProductItem extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-                  const Icon(
+                  Icon(
                     IconsaxBold.arrow_right,
                     color: MyColors.myWhite,
+                    size: 30.w,
                   ),
                   SizedBox(
-                    width: Responsive.scaleFromFigma(context, 15),
+                    width: 15.w,
                   ),
                 ],
               ),

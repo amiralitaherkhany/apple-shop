@@ -7,11 +7,11 @@ import 'package:apple_shop/models/product.dart';
 import 'package:apple_shop/ui/widgets/banner_slider.dart';
 import 'package:apple_shop/ui/widgets/category_item_chip.dart';
 import 'package:apple_shop/ui/widgets/product_item.dart';
-import 'package:apple_shop/util/responsive.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -65,13 +65,13 @@ class _HomeScreenState extends State<HomeScreen> {
               slivers: [
                 SliverToBoxAdapter(
                   child: SizedBox(
-                    height: Responsive.scaleFromFigma(context, 10),
+                    height: 10.h,
                   ),
                 ),
                 _getAppBar(),
                 SliverToBoxAdapter(
                   child: SizedBox(
-                    height: Responsive.scaleFromFigma(context, 22),
+                    height: 22.h,
                   ),
                 ),
                 state.bannerList.fold(
@@ -91,13 +91,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 SliverToBoxAdapter(
                   child: SizedBox(
-                    height: Responsive.scaleFromFigma(context, 32),
+                    height: 32.h,
                   ),
                 ),
                 _getCategoryListTitle(),
                 SliverToBoxAdapter(
                   child: SizedBox(
-                    height: Responsive.scaleFromFigma(context, 20),
+                    height: 20.h,
                   ),
                 ),
                 state.categoryList.fold(
@@ -117,13 +117,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 SliverToBoxAdapter(
                   child: SizedBox(
-                    height: Responsive.scaleFromFigma(context, 32),
+                    height: 32.h,
                   ),
                 ),
                 _getBestSellTitle(),
                 SliverToBoxAdapter(
                   child: SizedBox(
-                    height: Responsive.scaleFromFigma(context, 20),
+                    height: 20.h,
                   ),
                 ),
                 state.productBestSellerList.fold(
@@ -143,13 +143,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 SliverToBoxAdapter(
                   child: SizedBox(
-                    height: Responsive.scaleFromFigma(context, 32),
+                    height: 32.h,
                   ),
                 ),
                 _getMostPopularTitle(),
                 SliverToBoxAdapter(
                   child: SizedBox(
-                    height: Responsive.scaleFromFigma(context, 20),
+                    height: 20.h,
                   ),
                 ),
                 state.productHottestList.fold(
@@ -168,8 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
                 SliverPadding(
-                  padding: EdgeInsets.only(
-                      bottom: Responsive.scaleFromFigma(context, 100)),
+                  padding: EdgeInsets.only(bottom: 100.h),
                 ),
               ],
             ),
@@ -190,16 +189,14 @@ class _HomeScreenState extends State<HomeScreen> {
   SliverToBoxAdapter _getMostPopularList(List<Product> productHottestList) {
     return SliverToBoxAdapter(
       child: SizedBox(
-        height: Responsive.scaleFromFigma(context, 217),
+        height: 217.h,
         child: ListView.builder(
           clipBehavior: Clip.none,
           reverse: true,
           itemBuilder: (context, index) {
             return Padding(
-              padding: EdgeInsets.only(
-                  left: Responsive.scaleFromFigma(context, 20),
-                  right:
-                      index == 0 ? Responsive.scaleFromFigma(context, 44) : 0),
+              padding:
+                  EdgeInsets.only(left: 20.w, right: index == 0 ? 44.w : 0),
               child: ProductItem(
                 product: productHottestList[index],
               ),
@@ -215,8 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
   SliverToBoxAdapter _getMostPopularTitle() {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: Responsive.scaleFromFigma(context, 44)),
+        padding: EdgeInsets.symmetric(horizontal: 44.w),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -226,13 +222,13 @@ class _HomeScreenState extends State<HomeScreen> {
               color: MyColors.myBlue,
             ),
             SizedBox(
-              width: Responsive.scaleFromFigma(context, 10),
+              width: 10.w,
             ),
             Text(
               'مشاهده همه',
               style: TextStyle(
                 fontFamily: 'SB',
-                fontSize: Responsive.scaleFromFigma(context, 12),
+                fontSize: 12.sp,
                 color: MyColors.myBlue,
               ),
             ),
@@ -241,7 +237,7 @@ class _HomeScreenState extends State<HomeScreen> {
               'پر بازدید ترین ها',
               style: TextStyle(
                 fontFamily: 'SB',
-                fontSize: Responsive.scaleFromFigma(context, 12),
+                fontSize: 12.sp,
                 color: MyColors.myGrey,
               ),
             )
@@ -254,16 +250,14 @@ class _HomeScreenState extends State<HomeScreen> {
   SliverToBoxAdapter _getBestSellList(List<Product> productBestSellerList) {
     return SliverToBoxAdapter(
       child: SizedBox(
-        height: Responsive.scaleFromFigma(context, 217),
+        height: 217.h,
         child: ListView.builder(
           clipBehavior: Clip.none,
           reverse: true,
           itemBuilder: (context, index) {
             return Padding(
-              padding: EdgeInsets.only(
-                  left: Responsive.scaleFromFigma(context, 20),
-                  right:
-                      index == 0 ? Responsive.scaleFromFigma(context, 44) : 0),
+              padding:
+                  EdgeInsets.only(left: 20.w, right: index == 0 ? 44.w : 0),
               child: ProductItem(
                 product: productBestSellerList[index],
               ),
@@ -279,8 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
   SliverToBoxAdapter _getBestSellTitle() {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: Responsive.scaleFromFigma(context, 44)),
+        padding: EdgeInsets.symmetric(horizontal: 44.w),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -290,13 +283,13 @@ class _HomeScreenState extends State<HomeScreen> {
               color: MyColors.myBlue,
             ),
             SizedBox(
-              width: Responsive.scaleFromFigma(context, 10),
+              width: 10.w,
             ),
             Text(
               'مشاهده همه',
               style: TextStyle(
                 fontFamily: 'SB',
-                fontSize: Responsive.scaleFromFigma(context, 12),
+                fontSize: 12.sp,
                 color: MyColors.myBlue,
               ),
             ),
@@ -305,7 +298,7 @@ class _HomeScreenState extends State<HomeScreen> {
               'پر فروش ترین ها',
               style: TextStyle(
                 fontFamily: 'SB',
-                fontSize: Responsive.scaleFromFigma(context, 12),
+                fontSize: 12.sp,
                 color: MyColors.myGrey,
               ),
             )
@@ -318,7 +311,7 @@ class _HomeScreenState extends State<HomeScreen> {
   SliverToBoxAdapter _getCategoryList(List<Category> categoryList) {
     return SliverToBoxAdapter(
       child: SizedBox(
-        height: Responsive.scaleFromFigma(context, 90),
+        height: 90.h,
         child: ListView.builder(
           clipBehavior: Clip.none,
           reverse: true,
@@ -326,10 +319,8 @@ class _HomeScreenState extends State<HomeScreen> {
           itemCount: categoryList.length,
           itemBuilder: (context, index) {
             return Padding(
-              padding: EdgeInsets.only(
-                  left: Responsive.scaleFromFigma(context, 20),
-                  right:
-                      index == 0 ? Responsive.scaleFromFigma(context, 44) : 0),
+              padding:
+                  EdgeInsets.only(left: 20.w, right: index == 0 ? 44.w : 0),
               child: CategoryItemChip(
                 category: categoryList[index],
               ),
@@ -351,12 +342,12 @@ class _HomeScreenState extends State<HomeScreen> {
             'دسته بندی',
             style: TextStyle(
               fontFamily: 'SB',
-              fontSize: Responsive.scaleFromFigma(context, 12),
+              fontSize: 12.sp,
               color: MyColors.myGrey,
             ),
           ),
           SizedBox(
-            width: Responsive.scaleFromFigma(context, 44),
+            width: 44.w,
           )
         ],
       ),
@@ -375,15 +366,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return SliverAppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
-      expandedHeight: Responsive.scaleFromFigma(context, 46),
+      expandedHeight: 46.h,
       floating: true,
       pinned: false,
       flexibleSpace: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: Responsive.scaleFromFigma(context, 44)),
+        padding: EdgeInsets.symmetric(horizontal: 44.w),
         child: Container(
-          width: Responsive.scaleFromFigma(context, 340),
-          height: Responsive.scaleFromFigma(context, 46),
+          width: 340.w,
+          height: 46.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Colors.white,
@@ -392,12 +382,12 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                width: Responsive.scaleFromFigma(context, 15),
+                width: 15.w,
               ),
               Image.asset(
                 'assets/images/icon_apple_blue.png',
-                width: Responsive.scaleFromFigma(context, 21),
-                height: Responsive.scaleFromFigma(context, 26),
+                width: 21.w,
+                height: 26.h,
               ),
               Expanded(
                 child: Stack(
@@ -408,18 +398,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: TextField(
                         style: TextStyle(
                           fontFamily: 'SB',
-                          fontSize: Responsive.scaleFromFigma(context, 16),
+                          fontSize: 16.sp,
                           color: MyColors.myGrey,
                         ),
                         textDirection: TextDirection.rtl,
                         decoration: InputDecoration(
                           isDense: true,
-                          contentPadding: EdgeInsets.all(
-                              Responsive.scaleFromFigma(context, 8)),
+                          contentPadding: EdgeInsets.all(8.r),
                           hintText: 'جستجوی محصولات',
                           hintStyle: TextStyle(
                             fontFamily: 'SB',
-                            fontSize: Responsive.scaleFromFigma(context, 16),
+                            fontSize: 16.sp,
                             color: MyColors.myGrey,
                           ),
                           border: InputBorder.none,
@@ -431,11 +420,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Icon(
                 IconsaxOutline.search_normal_1,
-                size: Responsive.scaleFromFigma(context, 30),
+                size: 30.w,
                 color: Colors.black,
               ),
               SizedBox(
-                width: Responsive.scaleFromFigma(context, 15),
+                width: 15.w,
               ),
             ],
           ),

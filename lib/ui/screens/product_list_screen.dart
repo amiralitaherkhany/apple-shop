@@ -3,11 +3,11 @@ import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/models/category.dart';
 import 'package:apple_shop/models/product.dart';
 import 'package:apple_shop/ui/widgets/product_item.dart';
-import 'package:apple_shop/util/responsive.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../cubit/scroll/cubit/scroll_cubit.dart';
 
@@ -81,24 +81,23 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 if (state is CategoryProductResponse) ...[
                   SliverToBoxAdapter(
                     child: SizedBox(
-                      height: Responsive.scaleFromFigma(context, 10),
+                      height: 10.h,
                     ),
                   ),
                   SliverAppBar(
                     automaticallyImplyLeading: false,
                     backgroundColor: Colors.transparent,
                     elevation: 0,
-                    expandedHeight: Responsive.scaleFromFigma(context, 46),
+                    expandedHeight: 46.h,
                     floating: true,
                     pinned: false,
                     flexibleSpace: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: Responsive.scaleFromFigma(context, 44)),
+                      padding: EdgeInsets.symmetric(horizontal: 44.w),
                       child: Container(
-                        width: Responsive.scaleFromFigma(context, 340),
-                        height: Responsive.scaleFromFigma(context, 46),
+                        width: 340.w,
+                        height: 46.h,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(15.r),
                           color: Colors.white,
                         ),
                         child: Stack(
@@ -108,28 +107,26 @@ class _ProductListScreenState extends State<ProductListScreen> {
                               widget.category.title!,
                               style: TextStyle(
                                 fontFamily: 'SB',
-                                fontSize:
-                                    Responsive.scaleFromFigma(context, 16),
+                                fontSize: 16.sp,
                                 color: MyColors.myBlue,
                               ),
                             ),
                             Positioned(
-                              left: Responsive.scaleFromFigma(context, 15),
+                              left: 15.w,
                               child: Icon(
                                 IconsaxOutline.filter,
-                                size: Responsive.scaleFromFigma(context, 30),
+                                size: 30.w,
                               ),
                             ),
                             Positioned(
-                              right: Responsive.scaleFromFigma(context, 5),
+                              right: 5.w,
                               child: IconButton(
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
                                 icon: const Icon(
                                     IconsaxOutline.arrow_circle_right),
-                                iconSize:
-                                    Responsive.scaleFromFigma(context, 30),
+                                iconSize: 30.w,
                               ),
                             ),
                           ],
@@ -139,7 +136,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                   ),
                   SliverToBoxAdapter(
                     child: SizedBox(
-                      height: Responsive.scaleFromFigma(context, 32),
+                      height: 32.h,
                     ),
                   ),
                   state.productList.fold(
@@ -150,7 +147,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                           exception,
                           style: TextStyle(
                             fontFamily: 'SB',
-                            fontSize: Responsive.scaleFromFigma(context, 16),
+                            fontSize: 16.sp,
                             color: MyColors.myBlue,
                           ),
                         ),
@@ -166,7 +163,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                             'محصولی دراین دسته بندی وجود ندارد',
                             style: TextStyle(
                               fontFamily: 'SB',
-                              fontSize: Responsive.scaleFromFigma(context, 16),
+                              fontSize: 16.sp,
                               color: MyColors.myBlue,
                             ),
                           ),
@@ -193,15 +190,14 @@ class ProductGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
-      padding: EdgeInsets.symmetric(
-          horizontal: Responsive.scaleFromFigma(context, 38)),
+      padding: EdgeInsets.symmetric(horizontal: 44.w),
       sliver: SliverGrid.builder(
         itemCount: productlist.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          crossAxisSpacing: Responsive.scaleFromFigma(context, 20),
-          mainAxisSpacing: Responsive.scaleFromFigma(context, 20),
-          mainAxisExtent: Responsive.scaleFromFigma(context, 216),
+          crossAxisSpacing: 20.w,
+          mainAxisSpacing: 20.h,
+          mainAxisExtent: 216.h,
         ),
         itemBuilder: (context, index) {
           return ProductItem(product: productlist[index]);

@@ -2,6 +2,7 @@ import 'package:apple_shop/bloc/authentication/bloc/auth_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -26,17 +27,17 @@ class LoginScreen extends StatelessWidget {
                   children: [
                     Image.asset(
                       'assets/images/icon_application.png',
-                      width: 100,
-                      height: 100,
+                      width: 100.w,
+                      height: 100.h,
                     ),
-                    const SizedBox(
-                      height: 30,
+                    SizedBox(
+                      height: 30.h,
                     ),
-                    const Text(
+                    Text(
                       'اپل شاپ',
                       style: TextStyle(
                         fontFamily: 'SB',
-                        fontSize: 24,
+                        fontSize: 24.sp,
                         color: Colors.white,
                       ),
                     )
@@ -46,79 +47,79 @@ class LoginScreen extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height / 2,
                 child: Container(
-                  padding: const EdgeInsets.all(20),
-                  margin: const EdgeInsets.all(20),
-                  decoration: const BoxDecoration(
+                  padding: EdgeInsets.all(20.r),
+                  margin: EdgeInsets.all(20.r),
+                  decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(
-                      Radius.circular(20),
+                      Radius.circular(20.r),
                     ),
                   ),
                   child: Column(
                     children: [
                       TextField(
                         controller: _usernameTextController,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           labelText: 'نام کاربری',
                           labelStyle: TextStyle(
                             fontFamily: 'SM',
-                            fontSize: 18,
+                            fontSize: 18.sp,
                             color: Colors.black,
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(
-                              Radius.circular(20),
+                              Radius.circular(20.r),
                             ),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Colors.black,
                               width: 2,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(
-                              Radius.circular(20),
+                              Radius.circular(20.r),
                             ),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: MyColors.myBlue,
                               width: 3,
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
+                      SizedBox(
+                        height: 20.h,
                       ),
                       TextField(
                         controller: _passwordTextController,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           labelText: 'رمز عبور',
                           labelStyle: TextStyle(
                             fontFamily: 'SM',
-                            fontSize: 18,
+                            fontSize: 18.sp,
                             color: Colors.black,
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(
-                              Radius.circular(20),
+                              Radius.circular(20.r),
                             ),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Colors.black,
                               width: 2,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(
-                              Radius.circular(20),
+                              Radius.circular(20.r),
                             ),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: MyColors.myBlue,
                               width: 3,
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
+                      SizedBox(
+                        height: 20.h,
                       ),
                       BlocBuilder<AuthBloc, AuthState>(
                         builder: (context, state) {
@@ -133,15 +134,15 @@ class LoginScreen extends StatelessWidget {
                                 backgroundColor: MyColors.myBlue,
                                 foregroundColor: Colors.white,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(15.r),
                                 ),
-                                maximumSize: const Size(200, 48),
+                                maximumSize: Size(200.w, 48.h),
                               ),
-                              child: const Text(
+                              child: Text(
                                 'ورود به حساب کاربری',
                                 style: TextStyle(
                                   fontFamily: 'SB',
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                 ),
                               ),
                             );

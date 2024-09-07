@@ -2,10 +2,10 @@ import 'package:apple_shop/bloc/categoryProduct/bloc/category_product_bloc.dart'
 import 'package:apple_shop/models/category.dart';
 import 'package:apple_shop/ui/screens/product_list_screen.dart';
 import 'package:apple_shop/util/extensions/string_extensions.dart';
-import 'package:apple_shop/util/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoryItemChip extends StatelessWidget {
   const CategoryItemChip({
@@ -28,9 +28,9 @@ class CategoryItemChip extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.all(Responsive.scaleFromFigma(context, 15)),
-            width: Responsive.scaleFromFigma(context, 56),
-            height: Responsive.scaleFromFigma(context, 56),
+            padding: EdgeInsets.all(15.r),
+            width: 56.w,
+            height: 56.h,
             decoration: ShapeDecoration(
               shadows: [
                 BoxShadow(
@@ -71,8 +71,7 @@ class CategoryItemChip extends StatelessWidget {
                 ),
               ],
               shape: ContinuousRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                    Responsive.scaleFromFigma(context, 45)),
+                borderRadius: BorderRadius.circular(45.r),
               ),
               color: category.color.parseToColor(),
             ),
@@ -83,7 +82,7 @@ class CategoryItemChip extends StatelessWidget {
                 decoration: ShapeDecoration(
                   color: Colors.grey,
                   shape: ContinuousRectangleBorder(
-                    borderRadius: BorderRadius.circular(45),
+                    borderRadius: BorderRadius.circular(45.r),
                   ),
                 ),
               ),
@@ -91,21 +90,21 @@ class CategoryItemChip extends StatelessWidget {
                 decoration: ShapeDecoration(
                   color: Colors.red,
                   shape: ContinuousRectangleBorder(
-                    borderRadius: BorderRadius.circular(45),
+                    borderRadius: BorderRadius.circular(45.r),
                   ),
                 ),
               ),
             ),
           ),
           SizedBox(
-            height: Responsive.scaleFromFigma(context, 10),
+            height: 10.h,
           ),
           Text(
             category.title!,
             style: TextStyle(
               fontFamily: 'SB',
               color: Colors.black,
-              fontSize: Responsive.scaleFromFigma(context, 12),
+              fontSize: 12.sp,
             ),
           )
         ],
