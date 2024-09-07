@@ -5,8 +5,8 @@ import 'package:apple_shop/models/banner.dart';
 import 'package:apple_shop/models/category.dart';
 import 'package:apple_shop/models/product.dart';
 import 'package:apple_shop/ui/widgets/banner_slider.dart';
-import 'package:apple_shop/ui/widgets/card_item.dart';
 import 'package:apple_shop/ui/widgets/category_item_chip.dart';
+import 'package:apple_shop/ui/widgets/product_item.dart';
 import 'package:apple_shop/util/responsive.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
@@ -52,48 +52,28 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        return RefreshIndicator(
-          color: MyColors.myBlue,
-          backgroundColor: MyColors.myWhite,
-          onRefresh: () async {
-            context.read<HomeBloc>().add(HomeRequestData());
-            await Future.delayed(Durations.short1);
-          },
-          child: CustomScrollView(
-            controller: scrollController,
-            slivers: [
-              SliverToBoxAdapter(
-                child: SizedBox(
-                  height: Responsive.scaleFromFigma(context, 10),
-                ),
-              ),
-              _getAppBar(),
-              SliverToBoxAdapter(
-                child: SizedBox(
-                  height: Responsive.scaleFromFigma(context, 22),
-                ),
-              ),
-              if (state is HomeInitial || state is HomeLoading) ...[
+        if (state is HomeResponseSuccess) {
+          return RefreshIndicator(
+            color: MyColors.myBlue,
+            backgroundColor: MyColors.myWhite,
+            onRefresh: () async {
+              context.read<HomeBloc>().add(HomeRequestData());
+              await Future.delayed(Durations.short1);
+            },
+            child: CustomScrollView(
+              controller: scrollController,
+              slivers: [
                 SliverToBoxAdapter(
                   child: SizedBox(
-                    height: MediaQuery.of(context).size.height - 250,
-                    child: const Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CircularProgressIndicator(
-                              color: MyColors.myBlue,
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
+                    height: Responsive.scaleFromFigma(context, 10),
                   ),
                 ),
-              ],
-              if (state is HomeResponseSuccess) ...[
+                _getAppBar(),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: Responsive.scaleFromFigma(context, 22),
+                  ),
+                ),
                 state.bannerList.fold(
                   (exception) {
                     return SliverToBoxAdapter(
@@ -192,9 +172,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       bottom: Responsive.scaleFromFigma(context, 100)),
                 ),
               ],
-            ],
-          ),
-        );
+            ),
+          );
+        } else if (state is HomeInitial || state is HomeLoading) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: MyColors.myBlue,
+            ),
+          );
+        } else {
+          return Container();
+        }
       },
     );
   }
@@ -212,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   left: Responsive.scaleFromFigma(context, 20),
                   right:
                       index == 0 ? Responsive.scaleFromFigma(context, 44) : 0),
-              child: CardItem(
+              child: ProductItem(
                 product: productHottestList[index],
               ),
             );
@@ -276,7 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   left: Responsive.scaleFromFigma(context, 20),
                   right:
                       index == 0 ? Responsive.scaleFromFigma(context, 44) : 0),
-              child: CardItem(
+              child: ProductItem(
                 product: productBestSellerList[index],
               ),
             );

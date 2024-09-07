@@ -1,14 +1,18 @@
 import 'package:apple_shop/constants/colors.dart';
+import 'package:apple_shop/models/card_item.dart';
 import 'package:apple_shop/util/responsive.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class CardScreen extends StatelessWidget {
   const CardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var box = Hive.box<BasketItem>('BasketBox');
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -67,12 +71,14 @@ class CardScreen extends StatelessWidget {
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
-                childCount: 3,
+                childCount: box.values.length,
                 (context, index) {
                   return Padding(
                     padding: EdgeInsets.only(
                         bottom: Responsive.scaleFromFigma(context, 20)),
-                    child: const CardBasketitem(),
+                    child: CardBasketitem(
+                      basketItem: box.values.toList()[index],
+                    ),
                   );
                 },
               ),
@@ -116,8 +122,9 @@ class CardScreen extends StatelessWidget {
 class CardBasketitem extends StatelessWidget {
   const CardBasketitem({
     super.key,
+    required this.basketItem,
   });
-
+  final BasketItem basketItem;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -185,7 +192,7 @@ class CardBasketitem extends StatelessWidget {
                         children: [
                           Text(
                             textDirection: TextDirection.rtl,
-                            'آیفون ۱۳ پرومکس دوسیم کارت',
+                            basketItem.name,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             style: TextStyle(
@@ -223,7 +230,7 @@ class CardBasketitem extends StatelessWidget {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    '%۳',
+                                    '%${basketItem.persent.round()}',
                                     style: TextStyle(
                                       fontFamily: 'SB',
                                       color: Colors.white,
@@ -253,7 +260,7 @@ class CardBasketitem extends StatelessWidget {
                               ),
                               Text(
                                 textDirection: TextDirection.rtl,
-                                '۴۶٬۰۰۰٬۰۰۰',
+                                basketItem.price.toString(),
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 style: TextStyle(
@@ -289,8 +296,9 @@ class CardBasketitem extends StatelessWidget {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset(
-                          'assets/images/iphone.png',
+                        CachedNetworkImage(
+                          fit: BoxFit.contain,
+                          imageUrl: basketItem.thumbnail,
                           width: Responsive.scaleFromFigma(context, 79),
                           height: Responsive.scaleFromFigma(context, 104),
                         ),
@@ -335,7 +343,7 @@ class CardBasketitem extends StatelessWidget {
                   ),
                   Text(
                     textDirection: TextDirection.rtl,
-                    '۴۵٬۳۵۰٬۰۰۰',
+                    basketItem.realPrice.toString(),
                     style: TextStyle(
                       fontFamily: 'SB',
                       fontSize: Responsive.scaleFromFigma(context, 16),

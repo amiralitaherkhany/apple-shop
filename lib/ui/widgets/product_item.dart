@@ -8,24 +8,21 @@ import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CardItem extends StatelessWidget {
-  const CardItem({
+class ProductItem extends StatelessWidget {
+  const ProductItem({
     super.key,
     required this.product,
   });
   final Product product;
   @override
   Widget build(BuildContext context) {
-    int realPrice = product.price - product.discountPrice;
-    String percent =
-        '%${(((product.price - realPrice) * 100) / product.price).round()}';
     return InkWell(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => ProductBloc()
               ..add(ProductInitialize(
-                  productId: product.id, categoryId: product.category)),
+                  productId: product.id, categoryId: product.categoryId)),
             child: ProductDetailScreen(
               product: product,
             ),
@@ -80,7 +77,7 @@ class CardItem extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        percent,
+                        '%${product.persent.round()}',
                         style: TextStyle(
                           fontFamily: 'SB',
                           color: Colors.white,
@@ -200,7 +197,7 @@ class CardItem extends StatelessWidget {
                       FittedBox(
                         fit: BoxFit.scaleDown,
                         child: Text(
-                          realPrice.toString(),
+                          product.realPrice.toString(),
                           style: TextStyle(
                             fontFamily: 'SM',
                             fontSize: Responsive.scaleFromFigma(context, 16),

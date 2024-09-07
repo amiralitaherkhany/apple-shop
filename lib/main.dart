@@ -6,6 +6,7 @@ import 'package:apple_shop/bloc/home/bloc/home_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/cubit/scroll/cubit/scroll_cubit.dart';
 import 'package:apple_shop/di/di.dart';
+import 'package:apple_shop/models/card_item.dart';
 import 'package:apple_shop/ui/screens/card_screen.dart';
 import 'package:apple_shop/ui/screens/category_screen.dart';
 import 'package:apple_shop/ui/screens/home_screen.dart';
@@ -14,10 +15,14 @@ import 'package:apple_shop/util/responsive.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await getItInit();
+  await Hive.initFlutter();
+  Hive.registerAdapter(BasketItemAdapter());
+  await Hive.openBox<BasketItem>('BasketBox');
   runApp(
     MultiBlocProvider(
       providers: [

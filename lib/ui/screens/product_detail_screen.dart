@@ -173,7 +173,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                   SliverToBoxAdapter(
                     child: SizedBox(
-                      height: Responsive.scaleFromFigma(context, 20),
+                      height: Responsive.scaleFromFigma(context, 10),
                     ),
                   ),
                   state.productProperties.fold(
@@ -392,7 +392,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           SizedBox(
                             width: Responsive.scaleFromFigma(context, 44),
                           ),
-                          const AddToBasketButton(),
+                          AddToBasketButton(
+                            product: widget.product,
+                          ),
                         ],
                       ),
                     ),
@@ -659,7 +661,8 @@ class VariantGeneratorChild extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: Responsive.scaleFromFigma(context, 44)),
+          horizontal: Responsive.scaleFromFigma(context, 44),
+          vertical: Responsive.scaleFromFigma(context, 5)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -856,8 +859,11 @@ class _GalleryWidgetState extends State<GalleryWidget> {
 }
 
 class AddToBasketButton extends StatelessWidget {
-  const AddToBasketButton({super.key});
-
+  const AddToBasketButton({
+    super.key,
+    required this.product,
+  });
+  final Product product;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -878,29 +884,36 @@ class AddToBasketButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-              child: Container(
-                width: Responsive.scaleFromFigma(context, 160),
-                height: Responsive.scaleFromFigma(context, 53),
-                decoration: BoxDecoration(
-                  backgroundBlendMode: BlendMode.overlay,
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(color: Colors.white, width: 1),
-                  image: const DecorationImage(
-                    image: AssetImage(
-                      'assets/images/background_button.png',
+              child: InkWell(
+                onTap: () {
+                  context
+                      .read<ProductBloc>()
+                      .add(ProductAddToBasket(product: product));
+                },
+                child: Container(
+                  width: Responsive.scaleFromFigma(context, 160),
+                  height: Responsive.scaleFromFigma(context, 53),
+                  decoration: BoxDecoration(
+                    backgroundBlendMode: BlendMode.overlay,
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: Colors.white, width: 1),
+                    image: const DecorationImage(
+                      image: AssetImage(
+                        'assets/images/background_button.png',
+                      ),
+                      fit: BoxFit.cover,
+                      opacity: 0.1,
                     ),
-                    fit: BoxFit.cover,
-                    opacity: 0.1,
                   ),
-                ),
-                child: Center(
-                  child: Text(
-                    'افزودن به سبد خرید',
-                    style: TextStyle(
-                      fontFamily: 'SB',
-                      fontSize: Responsive.scaleFromFigma(context, 16),
-                      color: Colors.white,
+                  child: Center(
+                    child: Text(
+                      'افزودن به سبد خرید',
+                      style: TextStyle(
+                        fontFamily: 'SB',
+                        fontSize: Responsive.scaleFromFigma(context, 16),
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -1130,7 +1143,8 @@ class _StorageVariantListState extends State<StorageVariantList> {
                 selectedStorage = index;
               });
             },
-            child: Container(
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 500),
               margin:
                   EdgeInsets.only(left: Responsive.scaleFromFigma(context, 10)),
               width: Responsive.scaleFromFigma(context, 74),

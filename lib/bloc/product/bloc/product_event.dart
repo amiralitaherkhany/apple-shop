@@ -11,3 +11,9 @@ class ProductInitialize extends ProductEvent {
     required this.categoryId,
   });
 }
+
+class ProductAddToBasket extends ProductEvent {
+  final Product product;
+
+  ProductAddToBasket({required this.product});
+}

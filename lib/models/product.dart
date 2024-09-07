@@ -8,33 +8,35 @@ class Product {
   String popularity;
   String name;
   int quantity;
-  String category;
-  Product({
-    required this.id,
-    required this.collectionId,
-    required this.thumbnail,
-    required this.description,
-    required this.discountPrice,
-    required this.price,
-    required this.popularity,
-    required this.name,
-    required this.quantity,
-    required this.category,
-  });
+  String categoryId;
+  late int realPrice;
+  late num persent;
+  Product(
+      this.id,
+      this.collectionId,
+      this.thumbnail,
+      this.description,
+      this.discountPrice,
+      this.price,
+      this.popularity,
+      this.name,
+      this.quantity,
+      this.categoryId) {
+    realPrice = price - discountPrice;
+    persent = ((price - realPrice) / price) * 100;
+  }
 
-  factory Product.fromMapJson(Map<String, dynamic> map) {
+  factory Product.fromMapJson(Map<String, dynamic> jsonObject) {
     return Product(
-      id: map['id'] ?? '',
-      collectionId: map['collectionId'] ?? '',
-      thumbnail:
-          'https://startflutter.ir/api/files/${map['collectionId']}/${map['id']}/${map['thumbnail']}',
-      description: map['description'] ?? '',
-      discountPrice: map['discount_price']?.toInt() ?? 0,
-      price: map['price']?.toInt() ?? 0,
-      popularity: map['popularity'] ?? '',
-      name: map['name'] ?? '',
-      quantity: map['quantity']?.toInt() ?? 0,
-      category: map['category'] ?? '',
-    );
+        jsonObject['id'],
+        jsonObject['collectionId'],
+        'https://startflutter.ir/api/files/${jsonObject['collectionId']}/${jsonObject['id']}/${jsonObject['thumbnail']}',
+        jsonObject['description'],
+        jsonObject['discount_price'],
+        jsonObject['price'],
+        jsonObject['popularity'],
+        jsonObject['name'],
+        jsonObject['quantity'],
+        jsonObject['category']);
   }
 }
