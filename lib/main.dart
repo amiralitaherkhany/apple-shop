@@ -1,13 +1,14 @@
 import 'dart:ui';
 
 import 'package:apple_shop/bloc/authentication/bloc/auth_bloc.dart';
+import 'package:apple_shop/bloc/basket/bloc/basket_bloc.dart';
 import 'package:apple_shop/bloc/category/bloc/category_bloc.dart';
 import 'package:apple_shop/bloc/home/bloc/home_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/cubit/scroll/cubit/scroll_cubit.dart';
 import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/models/card_item.dart';
-import 'package:apple_shop/ui/screens/card_screen.dart';
+import 'package:apple_shop/ui/screens/basket_screen.dart';
 import 'package:apple_shop/ui/screens/category_screen.dart';
 import 'package:apple_shop/ui/screens/home_screen.dart';
 import 'package:apple_shop/ui/screens/profile_screen.dart';
@@ -19,10 +20,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await getItInit();
   await Hive.initFlutter();
   Hive.registerAdapter(BasketItemAdapter());
   await Hive.openBox<BasketItem>('BasketBox');
+  await getItInit();
   runApp(
     MultiBlocProvider(
       providers: [
@@ -33,10 +34,14 @@ void main() async {
           create: (context) => AuthBloc(),
         ),
         BlocProvider(
-          create: (context) => CategoryBloc(),
+          create: (context) => CategoryBloc()..add(CategoryRequestList()),
         ),
         BlocProvider(
-          create: (context) => HomeBloc(),
+          create: (context) => HomeBloc()..add(HomeRequestData()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              locator.get<BasketBloc>()..add(BasketFetchFromHive()),
         ),
       ],
       child: const MyApp(),
@@ -173,7 +178,7 @@ class _MyAppState extends State<MyApp> {
   List<Widget> getScreens() {
     return <Widget>[
       const ProfileScreen(),
-      const CardScreen(),
+      const BasketScreen(),
       const CategoryScreen(),
       const HomeScreen(),
     ];

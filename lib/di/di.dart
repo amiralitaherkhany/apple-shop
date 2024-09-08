@@ -1,3 +1,4 @@
+import 'package:apple_shop/bloc/basket/bloc/basket_bloc.dart';
 import 'package:apple_shop/data/dataSource/authentication_data_source.dart';
 import 'package:apple_shop/data/dataSource/banner_data_source.dart';
 import 'package:apple_shop/data/dataSource/basket_data_source.dart';
@@ -48,4 +49,7 @@ Future<void> getItInit() async {
   locator.registerFactory<ICategoryProductRepository>(
       () => CategoryProductRepository());
   locator.registerFactory<IBasketRepository>(() => BasketRepository());
+
+  //bloc
+  locator.registerSingleton<BasketBloc>(BasketBloc());
 }

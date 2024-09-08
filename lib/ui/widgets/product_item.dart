@@ -1,5 +1,7 @@
+import 'package:apple_shop/bloc/basket/bloc/basket_bloc.dart';
 import 'package:apple_shop/bloc/product/bloc/product_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
+import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/models/product.dart';
 import 'package:apple_shop/ui/screens/product_detail_screen.dart';
 import 'package:apple_shop/util/responsive.dart';
@@ -18,16 +20,29 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => BlocProvider(
-            create: (context) => ProductBloc()
-              ..add(ProductInitialize(
-                  productId: product.id, categoryId: product.categoryId)),
-            child: ProductDetailScreen(
-              product: product,
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => MultiBlocProvider(
+              providers: [
+                BlocProvider<ProductBloc>(
+                  create: (context) => ProductBloc()
+                    ..add(
+                      ProductInitialize(
+                        productId: product.id,
+                        categoryId: product.categoryId,
+                      ),
+                    ),
+                ),
+                BlocProvider<BasketBloc>.value(
+                  value: locator.get<BasketBloc>(),
+                ),
+              ],
+              child: ProductDetailScreen(
+                product: product,
+              ),
             ),
           ),
-        ));
+        );
       },
       child: Container(
         width: Responsive.scaleFromFigma(context, 160),
@@ -208,9 +223,10 @@ class ProductItem extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-                  const Icon(
+                  Icon(
                     IconsaxBold.arrow_right,
                     color: MyColors.myWhite,
+                    size: Responsive.scaleFromFigma(context, 30),
                   ),
                   SizedBox(
                     width: Responsive.scaleFromFigma(context, 15),

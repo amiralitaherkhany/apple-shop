@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 
 abstract class IBasketRepository {
   Future<Either<String, String>> addProductToBasket(BasketItem basketItem);
+  Future<Either<String, List<BasketItem>>> getAllBasketItems();
 }
 
 class BasketRepository implements IBasketRepository {
@@ -18,6 +19,16 @@ class BasketRepository implements IBasketRepository {
       return right('محصول به سبد خرید اضافه شد');
     } catch (e) {
       return left('خطا در افزودن محصول به سبد خرید');
+    }
+  }
+
+  @override
+  Future<Either<String, List<BasketItem>>> getAllBasketItems() async {
+    try {
+      var basketItems = await _dataSource.getAllBasketItems();
+      return right(basketItems);
+    } catch (e) {
+      return left('خطا در نمایش محصولات');
     }
   }
 }

@@ -26,7 +26,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
       _scrollListener,
     );
 
-    context.read<CategoryBloc>().add(CategoryRequestList());
     super.initState();
   }
 

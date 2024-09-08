@@ -28,7 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
     scrollController.addListener(
       _scrollListener,
     );
-    context.read<HomeBloc>().add(HomeRequestData());
     super.initState();
   }
 

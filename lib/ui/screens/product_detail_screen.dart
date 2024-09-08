@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:apple_shop/bloc/basket/bloc/basket_bloc.dart';
 import 'package:apple_shop/bloc/product/bloc/product_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/models/product.dart';
@@ -889,6 +890,7 @@ class AddToBasketButton extends StatelessWidget {
                   context
                       .read<ProductBloc>()
                       .add(ProductAddToBasket(product: product));
+                  context.read<BasketBloc>().add(BasketFetchFromHive());
                 },
                 child: Container(
                   width: Responsive.scaleFromFigma(context, 160),
