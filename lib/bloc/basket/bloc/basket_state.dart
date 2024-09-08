@@ -7,6 +7,6 @@ final class BasketInitial extends BasketState {}
 
 final class BasketDataFetched extends BasketState {
   final Either<String, List<BasketItem>> basketItems;
-
-  BasketDataFetched({required this.basketItems});
+  final int finalPrice;
+  BasketDataFetched({required this.basketItems, required this.finalPrice});
 }

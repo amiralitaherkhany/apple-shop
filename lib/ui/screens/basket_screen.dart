@@ -78,27 +78,54 @@ class BasketScreen extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(exception),
+                            Text(
+                              exception,
+                              style: TextStyle(
+                                fontFamily: 'SB',
+                                fontSize:
+                                    Responsive.scaleFromFigma(context, 16),
+                                color: MyColors.myBlue,
+                              ),
+                            ),
                           ],
                         ),
                       );
                     },
                     (basketItems) {
-                      return SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          childCount: basketItems.length,
-                          (context, index) {
-                            return Padding(
-                              padding: EdgeInsets.only(
-                                  bottom:
-                                      Responsive.scaleFromFigma(context, 20)),
-                              child: CardBasketitem(
-                                basketItem: basketItems[index],
+                      if (basketItems.isNotEmpty) {
+                        return SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            childCount: basketItems.length,
+                            (context, index) {
+                              return Padding(
+                                padding: EdgeInsets.only(
+                                    bottom:
+                                        Responsive.scaleFromFigma(context, 20)),
+                                child: CardBasketitem(
+                                  basketItem: basketItems[index],
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      } else {
+                        return SliverToBoxAdapter(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'سبد خرید شما خالی است',
+                                style: TextStyle(
+                                  fontFamily: 'SB',
+                                  fontSize:
+                                      Responsive.scaleFromFigma(context, 16),
+                                  color: MyColors.myBlue,
+                                ),
                               ),
-                            );
-                          },
-                        ),
-                      );
+                            ],
+                          ),
+                        );
+                      }
                     },
                   ),
                 },
@@ -108,31 +135,36 @@ class BasketScreen extends StatelessWidget {
                 )
               ],
             ),
-            Positioned(
-              bottom: Responsive.scaleFromFigma(context, 95),
-              right: Responsive.scaleFromFigma(context, 44),
-              left: Responsive.scaleFromFigma(context, 44),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize:
-                      Size.fromHeight(Responsive.scaleFromFigma(context, 53)),
-                  backgroundColor: MyColors.myGreen,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+            if (state is BasketDataFetched) ...{
+              Positioned(
+                bottom: Responsive.scaleFromFigma(context, 95),
+                right: Responsive.scaleFromFigma(context, 44),
+                left: Responsive.scaleFromFigma(context, 44),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize:
+                        Size.fromHeight(Responsive.scaleFromFigma(context, 53)),
+                    backgroundColor: MyColors.myGreen,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
                   ),
-                ),
-                onPressed: () {},
-                child: Text(
-                  'ادامه فرآیند خرید',
-                  style: TextStyle(
-                    fontFamily: 'SB',
-                    fontSize: Responsive.scaleFromFigma(context, 16),
-                    color: Colors.white,
+                  onPressed: () {},
+                  child: Text(
+                    textDirection: TextDirection.rtl,
+                    state.finalPrice != 0
+                        ? '${state.finalPrice}  -  ادامه فرایند خرید '
+                        : 'محصولی در سبد خرید نیست',
+                    style: TextStyle(
+                      fontFamily: 'SB',
+                      fontSize: Responsive.scaleFromFigma(context, 16),
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
-            )
+            },
           ],
         );
       },
