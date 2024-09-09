@@ -27,21 +27,20 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(
+        BlocProvider<ScrollCubit>(
           create: (context) => ScrollCubit(),
         ),
-        BlocProvider(
-          create: (context) => AuthBloc(),
+        BlocProvider<AuthBloc>(
+          create: (context) => locator.get(),
         ),
-        BlocProvider(
-          create: (context) => CategoryBloc()..add(CategoryRequestList()),
+        BlocProvider<CategoryBloc>(
+          create: (context) => locator.get()..add(CategoryRequestList()),
         ),
-        BlocProvider(
-          create: (context) => HomeBloc()..add(HomeRequestData()),
+        BlocProvider<HomeBloc>(
+          create: (context) => locator.get()..add(HomeRequestData()),
         ),
-        BlocProvider(
-          create: (context) =>
-              locator.get<BasketBloc>()..add(BasketFetchFromHive()),
+        BlocProvider<BasketBloc>(
+          create: (context) => locator.get()..add(BasketFetchFromHive()),
         ),
       ],
       child: const MyApp(),

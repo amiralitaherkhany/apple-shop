@@ -1,4 +1,3 @@
-import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/util/api_exception.dart';
 import 'package:dio/dio.dart';
 
@@ -10,13 +9,15 @@ abstract class IAuthenticationDataSource {
 }
 
 class AuthenticationRemote implements IAuthenticationDataSource {
-  final Dio _dio = locator.get();
+  final Dio dio;
+
+  AuthenticationRemote({required this.dio});
 
   @override
   Future<void> register(
       String username, String password, String passwordConfirm) async {
     try {
-      await _dio.post('collections/users/records', data: {
+      await dio.post('collections/users/records', data: {
         'username': username,
         'password': password,
         'passwordConfirm': passwordConfirm,
@@ -32,7 +33,7 @@ class AuthenticationRemote implements IAuthenticationDataSource {
   Future<String> login(String username, String password) async {
     try {
       final response =
-          await _dio.post('collections/users/auth-with-password', data: {
+          await dio.post('collections/users/auth-with-password', data: {
         'identity': username,
         'password': password,
       });

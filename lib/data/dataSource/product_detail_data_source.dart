@@ -1,4 +1,3 @@
-import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/models/category.dart';
 import 'package:apple_shop/models/product_image.dart';
 import 'package:apple_shop/models/product_property.dart';
@@ -18,13 +17,15 @@ abstract class IProductDetailDataSource {
 }
 
 class ProductDetailRemoteDataSource implements IProductDetailDataSource {
-  final Dio _dio = locator.get();
+  final Dio dio;
+
+  ProductDetailRemoteDataSource({required this.dio});
   @override
   Future<List<ProductImage>> getGallery(String productId) async {
     try {
       Map<String, String> qParams = {'filter': 'product_id="$productId"'};
 
-      var response = await _dio.get('collections/gallery/records',
+      var response = await dio.get('collections/gallery/records',
           queryParameters: qParams);
       return response.data['items']
           .map<ProductImage>(
@@ -40,7 +41,7 @@ class ProductDetailRemoteDataSource implements IProductDetailDataSource {
   @override
   Future<List<VariantType>> getVariantTypes() async {
     try {
-      var response = await _dio.get('collections/variants_type/records');
+      var response = await dio.get('collections/variants_type/records');
       return response.data['items']
           .map<VariantType>((jsonObject) => VariantType.fromMapJson(jsonObject))
           .toList();
@@ -56,7 +57,7 @@ class ProductDetailRemoteDataSource implements IProductDetailDataSource {
     try {
       Map<String, String> qParams = {'filter': 'product_id="$productId"'};
 
-      var response = await _dio.get('collections/variants/records',
+      var response = await dio.get('collections/variants/records',
           queryParameters: qParams);
       return response.data['items']
           .map<Variant>((jsonObject) => Variant.fromMapJson(jsonObject))
@@ -92,7 +93,7 @@ class ProductDetailRemoteDataSource implements IProductDetailDataSource {
     try {
       Map<String, String> qParams = {'filter': 'id="$categoryId"'};
 
-      var response = await _dio.get('collections/category/records',
+      var response = await dio.get('collections/category/records',
           queryParameters: qParams);
       return Category.fromMapJson(response.data['items'][0]);
     } on DioException catch (e) {
@@ -107,7 +108,7 @@ class ProductDetailRemoteDataSource implements IProductDetailDataSource {
     try {
       Map<String, String> qParams = {'filter': 'product_id="$productId"'};
 
-      var response = await _dio.get('collections/properties/records',
+      var response = await dio.get('collections/properties/records',
           queryParameters: qParams);
       return response.data['items']
           .map<Property>((jsonObject) => Property.fromMapJson(jsonObject))

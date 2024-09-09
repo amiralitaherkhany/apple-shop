@@ -1,5 +1,4 @@
 import 'package:apple_shop/data/dataSource/product_data_source.dart';
-import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/models/product.dart';
 import 'package:apple_shop/util/api_exception.dart';
 import 'package:dartz/dartz.dart';
@@ -11,11 +10,13 @@ abstract class IProductRepository {
 }
 
 class ProductRepository implements IProductRepository {
-  final IProductDataSource _dataSource = locator.get();
+  final IProductDataSource dataSource;
+
+  ProductRepository({required this.dataSource});
   @override
   Future<Either<String, List<Product>>> getProducts() async {
     try {
-      List<Product> productList = await _dataSource.getProducts();
+      List<Product> productList = await dataSource.getProducts();
       return right(productList);
     } on ApiException catch (e) {
       return left(e.message ?? 'خطا محتوای متنی ندارد');
@@ -25,7 +26,7 @@ class ProductRepository implements IProductRepository {
   @override
   Future<Either<String, List<Product>>> getBestSeller() async {
     try {
-      List<Product> productList = await _dataSource.getBestSeller();
+      List<Product> productList = await dataSource.getBestSeller();
       return right(productList);
     } on ApiException catch (e) {
       return left(e.message ?? 'خطا محتوای متنی ندارد');
@@ -35,7 +36,7 @@ class ProductRepository implements IProductRepository {
   @override
   Future<Either<String, List<Product>>> getHotest() async {
     try {
-      List<Product> productList = await _dataSource.getHotest();
+      List<Product> productList = await dataSource.getHotest();
       return right(productList);
     } on ApiException catch (e) {
       return left(e.message ?? 'خطا محتوای متنی ندارد');

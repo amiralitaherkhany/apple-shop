@@ -1,4 +1,3 @@
-import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/models/category.dart';
 import 'package:apple_shop/util/api_exception.dart';
 import 'package:dio/dio.dart';
@@ -8,11 +7,13 @@ abstract class ICategoryDataSource {
 }
 
 class CategoryRemoteDataSource implements ICategoryDataSource {
-  final Dio _dio = locator.get();
+  final Dio dio;
+
+  CategoryRemoteDataSource({required this.dio});
   @override
   Future<List<Category>> getCategories() async {
     try {
-      var response = await _dio.get('collections/category/records');
+      var response = await dio.get('collections/category/records');
       return response.data['items']
           .map<Category>((jsonObject) => Category.fromMapJson(jsonObject))
           .toList();

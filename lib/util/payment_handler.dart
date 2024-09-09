@@ -13,25 +13,30 @@ abstract class PaymentHandler {
 }
 
 class ZarinpalPaymentHandler implements PaymentHandler {
-  final PaymentRequest _paymentRequest = PaymentRequest();
-  final AppLinks _appLinks = AppLinks();
+  final PaymentRequest paymentRequest;
+  final AppLinks appLinks;
+  final UrlHandler urlHandler;
   StreamSubscription<Uri>? _linkSubscription;
   String? _authority;
   String? _status;
-  UrlHandler urlHandler = UrlLauncher();
+
+  ZarinpalPaymentHandler(
+      {required this.paymentRequest,
+      required this.appLinks,
+      required this.urlHandler});
   @override
   Future<void> initPaymentRequest() async {
-    _paymentRequest.setIsSandBox(true);
-    _paymentRequest.setAmount(105600);
-    _paymentRequest.setDescription('this is a test description');
-    _paymentRequest.setCallbackURL('expertflutter://shop');
-    _paymentRequest.setMerchantID('XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX');
+    paymentRequest.setIsSandBox(true);
+    paymentRequest.setAmount(105600);
+    paymentRequest.setDescription('this is a test description');
+    paymentRequest.setCallbackURL('expertflutter://shop');
+    paymentRequest.setMerchantID('XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX');
   }
 
   @override
   Future<void> sendPaymentRequest() async {
     ZarinPal().startPayment(
-      _paymentRequest,
+      paymentRequest,
       (status, paymentGatewayUri) {
         if (status == 100) {
           urlHandler.openUrl(paymentGatewayUri!);
@@ -40,7 +45,7 @@ class ZarinpalPaymentHandler implements PaymentHandler {
       },
     );
 
-    _linkSubscription = _appLinks.uriLinkStream.listen(
+    _linkSubscription = appLinks.uriLinkStream.listen(
       (uri) {
         //expertflutter://shop?Authority=132324323423443421212121212121212121&Status=OK
         debugPrint('onAppLink: $uri');
@@ -61,7 +66,7 @@ class ZarinpalPaymentHandler implements PaymentHandler {
     ZarinPal().verificationPayment(
       _status!,
       _authority!,
-      _paymentRequest,
+      paymentRequest,
       (isPaymentSuccess, refID, paymentRequest) {
         if (isPaymentSuccess) {
           debugPrint(refID);

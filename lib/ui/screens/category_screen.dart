@@ -2,6 +2,7 @@ import 'package:apple_shop/bloc/category/bloc/category_bloc.dart';
 import 'package:apple_shop/bloc/categoryProduct/bloc/category_product_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/cubit/scroll/cubit/scroll_cubit.dart';
+import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/models/category.dart';
 import 'package:apple_shop/ui/screens/product_list_screen.dart';
 import 'package:apple_shop/util/responsive.dart';
@@ -172,8 +173,8 @@ class CategoryList extends StatelessWidget {
           return InkWell(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => BlocProvider(
-                  create: (context) => CategoryProductBloc()
+                builder: (context) => BlocProvider<CategoryProductBloc>(
+                  create: (context) => locator.get()
                     ..add(CategoryProductRequestData(
                         categoryId: categoryList[index].id!)),
                   child: ProductListScreen(category: categoryList[index]),

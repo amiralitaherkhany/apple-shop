@@ -1,5 +1,4 @@
 import 'package:apple_shop/data/repository/basket_repository.dart';
-import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/models/card_item.dart';
 import 'package:apple_shop/util/payment_handler.dart';
 import 'package:bloc/bloc.dart';
@@ -10,23 +9,24 @@ part 'basket_event.dart';
 part 'basket_state.dart';
 
 class BasketBloc extends Bloc<BasketEvent, BasketState> {
-  final IBasketRepository _repository = locator.get();
-  final PaymentHandler _paymentHandler = ZarinpalPaymentHandler();
-  BasketBloc() : super(BasketInitial()) {
+  final IBasketRepository repository;
+  final PaymentHandler paymentHandler;
+  BasketBloc({required this.repository, required this.paymentHandler})
+      : super(BasketInitial()) {
     on<BasketFetchFromHive>((event, emit) async {
-      var basketItems = await _repository.getAllBasketItems();
-      var finalPrice = await _repository.getBasketFinalPrice();
+      var basketItems = await repository.getAllBasketItems();
+      var finalPrice = await repository.getBasketFinalPrice();
       emit(BasketDataFetched(basketItems: basketItems, finalPrice: finalPrice));
     });
 
     on<BasketPaymentInit>(
       (event, emit) {
-        _paymentHandler.initPaymentRequest();
+        paymentHandler.initPaymentRequest();
       },
     );
     on<BasketPaymentRequest>(
       (event, emit) {
-        _paymentHandler.sendPaymentRequest();
+        paymentHandler.sendPaymentRequest();
       },
     );
   }

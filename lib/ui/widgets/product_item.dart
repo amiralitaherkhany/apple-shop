@@ -25,7 +25,7 @@ class ProductItem extends StatelessWidget {
             builder: (context) => MultiBlocProvider(
               providers: [
                 BlocProvider<ProductBloc>(
-                  create: (context) => ProductBloc()
+                  create: (context) => locator.get()
                     ..add(
                       ProductInitialize(
                         productId: product.id,
@@ -34,7 +34,7 @@ class ProductItem extends StatelessWidget {
                     ),
                 ),
                 BlocProvider<BasketBloc>.value(
-                  value: locator.get<BasketBloc>(),
+                  value: locator.get(),
                 ),
               ],
               child: ProductDetailScreen(

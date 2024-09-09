@@ -1,5 +1,4 @@
 import 'package:apple_shop/data/repository/category_repository.dart';
-import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/models/category.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
@@ -9,11 +8,11 @@ part 'category_event.dart';
 part 'category_state.dart';
 
 class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
-  final ICategoryRepository _repository = locator.get();
-  CategoryBloc() : super(CategoryInitial()) {
+  final ICategoryRepository repository;
+  CategoryBloc({required this.repository}) : super(CategoryInitial()) {
     on<CategoryRequestList>((event, emit) async {
       emit(CategoryLoading());
-      var response = await _repository.getCategories();
+      var response = await repository.getCategories();
       emit(CategoryResponse(response: response));
     });
   }

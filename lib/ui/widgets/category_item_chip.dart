@@ -1,4 +1,5 @@
 import 'package:apple_shop/bloc/categoryProduct/bloc/category_product_bloc.dart';
+import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/models/category.dart';
 import 'package:apple_shop/ui/screens/product_list_screen.dart';
 import 'package:apple_shop/util/extensions/string_extensions.dart';
@@ -18,8 +19,8 @@ class CategoryItemChip extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => BlocProvider(
-            create: (context) => CategoryProductBloc()
+          builder: (context) => BlocProvider<CategoryProductBloc>(
+            create: (context) => locator.get()
               ..add(CategoryProductRequestData(categoryId: category.id!)),
             child: ProductListScreen(category: category),
           ),

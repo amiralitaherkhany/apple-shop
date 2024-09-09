@@ -1,5 +1,4 @@
 import 'package:apple_shop/data/dataSource/categort_product_data_source.dart';
-import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/models/product.dart';
 import 'package:apple_shop/util/api_exception.dart';
 import 'package:dartz/dartz.dart';
@@ -10,14 +9,16 @@ abstract class ICategoryProductRepository {
 }
 
 class CategoryProductRepository implements ICategoryProductRepository {
-  final ICategoryProductDataSource _dataSource = locator.get();
+  final ICategoryProductDataSource dataSource;
+
+  CategoryProductRepository({required this.dataSource});
 
   @override
   Future<Either<String, List<Product>>> getProductsByCategoryId(
       String categoryId) async {
     try {
       List<Product> productList =
-          await _dataSource.getProductsByCategoryId(categoryId);
+          await dataSource.getProductsByCategoryId(categoryId);
       return right(productList);
     } on ApiException catch (e) {
       return left(e.message ?? 'خطا محتوای متنی ندارد');

@@ -1,4 +1,3 @@
-import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/models/product.dart';
 import 'package:apple_shop/util/api_exception.dart';
 import 'package:dio/dio.dart';
@@ -8,17 +7,19 @@ abstract class ICategoryProductDataSource {
 }
 
 class CategoryProductRemoteDataSource implements ICategoryProductDataSource {
-  final Dio _dio = locator.get();
+  final Dio dio;
+
+  CategoryProductRemoteDataSource({required this.dio});
 
   @override
   Future<List<Product>> getProductsByCategoryId(String categoryId) async {
     try {
       Response response;
       if (categoryId == 'qnbj8d6b9lzzpn8') {
-        response = await _dio.get('collections/products/records');
+        response = await dio.get('collections/products/records');
       } else {
         Map<String, String> qParams = {'filter': 'category="$categoryId"'};
-        response = await _dio.get('collections/products/records',
+        response = await dio.get('collections/products/records',
             queryParameters: qParams);
       }
       return response.data['items']
