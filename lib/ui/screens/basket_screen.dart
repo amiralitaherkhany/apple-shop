@@ -150,7 +150,10 @@ class BasketScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    context.read<BasketBloc>().add(BasketPaymentInit());
+                    context.read<BasketBloc>().add(BasketPaymentRequest());
+                  },
                   child: Text(
                     textDirection: TextDirection.rtl,
                     state.finalPrice != 0
