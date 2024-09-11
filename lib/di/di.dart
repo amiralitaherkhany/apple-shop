@@ -3,6 +3,7 @@ import 'package:apple_shop/bloc/authentication/bloc/auth_bloc.dart';
 import 'package:apple_shop/bloc/basket/bloc/basket_bloc.dart';
 import 'package:apple_shop/bloc/category/bloc/category_bloc.dart';
 import 'package:apple_shop/bloc/categoryProduct/bloc/category_product_bloc.dart';
+import 'package:apple_shop/bloc/comment/bloc/comment_bloc.dart';
 import 'package:apple_shop/bloc/home/bloc/home_bloc.dart';
 import 'package:apple_shop/bloc/product/bloc/product_bloc.dart';
 import 'package:apple_shop/cubit/basket/cubit/basket_cubit.dart';
@@ -11,6 +12,7 @@ import 'package:apple_shop/data/dataSource/banner_data_source.dart';
 import 'package:apple_shop/data/dataSource/basket_data_source.dart';
 import 'package:apple_shop/data/dataSource/categort_product_data_source.dart';
 import 'package:apple_shop/data/dataSource/category_data_source.dart';
+import 'package:apple_shop/data/dataSource/comment_data_source.dart';
 import 'package:apple_shop/data/dataSource/product_data_source.dart';
 import 'package:apple_shop/data/dataSource/product_detail_data_source.dart';
 import 'package:apple_shop/data/repository/authentication_repository.dart';
@@ -18,6 +20,7 @@ import 'package:apple_shop/data/repository/banner_repository.dart';
 import 'package:apple_shop/data/repository/basket_repository.dart';
 import 'package:apple_shop/data/repository/category_product_repository.dart';
 import 'package:apple_shop/data/repository/category_repository.dart';
+import 'package:apple_shop/data/repository/comment_repository.dart';
 import 'package:apple_shop/data/repository/product_detail_repository.dart';
 import 'package:apple_shop/data/repository/product_repository.dart';
 import 'package:apple_shop/util/payment_handler.dart';
@@ -58,6 +61,9 @@ void _initBlocs() {
       productRepository: locator.get()));
   locator.registerSingleton<BasketCubit>(
       BasketCubit(basketRepository: locator.get()));
+  locator.registerFactory<CommentBloc>(
+    () => CommentBloc(commentRepository: locator.get()),
+  );
 }
 
 Future<void> _initComponents() async {
@@ -89,6 +95,8 @@ void _initDataSources() {
   locator.registerFactory<ICategoryProductDataSource>(
       () => CategoryProductRemoteDataSource(dio: locator.get()));
   locator.registerFactory<IBasketDataSource>(() => BasketLocalDataSource());
+  locator.registerFactory<ICommentDataSource>(
+      () => CommentRemoteDataSource(dio: locator.get()));
 }
 
 void _initRepositories() {
@@ -106,4 +114,6 @@ void _initRepositories() {
       () => CategoryProductRepository(dataSource: locator.get()));
   locator.registerFactory<IBasketRepository>(
       () => BasketRepository(dataSource: locator.get()));
+  locator.registerFactory<ICommentRepository>(
+      () => CommentRepository(dataSource: locator.get()));
 }
