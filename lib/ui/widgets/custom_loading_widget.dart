@@ -9,8 +9,7 @@ class CustomLoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 100),
+    return SafeArea(
       child: Center(
         child: LoadingAnimationWidget.inkDrop(color: MyColors.myBlue, size: 40),
       ),

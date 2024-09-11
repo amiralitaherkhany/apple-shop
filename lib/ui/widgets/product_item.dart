@@ -54,7 +54,9 @@ class ProductItem extends StatelessWidget {
         height: Responsive.scaleFromFigma(context, 216),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(
+            Responsive.scaleFromFigma(context, 15),
+          ),
         ),
         child: Column(
           children: [
@@ -135,9 +137,11 @@ class ProductItem extends StatelessWidget {
               height: Responsive.scaleFromFigma(context, 53),
               decoration: BoxDecoration(
                 color: MyColors.myBlue,
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(15),
-                  bottomRight: Radius.circular(15),
+                borderRadius: BorderRadius.only(
+                  bottomLeft:
+                      Radius.circular(Responsive.scaleFromFigma(context, 15)),
+                  bottomRight:
+                      Radius.circular(Responsive.scaleFromFigma(context, 15)),
                 ),
                 boxShadow: [
                   BoxShadow(
