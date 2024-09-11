@@ -11,6 +11,7 @@ import 'package:apple_shop/models/product_variant.dart';
 import 'package:apple_shop/models/variant.dart';
 import 'package:apple_shop/models/variant_type.dart';
 import 'package:apple_shop/ui/widgets/custom_loading_widget.dart';
+import 'package:apple_shop/util/extensions/int_extensions.dart';
 import 'package:apple_shop/util/extensions/string_extensions.dart';
 import 'package:apple_shop/util/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -18,17 +19,12 @@ import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProductDetailScreen extends StatefulWidget {
+class ProductDetailScreen extends StatelessWidget {
   const ProductDetailScreen({
     super.key,
     required this.product,
   });
   final Product product;
-  @override
-  State<ProductDetailScreen> createState() => _ProductDetailScreenState();
-}
-
-class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,7 +112,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   SliverToBoxAdapter(
                     child: Text(
                       textAlign: TextAlign.center,
-                      widget.product.name,
+                      product.name,
                       style: TextStyle(
                         fontFamily: 'SB',
                         fontSize: Responsive.scaleFromFigma(context, 16),
@@ -136,7 +132,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     (productImageList) {
                       return GalleryWidget(
                         productImageList: productImageList,
-                        defaultProductThumbnail: widget.product.thumbnail,
+                        defaultProductThumbnail: product.thumbnail,
                       );
                     },
                   ),
@@ -187,7 +183,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     ),
                   ),
                   ProductDescription(
-                    productDescription: widget.product.description,
+                    productDescription: product.description,
                   ),
                   SliverToBoxAdapter(
                     child: SizedBox(
@@ -373,12 +369,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const PriceTagButton(),
+                          PriceTagButton(
+                            product: product,
+                          ),
                           SizedBox(
                             width: Responsive.scaleFromFigma(context, 44),
                           ),
                           AddToBasketButton(
-                            product: widget.product,
+                            product: product,
                           ),
                         ],
                       ),
@@ -872,6 +870,8 @@ class AddToBasketButton extends StatelessWidget {
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
               child: InkWell(
+                splashColor: MyColors.myBlue,
+                borderRadius: BorderRadius.circular(15),
                 onTap: () async {
                   context
                       .read<ProductBloc>()
@@ -922,8 +922,11 @@ class AddToBasketButton extends StatelessWidget {
 }
 
 class PriceTagButton extends StatelessWidget {
-  const PriceTagButton({super.key});
-
+  const PriceTagButton({
+    super.key,
+    required this.product,
+  });
+  final Product product;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -983,7 +986,7 @@ class PriceTagButton extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '۴۶٬۰۰۰٬۰۰۰',
+                          product.price.formatPrice,
                           style: TextStyle(
                             decoration: TextDecoration.lineThrough,
                             decorationColor: Colors.white,
@@ -994,7 +997,7 @@ class PriceTagButton extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '۱۶٬۹۸۹٬۰۰۰',
+                          product.realPrice.formatPrice,
                           style: TextStyle(
                             fontFamily: 'SM',
                             fontSize: Responsive.scaleFromFigma(context, 16),
@@ -1016,7 +1019,7 @@ class PriceTagButton extends StatelessWidget {
                       ),
                       child: Center(
                         child: Text(
-                          '%۳',
+                          '%${product.persent.round()}',
                           style: TextStyle(
                             fontFamily: 'SB',
                             color: Colors.white,
@@ -1097,7 +1100,7 @@ class _ColorVariantListState extends State<ColorVariantList> {
                     style: TextStyle(
                       fontFamily: 'SB',
                       fontSize: Responsive.scaleFromFigma(context, 12),
-                      color: MyColors.myGrey,
+                      color: Colors.white,
                     ),
                   ),
                 ),

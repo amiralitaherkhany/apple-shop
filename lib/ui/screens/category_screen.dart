@@ -90,12 +90,15 @@ class CategoryScreen extends StatelessWidget {
               ),
               SliverPadding(
                 padding: EdgeInsets.only(
-                    bottom: Responsive.scaleFromFigma(context, 80)),
+                  bottom: Responsive.scaleFromFigma(context, 100),
+                ),
               ),
             ],
           );
         } else {
-          return const Center(child: Text('error'));
+          return const Center(
+            child: Text('error'),
+          );
         }
       },
     );

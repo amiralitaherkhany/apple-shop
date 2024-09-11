@@ -121,7 +121,10 @@ class ProductListScreen extends StatelessWidget {
                         );
                       }
                     },
-                  )
+                  ),
+                  const SliverPadding(
+                    padding: EdgeInsets.only(bottom: 50),
+                  ),
                 ],
               );
             } else {
