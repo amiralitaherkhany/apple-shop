@@ -1,6 +1,7 @@
 import 'package:apple_shop/bloc/basket/bloc/basket_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/models/card_item.dart';
+import 'package:apple_shop/util/extensions/int_extensions.dart';
 import 'package:apple_shop/util/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -157,7 +158,7 @@ class BasketScreen extends StatelessWidget {
                   child: Text(
                     textDirection: TextDirection.rtl,
                     state.finalPrice != 0
-                        ? '${state.finalPrice}  -  ادامه فرایند خرید '
+                        ? '${state.finalPrice.formatPrice}  -  ادامه فرایند خرید '
                         : 'محصولی در سبد خرید نیست',
                     style: TextStyle(
                       fontFamily: 'SB',
@@ -316,7 +317,7 @@ class CardBasketitem extends StatelessWidget {
                               ),
                               Text(
                                 textDirection: TextDirection.rtl,
-                                basketItem.price.toString(),
+                                basketItem.price.formatPrice,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 style: TextStyle(
@@ -399,7 +400,7 @@ class CardBasketitem extends StatelessWidget {
                   ),
                   Text(
                     textDirection: TextDirection.rtl,
-                    basketItem.realPrice.toString(),
+                    basketItem.realPrice.formatPrice,
                     style: TextStyle(
                       fontFamily: 'SB',
                       fontSize: Responsive.scaleFromFigma(context, 16),

@@ -2,8 +2,8 @@ import 'package:apple_shop/bloc/categoryProduct/bloc/category_product_bloc.dart'
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/models/category.dart';
 import 'package:apple_shop/models/product.dart';
+import 'package:apple_shop/ui/widgets/custom_loading_widget.dart';
 import 'package:apple_shop/ui/widgets/product_item.dart';
-import 'package:apple_shop/util/custom_loading_widget.dart';
 import 'package:apple_shop/util/responsive.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';

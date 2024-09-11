@@ -10,7 +10,7 @@ import 'package:apple_shop/models/product_property.dart';
 import 'package:apple_shop/models/product_variant.dart';
 import 'package:apple_shop/models/variant.dart';
 import 'package:apple_shop/models/variant_type.dart';
-import 'package:apple_shop/util/custom_loading_widget.dart';
+import 'package:apple_shop/ui/widgets/custom_loading_widget.dart';
 import 'package:apple_shop/util/extensions/string_extensions.dart';
 import 'package:apple_shop/util/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -1083,7 +1083,7 @@ class _ColorVariantListState extends State<ColorVariantList> {
                 ),
                 borderRadius: BorderRadius.circular(
                     Responsive.scaleFromFigma(context, 8)),
-                color: widget.variantList[index].value.parseToColor(),
+                color: widget.variantList[index].value.parseToColor,
               ),
               child: AnimatedScale(
                 scale: selectedColor == index ? 1 : 0,

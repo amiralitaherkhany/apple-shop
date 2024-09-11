@@ -5,6 +5,7 @@ import 'package:apple_shop/cubit/basket/cubit/basket_cubit.dart';
 import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/models/product.dart';
 import 'package:apple_shop/ui/screens/product_detail_screen.dart';
+import 'package:apple_shop/util/extensions/int_extensions.dart';
 import 'package:apple_shop/util/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ficonsax/ficonsax.dart';
@@ -202,7 +203,7 @@ class ProductItem extends StatelessWidget {
                       FittedBox(
                         fit: BoxFit.scaleDown,
                         child: Text(
-                          product.price.toString(),
+                          product.price.formatPrice,
                           style: TextStyle(
                             decoration: TextDecoration.lineThrough,
                             decorationColor: Colors.white,
@@ -216,7 +217,7 @@ class ProductItem extends StatelessWidget {
                       FittedBox(
                         fit: BoxFit.scaleDown,
                         child: Text(
-                          product.realPrice.toString(),
+                          product.realPrice.formatPrice,
                           style: TextStyle(
                             fontFamily: 'SM',
                             fontSize: Responsive.scaleFromFigma(context, 16),
@@ -233,7 +234,7 @@ class ProductItem extends StatelessWidget {
                     size: Responsive.scaleFromFigma(context, 30),
                   ),
                   SizedBox(
-                    width: Responsive.scaleFromFigma(context, 15),
+                    width: Responsive.scaleFromFigma(context, 5),
                   ),
                 ],
               ),

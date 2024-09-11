@@ -35,37 +35,37 @@ class CategoryItemChip extends StatelessWidget {
             decoration: ShapeDecoration(
               shadows: [
                 BoxShadow(
-                  color: category.color.parseToColor().withOpacity(0.0368),
+                  color: category.color.parseToColor.withOpacity(0.0368),
                   offset: const Offset(0, 2.77),
                   blurRadius: 2.21,
                   spreadRadius: 0,
                 ),
                 BoxShadow(
-                  color: category.color.parseToColor().withOpacity(0.0445),
+                  color: category.color.parseToColor.withOpacity(0.0445),
                   offset: const Offset(0, 6.65),
                   blurRadius: 5.32,
                   spreadRadius: 0,
                 ),
                 BoxShadow(
-                  color: category.color.parseToColor().withOpacity(0.0482),
+                  color: category.color.parseToColor.withOpacity(0.0482),
                   offset: const Offset(0, 12.52),
                   blurRadius: 10.02,
                   spreadRadius: 0,
                 ),
                 BoxShadow(
-                  color: category.color.parseToColor().withOpacity(0.051),
+                  color: category.color.parseToColor.withOpacity(0.051),
                   offset: const Offset(0, 22.34),
                   blurRadius: 17.87,
                   spreadRadius: 0,
                 ),
                 BoxShadow(
-                  color: category.color.parseToColor().withOpacity(0.0549),
+                  color: category.color.parseToColor.withOpacity(0.0549),
                   offset: const Offset(0, 41.78),
                   blurRadius: 33.42,
                   spreadRadius: 0,
                 ),
                 BoxShadow(
-                  color: category.color.parseToColor().withOpacity(0.07),
+                  color: category.color.parseToColor.withOpacity(0.07),
                   offset: const Offset(0, 100),
                   blurRadius: 80,
                   spreadRadius: 0,
@@ -75,7 +75,7 @@ class CategoryItemChip extends StatelessWidget {
                 borderRadius: BorderRadius.circular(
                     Responsive.scaleFromFigma(context, 45)),
               ),
-              color: category.color.parseToColor(),
+              color: category.color.parseToColor,
             ),
             child: CachedNetworkImage(
               fit: BoxFit.contain,

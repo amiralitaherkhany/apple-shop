@@ -4,7 +4,7 @@ import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/models/category.dart';
 import 'package:apple_shop/ui/screens/product_list_screen.dart';
-import 'package:apple_shop/util/custom_loading_widget.dart';
+import 'package:apple_shop/ui/widgets/custom_loading_widget.dart';
 import 'package:apple_shop/util/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
