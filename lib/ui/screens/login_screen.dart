@@ -1,5 +1,6 @@
 import 'package:apple_shop/bloc/authentication/bloc/auth_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
+import 'package:apple_shop/util/custom_loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -146,9 +147,7 @@ class LoginScreen extends StatelessWidget {
                               ),
                             );
                           } else if (state is AuthLoading) {
-                            return const CircularProgressIndicator(
-                              color: MyColors.myBlue,
-                            );
+                            return const CustomLoadingWidget();
                           } else if (state is AuthResponse) {
                             return state.response.fold(
                               (l) {

@@ -1,16 +1,15 @@
 import 'package:apple_shop/bloc/home/bloc/home_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
-import 'package:apple_shop/cubit/scroll/cubit/scroll_cubit.dart';
 import 'package:apple_shop/models/banner.dart';
 import 'package:apple_shop/models/category.dart';
 import 'package:apple_shop/models/product.dart';
 import 'package:apple_shop/ui/widgets/banner_slider.dart';
 import 'package:apple_shop/ui/widgets/category_item_chip.dart';
 import 'package:apple_shop/ui/widgets/product_item.dart';
+import 'package:apple_shop/util/custom_loading_widget.dart';
 import 'package:apple_shop/util/responsive.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,46 +20,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late final ScrollController scrollController;
-  @override
-  void initState() {
-    scrollController = ScrollController();
-    scrollController.addListener(
-      _scrollListener,
-    );
-    super.initState();
-  }
-
-  void _scrollListener() {
-    if (scrollController.position.userScrollDirection ==
-        ScrollDirection.reverse) {
-      context.read<ScrollCubit>().hide();
-    } else {
-      context.read<ScrollCubit>().show();
-    }
-  }
-
-  @override
-  void dispose() {
-    scrollController.removeListener(_scrollListener);
-    scrollController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         if (state is HomeResponseSuccess) {
-          return RefreshIndicator(
+          return RefreshIndicator.adaptive(
             color: MyColors.myBlue,
             backgroundColor: MyColors.myWhite,
             onRefresh: () async {
               context.read<HomeBloc>().add(HomeRequestData());
-              await Future.delayed(Durations.short1);
             },
             child: CustomScrollView(
-              controller: scrollController,
               slivers: [
                 SliverToBoxAdapter(
                   child: SizedBox(
@@ -174,11 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           );
         } else if (state is HomeInitial || state is HomeLoading) {
-          return const Center(
-            child: CircularProgressIndicator(
-              color: MyColors.myBlue,
-            ),
-          );
+          return const CustomLoadingWidget();
         } else {
           return Container();
         }

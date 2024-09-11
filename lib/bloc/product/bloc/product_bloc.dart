@@ -54,7 +54,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           realPrice: event.product.realPrice,
           persent: event.product.persent,
         );
-        basketRepository.addProductToBasket(basketItem);
+        await basketRepository.addProductToBasket(basketItem);
       },
     );
   }

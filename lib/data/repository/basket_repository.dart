@@ -6,6 +6,7 @@ abstract class IBasketRepository {
   Future<Either<String, String>> addProductToBasket(BasketItem basketItem);
   Future<Either<String, List<BasketItem>>> getAllBasketItems();
   Future<int> getBasketFinalPrice();
+  Future<int> getBasketItemCount();
 }
 
 class BasketRepository implements IBasketRepository {
@@ -17,7 +18,7 @@ class BasketRepository implements IBasketRepository {
   Future<Either<String, String>> addProductToBasket(
       BasketItem basketItem) async {
     try {
-      dataSource.addProduct(basketItem);
+      await dataSource.addProduct(basketItem);
       return right('محصول به سبد خرید اضافه شد');
     } catch (e) {
       return left('خطا در افزودن محصول به سبد خرید');
@@ -37,5 +38,10 @@ class BasketRepository implements IBasketRepository {
   @override
   Future<int> getBasketFinalPrice() async {
     return await dataSource.getBasketFinalPrice();
+  }
+
+  @override
+  Future<int> getBasketItemCount() async {
+    return await dataSource.getBasketItemCount();
   }
 }

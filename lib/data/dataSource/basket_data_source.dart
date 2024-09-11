@@ -5,13 +5,14 @@ abstract class IBasketDataSource {
   Future<void> addProduct(BasketItem basketItem);
   Future<List<BasketItem>> getAllBasketItems();
   Future<int> getBasketFinalPrice();
+  Future<int> getBasketItemCount();
 }
 
 class BasketLocalDataSource implements IBasketDataSource {
   var box = Hive.box<BasketItem>('BasketBox');
   @override
   Future<void> addProduct(BasketItem basketItem) async {
-    box.add(basketItem);
+    await box.add(basketItem);
   }
 
   @override
@@ -27,5 +28,11 @@ class BasketLocalDataSource implements IBasketDataSource {
       (previousValue, product) => previousValue + product.realPrice,
     );
     return finalPrice;
+  }
+
+  @override
+  Future<int> getBasketItemCount() async {
+    var basketItemCount = box.values.toList().length;
+    return basketItemCount;
   }
 }

@@ -3,12 +3,14 @@ import 'dart:ui';
 import 'package:apple_shop/bloc/basket/bloc/basket_bloc.dart';
 import 'package:apple_shop/bloc/product/bloc/product_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
+import 'package:apple_shop/cubit/basket/cubit/basket_cubit.dart';
 import 'package:apple_shop/models/product.dart';
 import 'package:apple_shop/models/product_image.dart';
 import 'package:apple_shop/models/product_property.dart';
 import 'package:apple_shop/models/product_variant.dart';
 import 'package:apple_shop/models/variant.dart';
 import 'package:apple_shop/models/variant_type.dart';
+import 'package:apple_shop/util/custom_loading_widget.dart';
 import 'package:apple_shop/util/extensions/string_extensions.dart';
 import 'package:apple_shop/util/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -33,29 +35,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       body: SafeArea(
         child: BlocBuilder<ProductBloc, ProductState>(
           builder: (context, state) {
-            return CustomScrollView(
-              slivers: [
-                if (state is ProductInitial || state is ProductLoading) ...[
-                  SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height - 250,
-                      child: const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CircularProgressIndicator(
-                                color: MyColors.myBlue,
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-                if (state is ProductResponse) ...[
+            if (state is ProductInitial || state is ProductLoading) {
+              return const CustomLoadingWidget();
+            } else if (state is ProductResponse) {
+              return CustomScrollView(
+                slivers: [
                   SliverToBoxAdapter(
                     child: SizedBox(
                       height: Responsive.scaleFromFigma(context, 10),
@@ -406,8 +390,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     ),
                   ),
                 ],
-              ],
-            );
+              );
+            } else {
+              return const Center(child: Text('error'));
+            }
           },
         ),
       ),
@@ -886,11 +872,18 @@ class AddToBasketButton extends StatelessWidget {
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
               child: InkWell(
-                onTap: () {
+                onTap: () async {
                   context
                       .read<ProductBloc>()
                       .add(ProductAddToBasket(product: product));
+                  await Future.delayed(
+                    const Duration(milliseconds: 100),
+                  );
                   context.read<BasketBloc>().add(BasketFetchFromHive());
+                  await Future.delayed(
+                    const Duration(milliseconds: 100),
+                  );
+                  context.read<BasketCubit>().updateBasketItems();
                 },
                 child: Container(
                   width: Responsive.scaleFromFigma(context, 160),

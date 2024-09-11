@@ -3,82 +3,30 @@ import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/models/category.dart';
 import 'package:apple_shop/models/product.dart';
 import 'package:apple_shop/ui/widgets/product_item.dart';
+import 'package:apple_shop/util/custom_loading_widget.dart';
 import 'package:apple_shop/util/responsive.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../cubit/scroll/cubit/scroll_cubit.dart';
-
-class ProductListScreen extends StatefulWidget {
+class ProductListScreen extends StatelessWidget {
   const ProductListScreen({
     super.key,
     required this.category,
   });
   final Category category;
   @override
-  State<ProductListScreen> createState() => _ProductListScreenState();
-}
-
-class _ProductListScreenState extends State<ProductListScreen> {
-  late final ScrollController scrollController;
-  @override
-  void initState() {
-    scrollController = ScrollController();
-    scrollController.addListener(
-      _scrollListener,
-    );
-    super.initState();
-  }
-
-  void _scrollListener() {
-    if (scrollController.position.userScrollDirection ==
-        ScrollDirection.reverse) {
-      context.read<ScrollCubit>().hide();
-    } else {
-      context.read<ScrollCubit>().show();
-    }
-  }
-
-  @override
-  void dispose() {
-    scrollController.removeListener(_scrollListener);
-    scrollController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: BlocBuilder<CategoryProductBloc, CategoryProductState>(
           builder: (context, state) {
-            return CustomScrollView(
-              controller: scrollController,
-              slivers: [
-                if (state is CategoryProductInitial ||
-                    state is CategoryProductLoading) ...[
-                  SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height - 250,
-                      child: const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CircularProgressIndicator(
-                                color: MyColors.myBlue,
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-                if (state is CategoryProductResponse) ...[
+            if (state is CategoryProductInitial ||
+                state is CategoryProductLoading) {
+              return const CustomLoadingWidget();
+            } else if (state is CategoryProductResponse) {
+              return CustomScrollView(
+                slivers: [
                   SliverToBoxAdapter(
                     child: SizedBox(
                       height: Responsive.scaleFromFigma(context, 10),
@@ -105,7 +53,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                           alignment: AlignmentDirectional.center,
                           children: [
                             Text(
-                              widget.category.title!,
+                              category.title!,
                               style: TextStyle(
                                 fontFamily: 'SB',
                                 fontSize:
@@ -174,9 +122,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
                       }
                     },
                   )
-                ]
-              ],
-            );
+                ],
+              );
+            } else {
+              return const Center(child: Text('error'));
+            }
           },
         ),
       ),
