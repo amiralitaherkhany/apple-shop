@@ -1,9 +1,11 @@
 import 'dart:ui';
 
 import 'package:apple_shop/bloc/basket/basket_bloc.dart';
+import 'package:apple_shop/bloc/comment/comment_bloc.dart';
 import 'package:apple_shop/bloc/product/product_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/cubit/basket/cubit/basket_cubit.dart';
+import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/models/product.dart';
 import 'package:apple_shop/models/product_image.dart';
 import 'package:apple_shop/models/product_property.dart';
@@ -194,62 +196,90 @@ class ProductDetailScreen extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: Responsive.scaleFromFigma(context, 44)),
-                      child: Container(
-                        height: Responsive.scaleFromFigma(context, 46),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: MyColors.myGrey,
-                            width: 1,
+                      child: InkWell(
+                        onTap: () {
+                          showModalBottomSheet(
+                            backgroundColor: MyColors.myWhite,
+                            isDismissible: true,
+                            useSafeArea: true,
+                            isScrollControlled: true,
+                            enableDrag: true,
+                            context: context,
+                            builder: (context) {
+                              return BlocProvider<CommentBloc>(
+                                create: (context) => locator.get()
+                                  ..add(CommentRequestData(
+                                      productId: product.id)),
+                                child: DraggableScrollableSheet(
+                                  initialChildSize: 0.55,
+                                  maxChildSize: 1,
+                                  minChildSize: 0.3,
+                                  snapAnimationDuration: Durations.medium1,
+                                  snapSizes: const [0.3, 0.55, 1],
+                                  expand: false,
+                                  snap: true,
+                                  builder: (context, scrollController) => Stack(
+                                    alignment: Alignment.topCenter,
+                                    children: [
+                                      Positioned(
+                                        top: 15,
+                                        child: Container(
+                                          width: 80,
+                                          height: 5,
+                                          decoration: BoxDecoration(
+                                            color: MyColors.myBlue,
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                        ),
+                                      ),
+                                      CommentBottomSheet(
+                                        scrollController: scrollController,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        child: Container(
+                          height: Responsive.scaleFromFigma(context, 46),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: MyColors.myGrey,
+                              width: 1,
+                            ),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  Responsive.scaleFromFigma(context, 10)),
-                          child: Row(
-                            children: [
-                              const Icon(
-                                IconsaxOutline.arrow_circle_left,
-                                color: MyColors.myBlue,
-                              ),
-                              SizedBox(
-                                width: Responsive.scaleFromFigma(context, 10),
-                              ),
-                              Text(
-                                'مشاهده',
-                                style: TextStyle(
-                                  fontFamily: 'SB',
-                                  fontSize:
-                                      Responsive.scaleFromFigma(context, 12),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    Responsive.scaleFromFigma(context, 10)),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  IconsaxOutline.arrow_circle_left,
                                   color: MyColors.myBlue,
                                 ),
-                              ),
-                              const Spacer(),
-                              Stack(
-                                clipBehavior: Clip.none,
-                                children: [
-                                  Container(
-                                    width:
-                                        Responsive.scaleFromFigma(context, 26),
-                                    height:
-                                        Responsive.scaleFromFigma(context, 26),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(
-                                          Responsive.scaleFromFigma(
-                                              context, 8)),
-                                      color: Colors.red,
-                                      border: Border.all(
-                                        color: Colors.white,
-                                        width: 1,
-                                      ),
-                                    ),
+                                SizedBox(
+                                  width: Responsive.scaleFromFigma(context, 10),
+                                ),
+                                Text(
+                                  'مشاهده',
+                                  style: TextStyle(
+                                    fontFamily: 'SB',
+                                    fontSize:
+                                        Responsive.scaleFromFigma(context, 12),
+                                    color: MyColors.myBlue,
                                   ),
-                                  Positioned(
-                                    right:
-                                        Responsive.scaleFromFigma(context, 18),
-                                    child: Container(
+                                ),
+                                const Spacer(),
+                                Stack(
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    Container(
                                       width: Responsive.scaleFromFigma(
                                           context, 26),
                                       height: Responsive.scaleFromFigma(
@@ -258,100 +288,121 @@ class ProductDetailScreen extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(
                                             Responsive.scaleFromFigma(
                                                 context, 8)),
-                                        color: Colors.green,
+                                        color: Colors.red,
                                         border: Border.all(
                                           color: Colors.white,
                                           width: 1,
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  Positioned(
-                                    right:
-                                        Responsive.scaleFromFigma(context, 36),
-                                    child: Container(
-                                      width: Responsive.scaleFromFigma(
-                                          context, 26),
-                                      height: Responsive.scaleFromFigma(
-                                          context, 26),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            Responsive.scaleFromFigma(
-                                                context, 8)),
-                                        color: Colors.yellow,
-                                        border: Border.all(
-                                          color: Colors.white,
-                                          width: 1,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    right:
-                                        Responsive.scaleFromFigma(context, 54),
-                                    child: Container(
-                                      width: Responsive.scaleFromFigma(
-                                          context, 26),
-                                      height: Responsive.scaleFromFigma(
-                                          context, 26),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            Responsive.scaleFromFigma(
-                                                context, 8)),
-                                        color: Colors.blue,
-                                        border: Border.all(
-                                          color: Colors.white,
-                                          width: 1,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    right:
-                                        Responsive.scaleFromFigma(context, 72),
-                                    child: Container(
-                                      width: Responsive.scaleFromFigma(
-                                          context, 26),
-                                      height: Responsive.scaleFromFigma(
-                                          context, 26),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            Responsive.scaleFromFigma(
-                                                context, 8)),
-                                        color: MyColors.myGrey,
-                                        border: Border.all(
-                                          color: Colors.white,
-                                          width: 1,
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          '+10',
-                                          style: TextStyle(
-                                            fontFamily: 'SB',
-                                            fontSize: Responsive.scaleFromFigma(
-                                                context, 10),
+                                    Positioned(
+                                      right: Responsive.scaleFromFigma(
+                                          context, 18),
+                                      child: Container(
+                                        width: Responsive.scaleFromFigma(
+                                            context, 26),
+                                        height: Responsive.scaleFromFigma(
+                                            context, 26),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                              Responsive.scaleFromFigma(
+                                                  context, 8)),
+                                          color: Colors.green,
+                                          border: Border.all(
                                             color: Colors.white,
+                                            width: 1,
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                width: Responsive.scaleFromFigma(context, 10),
-                              ),
-                              Text(
-                                ':نظرات کاربران',
-                                style: TextStyle(
-                                  fontFamily: 'SB',
-                                  fontSize:
-                                      Responsive.scaleFromFigma(context, 12),
-                                  color: Colors.black,
+                                    Positioned(
+                                      right: Responsive.scaleFromFigma(
+                                          context, 36),
+                                      child: Container(
+                                        width: Responsive.scaleFromFigma(
+                                            context, 26),
+                                        height: Responsive.scaleFromFigma(
+                                            context, 26),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                              Responsive.scaleFromFigma(
+                                                  context, 8)),
+                                          color: Colors.yellow,
+                                          border: Border.all(
+                                            color: Colors.white,
+                                            width: 1,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      right: Responsive.scaleFromFigma(
+                                          context, 54),
+                                      child: Container(
+                                        width: Responsive.scaleFromFigma(
+                                            context, 26),
+                                        height: Responsive.scaleFromFigma(
+                                            context, 26),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                              Responsive.scaleFromFigma(
+                                                  context, 8)),
+                                          color: Colors.blue,
+                                          border: Border.all(
+                                            color: Colors.white,
+                                            width: 1,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      right: Responsive.scaleFromFigma(
+                                          context, 72),
+                                      child: Container(
+                                        width: Responsive.scaleFromFigma(
+                                            context, 26),
+                                        height: Responsive.scaleFromFigma(
+                                            context, 26),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                              Responsive.scaleFromFigma(
+                                                  context, 8)),
+                                          color: MyColors.myGrey,
+                                          border: Border.all(
+                                            color: Colors.white,
+                                            width: 1,
+                                          ),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            '+10',
+                                            style: TextStyle(
+                                              fontFamily: 'SB',
+                                              fontSize:
+                                                  Responsive.scaleFromFigma(
+                                                      context, 10),
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  width: Responsive.scaleFromFigma(context, 10),
+                                ),
+                                Text(
+                                  ':نظرات کاربران',
+                                  style: TextStyle(
+                                    fontFamily: 'SB',
+                                    fontSize:
+                                        Responsive.scaleFromFigma(context, 12),
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -395,6 +446,123 @@ class ProductDetailScreen extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+}
+
+class CommentBottomSheet extends StatelessWidget {
+  const CommentBottomSheet({
+    super.key,
+    required this.scrollController,
+  });
+  final ScrollController scrollController;
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<CommentBloc, CommentState>(
+      builder: (context, state) {
+        if (state is CommentLoading || state is CommentInitial) {
+          return const CustomLoadingWidget();
+        } else if (state is CommentResponse) {
+          return Padding(
+            padding: const EdgeInsets.only(top: 50.0),
+            child: CustomScrollView(
+              controller: scrollController,
+              slivers: [
+                state.commentList.fold(
+                  (exception) {
+                    return SliverToBoxAdapter(
+                      child: Text(exception),
+                    );
+                  },
+                  (commentList) {
+                    return SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        childCount: commentList.length,
+                        (context, index) {
+                          return Directionality(
+                            textDirection: TextDirection.rtl,
+                            child: Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal:
+                                      Responsive.scaleFromFigma(context, 20),
+                                  vertical:
+                                      Responsive.scaleFromFigma(context, 10)),
+                              padding: EdgeInsets.all(
+                                  Responsive.scaleFromFigma(context, 8)),
+                              decoration: BoxDecoration(
+                                  color: MyColors.myBlue,
+                                  borderRadius: BorderRadius.circular(
+                                      Responsive.scaleFromFigma(context, 15))),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Flexible(
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                          commentList[index].userThumbnailUrl,
+                                      width: Responsive.scaleFromFigma(
+                                          context, 30),
+                                      height: Responsive.scaleFromFigma(
+                                          context, 30),
+                                      errorWidget: (context, url, error) =>
+                                          ClipRRect(
+                                        borderRadius: BorderRadius.circular(
+                                          Responsive.scaleFromFigma(
+                                              context, 20),
+                                        ),
+                                        child: Image.asset(
+                                            'assets/images/avatar.png'),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        Responsive.scaleFromFigma(context, 10),
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        commentList[index].userName,
+                                        style: TextStyle(
+                                          fontFamily: 'SB',
+                                          fontSize: Responsive.scaleFromFigma(
+                                              context, 14),
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: Responsive.scaleFromFigma(
+                                            context, 10),
+                                      ),
+                                      Text(
+                                        commentList[index].text,
+                                        style: TextStyle(
+                                          fontFamily: 'SB',
+                                          fontSize: Responsive.scaleFromFigma(
+                                              context, 16),
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          );
+        } else {
+          return const Text('error');
+        }
+      },
     );
   }
 }
