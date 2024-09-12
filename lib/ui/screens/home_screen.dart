@@ -1,4 +1,4 @@
-import 'package:apple_shop/bloc/home/bloc/home_bloc.dart';
+import 'package:apple_shop/bloc/home/home_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/models/banner.dart';
 import 'package:apple_shop/models/category.dart';

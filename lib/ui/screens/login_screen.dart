@@ -1,4 +1,4 @@
-import 'package:apple_shop/bloc/authentication/bloc/auth_bloc.dart';
+import 'package:apple_shop/bloc/authentication/auth_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/ui/widgets/custom_loading_widget.dart';
 import 'package:flutter/material.dart';

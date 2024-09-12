@@ -1,4 +1,4 @@
-import 'package:apple_shop/bloc/basket/bloc/basket_bloc.dart';
+import 'package:apple_shop/bloc/basket/basket_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/models/card_item.dart';
 import 'package:apple_shop/util/extensions/int_extensions.dart';

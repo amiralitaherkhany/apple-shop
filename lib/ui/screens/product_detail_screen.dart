@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:apple_shop/bloc/basket/bloc/basket_bloc.dart';
-import 'package:apple_shop/bloc/product/bloc/product_bloc.dart';
+import 'package:apple_shop/bloc/basket/basket_bloc.dart';
+import 'package:apple_shop/bloc/product/product_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/cubit/basket/cubit/basket_cubit.dart';
 import 'package:apple_shop/models/product.dart';
@@ -1009,21 +1009,23 @@ class PriceTagButton extends StatelessWidget {
                     SizedBox(
                       width: Responsive.scaleFromFigma(context, 5),
                     ),
-                    Container(
-                      width: Responsive.scaleFromFigma(context, 25),
-                      height: Responsive.scaleFromFigma(context, 15),
-                      decoration: BoxDecoration(
-                        color: MyColors.myRed,
-                        borderRadius: BorderRadius.circular(
-                            Responsive.scaleFromFigma(context, 7.5)),
-                      ),
-                      child: Center(
-                        child: Text(
-                          '%${product.persent.round()}',
-                          style: TextStyle(
-                            fontFamily: 'SB',
-                            color: Colors.white,
-                            fontSize: Responsive.scaleFromFigma(context, 10),
+                    Flexible(
+                      child: Container(
+                        width: Responsive.scaleFromFigma(context, 25),
+                        height: Responsive.scaleFromFigma(context, 15),
+                        decoration: BoxDecoration(
+                          color: MyColors.myRed,
+                          borderRadius: BorderRadius.circular(
+                              Responsive.scaleFromFigma(context, 7.5)),
+                        ),
+                        child: Center(
+                          child: Text(
+                            '%${product.persent.round()}',
+                            style: TextStyle(
+                              fontFamily: 'SB',
+                              color: Colors.white,
+                              fontSize: Responsive.scaleFromFigma(context, 10),
+                            ),
                           ),
                         ),
                       ),

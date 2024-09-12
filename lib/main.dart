@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-import 'package:apple_shop/bloc/authentication/bloc/auth_bloc.dart';
-import 'package:apple_shop/bloc/basket/bloc/basket_bloc.dart';
-import 'package:apple_shop/bloc/category/bloc/category_bloc.dart';
-import 'package:apple_shop/bloc/home/bloc/home_bloc.dart';
+import 'package:apple_shop/bloc/authentication/auth_bloc.dart';
+import 'package:apple_shop/bloc/basket/basket_bloc.dart';
+import 'package:apple_shop/bloc/category/category_bloc.dart';
+import 'package:apple_shop/bloc/home/home_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/cubit/basket/cubit/basket_cubit.dart';
 import 'package:apple_shop/di/di.dart';

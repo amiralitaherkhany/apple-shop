@@ -1,5 +1,5 @@
-import 'package:apple_shop/bloc/category/bloc/category_bloc.dart';
-import 'package:apple_shop/bloc/categoryProduct/bloc/category_product_bloc.dart';
+import 'package:apple_shop/bloc/category/category_bloc.dart';
+import 'package:apple_shop/bloc/categoryProduct/category_product_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/models/category.dart';
