@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 
 abstract class ICommentDataSource {
   Future<List<Comment>> getComments(String productId);
+  Future<void> postComment(String productId, String text);
 }
 
 class CommentRemoteDataSource implements ICommentDataSource {
@@ -22,6 +23,21 @@ class CommentRemoteDataSource implements ICommentDataSource {
       return response.data['items']
           .map<Comment>((jsonObject) => Comment.fromMapJson(jsonObject))
           .toList();
+    } on DioException catch (e) {
+      throw ApiException(e.response?.statusCode, e.response?.data['message']);
+    } catch (e) {
+      throw ApiException(0, 'unknown error');
+    }
+  }
+
+  @override
+  Future<void> postComment(String productId, String text) async {
+    try {
+      await dio.post('collections/comment/records', data: {
+        'text': text,
+        'user_id': 'wzx5gpn8nfqvsha',
+        'product_id': productId,
+      });
     } on DioException catch (e) {
       throw ApiException(e.response?.statusCode, e.response?.data['message']);
     } catch (e) {

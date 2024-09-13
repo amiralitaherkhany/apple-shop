@@ -8,3 +8,13 @@ class CommentRequestData extends CommentEvent {
 
   CommentRequestData({required this.productId});
 }
+
+class CommentPostRequest extends CommentEvent {
+  final String productId;
+  final String text;
+
+  CommentPostRequest({
+    required this.productId,
+    required this.text,
+  });
+}

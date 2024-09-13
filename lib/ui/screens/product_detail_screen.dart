@@ -475,6 +475,24 @@ class CommentBottomSheet extends StatelessWidget {
                     );
                   },
                   (commentList) {
+                    if (commentList.isEmpty) {
+                      return SliverToBoxAdapter(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'نظری برای این محصول وجود ندارد',
+                              style: TextStyle(
+                                fontFamily: 'SB',
+                                fontSize:
+                                    Responsive.scaleFromFigma(context, 14),
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
                     return SliverList(
                       delegate: SliverChildBuilderDelegate(
                         childCount: commentList.length,
@@ -497,21 +515,21 @@ class CommentBottomSheet extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Flexible(
-                                    child: CachedNetworkImage(
-                                      imageUrl:
-                                          commentList[index].userThumbnailUrl,
-                                      width: Responsive.scaleFromFigma(
-                                          context, 30),
-                                      height: Responsive.scaleFromFigma(
-                                          context, 30),
-                                      errorWidget: (context, url, error) =>
-                                          ClipRRect(
-                                        borderRadius: BorderRadius.circular(
-                                          Responsive.scaleFromFigma(
-                                              context, 20),
-                                        ),
-                                        child: Image.asset(
-                                            'assets/images/avatar.png'),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(
+                                        Responsive.scaleFromFigma(context, 20),
+                                      ),
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            commentList[index].userThumbnailUrl,
+                                        width: Responsive.scaleFromFigma(
+                                            context, 30),
+                                        height: Responsive.scaleFromFigma(
+                                            context, 30),
+                                        fit: BoxFit.cover,
+                                        errorWidget: (context, url, error) =>
+                                            Image.asset(
+                                                'assets/images/avatar.png'),
                                       ),
                                     ),
                                   ),

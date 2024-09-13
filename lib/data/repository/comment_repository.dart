@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 
 abstract class ICommentRepository {
   Future<Either<String, List<Comment>>> getComments(String productId);
+  Future<Either<String, String>> postComment(String productId, String text);
 }
 
 class CommentRepository implements ICommentRepository {
@@ -16,6 +17,17 @@ class CommentRepository implements ICommentRepository {
     try {
       List<Comment> commentList = await dataSource.getComments(productId);
       return right(commentList);
+    } on ApiException catch (e) {
+      return left(e.message ?? 'خطا محتوای متنی ندارد');
+    }
+  }
+
+  @override
+  Future<Either<String, String>> postComment(
+      String productId, String text) async {
+    try {
+      await dataSource.postComment(productId, text);
+      return right('نظر شما اضافه شد');
     } on ApiException catch (e) {
       return left(e.message ?? 'خطا محتوای متنی ندارد');
     }
