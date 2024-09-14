@@ -16,7 +16,8 @@ class CommentRemoteDataSource implements ICommentDataSource {
     try {
       Map<String, String> qParams = {
         'filter': 'product_id="$productId"',
-        'expand': 'user_id'
+        'expand': 'user_id',
+        'perPage': '500',
       };
       var response = await dio.get('collections/comment/records',
           queryParameters: qParams);

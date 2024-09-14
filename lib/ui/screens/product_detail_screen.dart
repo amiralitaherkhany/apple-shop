@@ -210,33 +210,41 @@ class ProductDetailScreen extends StatelessWidget {
                                 create: (context) => locator.get()
                                   ..add(CommentRequestData(
                                       productId: product.id)),
-                                child: DraggableScrollableSheet(
-                                  initialChildSize: 0.55,
-                                  maxChildSize: 1,
-                                  minChildSize: 0.3,
-                                  snapAnimationDuration: Durations.medium1,
-                                  snapSizes: const [0.3, 0.55, 1],
-                                  expand: false,
-                                  snap: true,
-                                  builder: (context, scrollController) => Stack(
-                                    alignment: Alignment.topCenter,
-                                    children: [
-                                      Positioned(
-                                        top: 15,
-                                        child: Container(
-                                          width: 80,
-                                          height: 5,
-                                          decoration: BoxDecoration(
-                                            color: MyColors.myBlue,
-                                            borderRadius:
-                                                BorderRadius.circular(20),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom: MediaQuery.of(context)
+                                          .viewInsets
+                                          .bottom),
+                                  child: DraggableScrollableSheet(
+                                    initialChildSize: 0.55,
+                                    maxChildSize: 1,
+                                    minChildSize: 0.3,
+                                    snapAnimationDuration: Durations.medium1,
+                                    snapSizes: const [0.3, 0.55, 1],
+                                    expand: false,
+                                    snap: true,
+                                    builder: (context, scrollController) =>
+                                        Stack(
+                                      alignment: Alignment.topCenter,
+                                      children: [
+                                        Positioned(
+                                          top: 15,
+                                          child: Container(
+                                            width: 80,
+                                            height: 5,
+                                            decoration: BoxDecoration(
+                                              color: MyColors.myBlue,
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      CommentBottomSheet(
-                                        scrollController: scrollController,
-                                      ),
-                                    ],
+                                        CommentBottomSheet(
+                                          scrollController: scrollController,
+                                          productId: product.id,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );
@@ -451,11 +459,14 @@ class ProductDetailScreen extends StatelessWidget {
 }
 
 class CommentBottomSheet extends StatelessWidget {
-  const CommentBottomSheet({
+  CommentBottomSheet({
     super.key,
     required this.scrollController,
+    required this.productId,
   });
   final ScrollController scrollController;
+  final String productId;
+  final TextEditingController textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CommentBloc, CommentState>(
@@ -463,119 +474,200 @@ class CommentBottomSheet extends StatelessWidget {
         if (state is CommentLoading || state is CommentInitial) {
           return const CustomLoadingWidget();
         } else if (state is CommentResponse) {
-          return Padding(
-            padding: const EdgeInsets.only(top: 50.0),
-            child: CustomScrollView(
-              controller: scrollController,
-              slivers: [
-                state.commentList.fold(
-                  (exception) {
-                    return SliverToBoxAdapter(
-                      child: Text(exception),
-                    );
-                  },
-                  (commentList) {
-                    if (commentList.isEmpty) {
-                      return SliverToBoxAdapter(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'نظری برای این محصول وجود ندارد',
-                              style: TextStyle(
-                                fontFamily: 'SB',
-                                fontSize:
-                                    Responsive.scaleFromFigma(context, 14),
-                                color: Colors.black,
-                              ),
+          return Stack(
+            alignment: Alignment.topCenter,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 50.0),
+                child: CustomScrollView(
+                  controller: scrollController,
+                  slivers: [
+                    state.commentList.fold(
+                      (exception) {
+                        return SliverToBoxAdapter(
+                          child: Text(exception),
+                        );
+                      },
+                      (commentList) {
+                        if (commentList.isEmpty) {
+                          return SliverToBoxAdapter(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'نظری برای این محصول وجود ندارد',
+                                  style: TextStyle(
+                                    fontFamily: 'SB',
+                                    fontSize:
+                                        Responsive.scaleFromFigma(context, 14),
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      );
-                    }
-                    return SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        childCount: commentList.length,
-                        (context, index) {
-                          return Directionality(
-                            textDirection: TextDirection.rtl,
-                            child: Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal:
-                                      Responsive.scaleFromFigma(context, 20),
-                                  vertical:
-                                      Responsive.scaleFromFigma(context, 10)),
-                              padding: EdgeInsets.all(
-                                  Responsive.scaleFromFigma(context, 8)),
-                              decoration: BoxDecoration(
-                                  color: MyColors.myBlue,
-                                  borderRadius: BorderRadius.circular(
-                                      Responsive.scaleFromFigma(context, 15))),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Flexible(
-                                    child: ClipRRect(
+                          );
+                        }
+                        return SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            childCount: commentList.length,
+                            (context, index) {
+                              return Directionality(
+                                textDirection: TextDirection.rtl,
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: Responsive.scaleFromFigma(
+                                          context, 20),
+                                      vertical: Responsive.scaleFromFigma(
+                                          context, 10)),
+                                  padding: EdgeInsets.all(
+                                      Responsive.scaleFromFigma(context, 8)),
+                                  decoration: BoxDecoration(
+                                      color: MyColors.myBlue,
                                       borderRadius: BorderRadius.circular(
-                                        Responsive.scaleFromFigma(context, 20),
-                                      ),
-                                      child: CachedNetworkImage(
-                                        imageUrl:
-                                            commentList[index].userThumbnailUrl,
-                                        width: Responsive.scaleFromFigma(
-                                            context, 30),
-                                        height: Responsive.scaleFromFigma(
-                                            context, 30),
-                                        fit: BoxFit.cover,
-                                        errorWidget: (context, url, error) =>
-                                            Image.asset(
-                                                'assets/images/avatar.png'),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width:
-                                        Responsive.scaleFromFigma(context, 10),
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                          Responsive.scaleFromFigma(
+                                              context, 15))),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        commentList[index].userName,
-                                        style: TextStyle(
-                                          fontFamily: 'SB',
-                                          fontSize: Responsive.scaleFromFigma(
-                                              context, 14),
-                                          color: Colors.black,
+                                      Flexible(
+                                        flex: 1,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                            Responsive.scaleFromFigma(
+                                                context, 20),
+                                          ),
+                                          child: CachedNetworkImage(
+                                            imageUrl: commentList[index]
+                                                .userThumbnailUrl,
+                                            width: Responsive.scaleFromFigma(
+                                                context, 30),
+                                            height: Responsive.scaleFromFigma(
+                                                context, 30),
+                                            fit: BoxFit.cover,
+                                            errorWidget: (context, url,
+                                                    error) =>
+                                                Image.asset(
+                                                    'assets/images/avatar.png'),
+                                          ),
                                         ),
                                       ),
                                       SizedBox(
-                                        height: Responsive.scaleFromFigma(
+                                        width: Responsive.scaleFromFigma(
                                             context, 10),
                                       ),
-                                      Text(
-                                        commentList[index].text,
-                                        style: TextStyle(
-                                          fontFamily: 'SB',
-                                          fontSize: Responsive.scaleFromFigma(
-                                              context, 16),
-                                          color: Colors.white,
+                                      Flexible(
+                                        flex: 9,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              commentList[index].userName,
+                                              style: TextStyle(
+                                                fontFamily: 'SB',
+                                                fontSize:
+                                                    Responsive.scaleFromFigma(
+                                                        context, 14),
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: Responsive.scaleFromFigma(
+                                                  context, 10),
+                                            ),
+                                            FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              child: Text(
+                                                commentList[index].text,
+                                                style: TextStyle(
+                                                  fontFamily: 'SB',
+                                                  fontSize:
+                                                      Responsive.scaleFromFigma(
+                                                          context, 16),
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    );
-                  },
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                    const SliverPadding(
+                      padding: EdgeInsets.only(bottom: 50),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                left: 0,
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Container(
+                    color: Colors.white,
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: TextField(
+                        controller: textEditingController,
+                        decoration: InputDecoration(
+                          hintText: 'افزودن نظر',
+                          hintStyle: TextStyle(
+                            fontFamily: 'SB',
+                            fontSize: Responsive.scaleFromFigma(context, 16),
+                            color: Colors.black,
+                          ),
+                          suffixIcon: IconButton(
+                            color: MyColors.myBlue,
+                            icon: const Icon(Icons.add),
+                            onPressed: () {
+                              if (textEditingController.text.isEmpty) {
+                                return;
+                              }
+                              context.read<CommentBloc>().add(
+                                    CommentPostRequest(
+                                        productId: productId,
+                                        text: textEditingController.text),
+                                  );
+                            },
+                          ),
+                          border: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              strokeAlign: 0,
+                              width: 0,
+                              color: Colors.transparent,
+                            ),
+                          ),
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              strokeAlign: 0,
+                              width: 0,
+                              color: Colors.transparent,
+                            ),
+                          ),
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              strokeAlign: 0,
+                              width: 0,
+                              color: Colors.transparent,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           );
         } else {
           return const Text('error');
