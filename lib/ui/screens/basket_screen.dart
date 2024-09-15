@@ -103,6 +103,7 @@ class BasketScreen extends StatelessWidget {
                                     bottom:
                                         Responsive.scaleFromFigma(context, 20)),
                                 child: CardBasketitem(
+                                  index: index,
                                   basketItem: basketItems[index],
                                 ),
                               );
@@ -180,13 +181,16 @@ class CardBasketitem extends StatelessWidget {
   const CardBasketitem({
     super.key,
     required this.basketItem,
+    required this.index,
   });
   final BasketItem basketItem;
+  final int index;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: Responsive.scaleFromFigma(context, 44)),
+        horizontal: Responsive.scaleFromFigma(context, 44),
+      ),
       child: Container(
         height: Responsive.scaleFromFigma(context, 239),
         decoration: BoxDecoration(
@@ -336,12 +340,14 @@ class CardBasketitem extends StatelessWidget {
                             textDirection: TextDirection.rtl,
                             runSpacing: Responsive.scaleFromFigma(context, 10),
                             spacing: Responsive.scaleFromFigma(context, 10),
-                            children: const [
-                              StorageVariantCheap(),
-                              ColorVariantCheap(),
-                              NumberOfProductCheap(),
-                              SaveProductCheap(),
-                              DeleteProductCheap(),
+                            children: [
+                              const StorageVariantCheap(),
+                              const ColorVariantCheap(),
+                              const NumberOfProductCheap(),
+                              const SaveProductCheap(),
+                              DeleteProductCheap(
+                                productItemIndex: index,
+                              ),
                             ],
                           )
                         ],
@@ -423,46 +429,54 @@ class CardBasketitem extends StatelessWidget {
 class DeleteProductCheap extends StatelessWidget {
   const DeleteProductCheap({
     super.key,
+    required this.productItemIndex,
   });
-
+  final int productItemIndex;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: Responsive.scaleFromFigma(context, 62),
-      height: Responsive.scaleFromFigma(context, 24),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
-        border: Border.all(
-          color: const Color(0xffE5E5E5),
-          width: 1,
+    return InkWell(
+      onTap: () {
+        context
+            .read<BasketBloc>()
+            .add(BasketRemoveProduct(index: productItemIndex));
+      },
+      child: Container(
+        width: Responsive.scaleFromFigma(context, 62),
+        height: Responsive.scaleFromFigma(context, 24),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+          border: Border.all(
+            color: const Color(0xffE5E5E5),
+            width: 1,
+          ),
         ),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: Responsive.scaleFromFigma(context, 10),
-          ),
-          Text(
-            textDirection: TextDirection.rtl,
-            'حذف',
-            style: TextStyle(
-              fontFamily: 'SM',
-              fontSize: Responsive.scaleFromFigma(context, 10),
-              color: MyColors.myGrey,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: Responsive.scaleFromFigma(context, 10),
             ),
-          ),
-          const Spacer(),
-          Icon(
-            IconsaxBold.trash,
-            color: MyColors.myGrey,
-            size: Responsive.scaleFromFigma(context, 15),
-          ),
-          SizedBox(
-            width: Responsive.scaleFromFigma(context, 10),
-          ),
-        ],
+            Text(
+              textDirection: TextDirection.rtl,
+              'حذف',
+              style: TextStyle(
+                fontFamily: 'SM',
+                fontSize: Responsive.scaleFromFigma(context, 10),
+                color: MyColors.myGrey,
+              ),
+            ),
+            const Spacer(),
+            Icon(
+              IconsaxBold.trash,
+              color: MyColors.myGrey,
+              size: Responsive.scaleFromFigma(context, 15),
+            ),
+            SizedBox(
+              width: Responsive.scaleFromFigma(context, 10),
+            ),
+          ],
+        ),
       ),
     );
   }

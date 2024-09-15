@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:zarinpal/zarinpal.dart';
 
 abstract class PaymentHandler {
-  Future<void> initPaymentRequest();
+  Future<void> initPaymentRequest(int price);
   Future<void> sendPaymentRequest();
   Future<void> verifyPaymentRequest();
 }
@@ -25,9 +25,9 @@ class ZarinpalPaymentHandler implements PaymentHandler {
       required this.appLinks,
       required this.urlHandler});
   @override
-  Future<void> initPaymentRequest() async {
+  Future<void> initPaymentRequest(int finalPrice) async {
     paymentRequest.setIsSandBox(true);
-    paymentRequest.setAmount(105600);
+    paymentRequest.setAmount(finalPrice);
     paymentRequest.setDescription('this is a test description');
     paymentRequest.setCallbackURL('expertflutter://shop');
     paymentRequest.setMerchantID('XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX');

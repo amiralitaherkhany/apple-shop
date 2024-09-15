@@ -20,13 +20,21 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
     });
 
     on<BasketPaymentInit>(
-      (event, emit) {
-        paymentHandler.initPaymentRequest();
+      (event, emit) async {
+        var finalPrice = await repository.getBasketFinalPrice();
+
+        paymentHandler.initPaymentRequest(finalPrice);
       },
     );
     on<BasketPaymentRequest>(
       (event, emit) {
         paymentHandler.sendPaymentRequest();
+      },
+    );
+    on<BasketRemoveProduct>(
+      (event, emit) async {
+        await repository.removeBasketItem(event.index);
+        add(BasketFetchFromHive());
       },
     );
   }
