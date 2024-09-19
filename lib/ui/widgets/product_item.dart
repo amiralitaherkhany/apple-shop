@@ -98,12 +98,15 @@ class ProductItem extends StatelessWidget {
                           Responsive.scaleFromFigma(context, 7.5)),
                     ),
                     child: Center(
-                      child: Text(
-                        '%${product.persent.round()}',
-                        style: TextStyle(
-                          fontFamily: 'SB',
-                          color: Colors.white,
-                          fontSize: Responsive.scaleFromFigma(context, 10),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          '%${product.persent.round()}',
+                          style: const TextStyle(
+                            fontFamily: 'SB',
+                            color: Colors.white,
+                            fontSize: 12,
+                          ),
                         ),
                       ),
                     ),
@@ -114,26 +117,22 @@ class ProductItem extends StatelessWidget {
             SizedBox(
               height: Responsive.scaleFromFigma(context, 20),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  maxLines: 1,
-                  product.name,
-                  style: TextStyle(
-                    fontFamily: 'SB',
-                    color: Colors.black,
-                    fontSize: Responsive.scaleFromFigma(context, 14),
-                    overflow: TextOverflow.ellipsis,
-                  ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5.0),
+              child: Text(
+                maxLines: 1,
+                product.name,
+                style: TextStyle(
+                  fontFamily: 'SB',
+                  color: Colors.black,
+                  fontSize: Responsive.scaleFromFigma(context, 14),
+                  overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(
-                  width: Responsive.scaleFromFigma(context, 10),
-                ),
-              ],
+              ),
             ),
             const Spacer(),
             Container(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
               height: Responsive.scaleFromFigma(context, 53),
               decoration: BoxDecoration(
                 color: MyColors.myBlue,
@@ -185,60 +184,60 @@ class ProductItem extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  SizedBox(
-                    width: Responsive.scaleFromFigma(context, 10),
-                  ),
-                  Text(
-                    'تومان',
-                    style: TextStyle(
-                      fontFamily: 'SM',
-                      fontSize: Responsive.scaleFromFigma(context, 12),
-                      color: Colors.white,
+                  Flexible(
+                    flex: 1,
+                    child: Text(
+                      'تومان',
+                      style: TextStyle(
+                        fontFamily: 'SM',
+                        fontSize: Responsive.scaleFromFigma(context, 12),
+                        color: Colors.white,
+                      ),
                     ),
                   ),
-                  SizedBox(
-                    width: Responsive.scaleFromFigma(context, 5),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          product.price.formatPrice,
-                          style: TextStyle(
-                            decoration: TextDecoration.lineThrough,
-                            decorationColor: Colors.white,
-                            decorationThickness: 2,
-                            fontFamily: 'SM',
-                            fontSize: Responsive.scaleFromFigma(context, 12),
-                            color: Colors.white,
+                  Flexible(
+                    flex: 2,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            product.price.formatPrice,
+                            style: TextStyle(
+                              decoration: TextDecoration.lineThrough,
+                              decorationColor: Colors.white,
+                              decorationThickness: 2,
+                              fontFamily: 'SM',
+                              fontSize: Responsive.scaleFromFigma(context, 12),
+                              color: Colors.white,
+                            ),
                           ),
                         ),
-                      ),
-                      FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          product.realPrice.formatPrice,
-                          style: TextStyle(
-                            fontFamily: 'SM',
-                            fontSize: Responsive.scaleFromFigma(context, 16),
-                            color: Colors.white,
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            product.realPrice.formatPrice,
+                            style: TextStyle(
+                              fontFamily: 'SM',
+                              fontSize: Responsive.scaleFromFigma(context, 16),
+                              color: Colors.white,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  const Spacer(),
-                  Icon(
-                    IconsaxBold.arrow_right,
-                    color: MyColors.myWhite,
-                    size: Responsive.scaleFromFigma(context, 30),
-                  ),
-                  SizedBox(
-                    width: Responsive.scaleFromFigma(context, 5),
+                  Flexible(
+                    flex: 1,
+                    child: Icon(
+                      IconsaxBold.arrow_right,
+                      color: MyColors.myWhite,
+                      size: Responsive.scaleFromFigma(context, 30),
+                    ),
                   ),
                 ],
               ),

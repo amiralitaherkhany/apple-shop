@@ -137,9 +137,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     return _getMostPopularList(productHottestList);
                   },
                 ),
-                SliverPadding(
-                  padding: EdgeInsets.only(
-                      bottom: Responsive.scaleFromFigma(context, 100)),
+                const SliverPadding(
+                  padding: EdgeInsets.only(bottom: 100),
                 ),
               ],
             ),
@@ -187,9 +186,10 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Icon(
+            Icon(
               IconsaxOutline.arrow_circle_left,
               color: MyColors.myBlue,
+              size: Responsive.scaleFromFigma(context, 30),
             ),
             SizedBox(
               width: Responsive.scaleFromFigma(context, 10),
@@ -251,9 +251,10 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Icon(
+            Icon(
               IconsaxOutline.arrow_circle_left,
               color: MyColors.myBlue,
+              size: Responsive.scaleFromFigma(context, 30),
             ),
             SizedBox(
               width: Responsive.scaleFromFigma(context, 10),
