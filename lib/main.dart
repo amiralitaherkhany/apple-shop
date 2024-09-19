@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-////salam2
 import 'package:apple_shop/bloc/authentication/auth_bloc.dart';
 import 'package:apple_shop/bloc/basket/basket_bloc.dart';
 import 'package:apple_shop/bloc/category/category_bloc.dart';
