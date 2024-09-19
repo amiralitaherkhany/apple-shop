@@ -82,7 +82,7 @@ Future<void> _initComponents() async {
 
 void _initDataSources() {
   locator.registerFactory<IAuthenticationDataSource>(
-      () => AuthenticationRemote(dio: locator.get()));
+      () => AuthenticationRemote(dio: DioProvider.createDioWithoutHeader()));
   locator.registerFactory<ICategoryDataSource>(
       () => CategoryRemoteDataSource(dio: locator.get()));
   locator.registerFactory<IBannerDataSource>(
