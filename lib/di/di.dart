@@ -69,7 +69,7 @@ void _initBlocs() {
 
 Future<void> _initComponents() async {
   locator.registerSingleton<UrlHandler>(UrlLauncher());
-  locator.registerFactory<AppLinks>(() => AppLinks());
+  locator.registerSingleton<AppLinks>(AppLinks());
   locator.registerFactory<PaymentRequest>(() => PaymentRequest());
   locator.registerSingleton<PaymentHandler>(ZarinpalPaymentHandler(
       urlHandler: locator.get(),

@@ -14,23 +14,23 @@ abstract class PaymentHandler {
 
 class ZarinpalPaymentHandler implements PaymentHandler {
   final PaymentRequest paymentRequest;
-  final AppLinks appLinks;
   final UrlHandler urlHandler;
-  StreamSubscription<Uri>? _linkSubscription;
+  final AppLinks appLinks;
   String? _authority;
   String? _status;
 
+  StreamSubscription<Uri>? _linkSubscription;
   ZarinpalPaymentHandler(
       {required this.paymentRequest,
       required this.appLinks,
       required this.urlHandler});
   @override
   Future<void> initPaymentRequest(int finalPrice) async {
-    paymentRequest.setIsSandBox(true);
+    paymentRequest.setIsSandBox(false);
     paymentRequest.setAmount(finalPrice);
     paymentRequest.setDescription('this is a test description');
     paymentRequest.setCallbackURL('expertflutter://shop');
-    paymentRequest.setMerchantID('XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX');
+    paymentRequest.setMerchantID('d645fba8-1b29-11ea-be59-000c295eb8fc');
   }
 
   @override
@@ -40,22 +40,22 @@ class ZarinpalPaymentHandler implements PaymentHandler {
       (status, paymentGatewayUri) {
         if (status == 100) {
           urlHandler.openUrl(paymentGatewayUri!);
-          debugPrint(Uri.parse(paymentGatewayUri).toString());
-        }
-      },
-    );
-
-    _linkSubscription = appLinks.uriLinkStream.listen(
-      (uri) {
-        //expertflutter://shop?Authority=132324323423443421212121212121212121&Status=OK
-        debugPrint('onAppLink: $uri');
-        if (uri.toString().toLowerCase().contains('authority')) {
-          _authority = uri.toString().extractValueFromQuery('Authority');
-          _status = uri.toString().extractValueFromQuery('Status');
-          debugPrint(_authority);
-          debugPrint(_status);
-          verifyPaymentRequest();
-          _linkSubscription?.cancel();
+          _linkSubscription = appLinks.uriLinkStream.listen(
+            (uri) {
+              //expertflutter://shop?Authority=132324323423443421212121212121212121&Status=OK
+              print('app opened');
+              if (uri.toString().contains('Authority')) {
+                _authority = uri.toString().extractValueFromQuery('Authority');
+                _status = uri.toString().extractValueFromQuery('Status');
+                print(_authority);
+                print(_status);
+                verifyPaymentRequest();
+                _linkSubscription?.cancel();
+              }
+            },
+          );
+        } else {
+          print(status.toString());
         }
       },
     );
@@ -71,7 +71,7 @@ class ZarinpalPaymentHandler implements PaymentHandler {
         if (isPaymentSuccess) {
           debugPrint(refID);
         } else {
-          debugPrint('error');
+          debugPrint('payment failed');
         }
       },
     );
