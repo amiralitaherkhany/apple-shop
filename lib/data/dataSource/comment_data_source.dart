@@ -1,5 +1,6 @@
 import 'package:apple_shop/models/comment.dart';
 import 'package:apple_shop/util/api_exception.dart';
+import 'package:apple_shop/util/auth_manager.dart';
 import 'package:dio/dio.dart';
 
 abstract class ICommentDataSource {
@@ -9,7 +10,7 @@ abstract class ICommentDataSource {
 
 class CommentRemoteDataSource implements ICommentDataSource {
   final Dio dio;
-
+  final String userId = AuthManager.getId();
   CommentRemoteDataSource({required this.dio});
   @override
   Future<List<Comment>> getComments(String productId) async {
@@ -36,7 +37,7 @@ class CommentRemoteDataSource implements ICommentDataSource {
     try {
       await dio.post('collections/comment/records', data: {
         'text': text,
-        'user_id': 'wzx5gpn8nfqvsha',
+        'user_id': userId,
         'product_id': productId,
       });
     } on DioException catch (e) {

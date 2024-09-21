@@ -548,6 +548,7 @@ class CommentBottomSheet extends StatelessWidget {
                                                     error) =>
                                                 Image.asset(
                                                     'assets/images/avatar.png'),
+                                            errorListener: (value) {},
                                           ),
                                         ),
                                       ),
