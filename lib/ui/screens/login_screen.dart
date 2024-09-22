@@ -1,8 +1,13 @@
 import 'package:apple_shop/bloc/authentication/auth_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
+import 'package:apple_shop/di/di.dart';
+import 'package:apple_shop/ui/screens/main_wrapper.dart';
+import 'package:apple_shop/ui/screens/register_screen.dart';
 import 'package:apple_shop/ui/widgets/custom_loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../main.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -161,6 +166,46 @@ class LoginScreen extends StatelessWidget {
                             return const Text('خطای نامشخص');
                           }
                         },
+                      ),
+                      const Spacer(),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                            foregroundColor: MyColors.myBlue),
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider<AuthBloc>(
+                                create: (context) => locator.get()
+                                  ..stream.forEach(
+                                    (state) {
+                                      if (state is AuthResponse) {
+                                        state.response.fold(
+                                          (l) {},
+                                          (r) {
+                                            globalNavigatorKey.currentState
+                                                ?.pushReplacement(
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const MainWrapper(),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      }
+                                    },
+                                  ),
+                                child: RegisterScreen(),
+                              ),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'حساب کاربری ندارید؟ ثبت نام',
+                          style: TextStyle(
+                            fontFamily: 'SB',
+                            fontSize: 16,
+                          ),
+                        ),
                       ),
                     ],
                   ),

@@ -18,11 +18,14 @@ class AuthenticationRemote implements IAuthenticationDataSource {
   Future<void> register(
       String username, String password, String passwordConfirm) async {
     try {
-      await dio.post('collections/users/records', data: {
+      var response = await dio.post('collections/users/records', data: {
         'username': username,
         'password': password,
         'passwordConfirm': passwordConfirm,
       });
+      if (response.statusCode == 200) {
+        AuthManager.saveId(response.data?['id']);
+      }
     } on DioException catch (e) {
       throw ApiException(e.response?.statusCode, e.response?.data['message']);
     } catch (e) {
