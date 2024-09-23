@@ -17,217 +17,228 @@ class RegisterScreen extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: MyColors.myBlue,
+        appBar: AppBar(
+          toolbarHeight: 0,
+          elevation: 0,
+          scrolledUnderElevation: 0,
+          backgroundColor: Colors.white,
+        ),
+        backgroundColor: Colors.white,
         body: SafeArea(
-          child: ListView(
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 2 - 150,
+          child: Center(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'assets/images/icon_application.png',
-                      width: 100,
-                      height: 100,
+                      'assets/images/register.jpg',
+                      width: 250,
+                      height: 250,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'نام کاربری:',
+                          style: TextStyle(
+                            fontFamily: 'SM',
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextField(
+                          // onTapOutside: (event) {
+                          //   FocusManager.instance.primaryFocus?.unfocus();
+                          // },
+                          controller: _usernameTextController,
+                          decoration: InputDecoration(
+                            focusedBorder: const OutlineInputBorder(
+                              gapPadding: 0,
+                              borderSide: BorderSide(
+                                width: 2,
+                                color: MyColors.myBlue,
+                              ),
+                            ),
+                            border: InputBorder.none,
+                            filled: true,
+                            fillColor: Colors.grey[300],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'رمز عبور:',
+                          style: TextStyle(
+                            fontFamily: 'SM',
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextField(
+                          // onTapOutside: (event) {
+                          //   FocusManager.instance.primaryFocus?.unfocus();
+                          // },
+                          controller: _passwordTextController,
+                          decoration: InputDecoration(
+                            focusedBorder: const OutlineInputBorder(
+                              gapPadding: 0,
+                              borderSide: BorderSide(
+                                width: 2,
+                                color: MyColors.myBlue,
+                              ),
+                            ),
+                            border: InputBorder.none,
+                            filled: true,
+                            fillColor: Colors.grey[300],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          ' تکرار رمز عبور:',
+                          style: TextStyle(
+                            fontFamily: 'SM',
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextField(
+                          // onTapOutside: (event) {
+                          //   FocusManager.instance.primaryFocus?.unfocus();
+                          // },
+                          controller: _passwordConfirmTextController,
+                          decoration: InputDecoration(
+                            focusedBorder: const OutlineInputBorder(
+                              gapPadding: 0,
+                              borderSide: BorderSide(
+                                width: 2,
+                                color: MyColors.myBlue,
+                              ),
+                            ),
+                            border: InputBorder.none,
+                            filled: true,
+                            fillColor: Colors.grey[300],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    BlocBuilder<AuthBloc, AuthState>(
+                      builder: (context, state) {
+                        if (state is AuthInitial) {
+                          return ElevatedButton(
+                            onPressed: () {
+                              context.read<AuthBloc>().add(
+                                    AuthRegisterRequest(
+                                      username: _usernameTextController.text,
+                                      password: _passwordTextController.text,
+                                      passwordConfirm:
+                                          _passwordConfirmTextController.text,
+                                    ),
+                                  );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: MyColors.myBlue,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              fixedSize: const Size(250, 48),
+                            ),
+                            child: const Text(
+                              'ثبت نام',
+                              style: TextStyle(
+                                fontFamily: 'SB',
+                                fontSize: 16,
+                              ),
+                            ),
+                          );
+                        } else if (state is AuthLoading) {
+                          return const CustomLoadingWidget();
+                        } else if (state is AuthResponse) {
+                          return state.response.fold(
+                            (l) {
+                              return Text(
+                                l,
+                                style: const TextStyle(
+                                  fontFamily: 'SB',
+                                  fontSize: 16,
+                                ),
+                              );
+                            },
+                            (r) {
+                              return Text(
+                                r,
+                                style: const TextStyle(
+                                  fontFamily: 'SB',
+                                  fontSize: 16,
+                                ),
+                              );
+                            },
+                          );
+                        } else {
+                          return const Text(
+                            'خطای نامشخص',
+                            style: TextStyle(
+                              fontFamily: 'SB',
+                              fontSize: 16,
+                            ),
+                          );
+                        }
+                      },
                     ),
                     const SizedBox(
                       height: 30,
                     ),
-                    const Text(
-                      'اپل شاپ',
-                      style: TextStyle(
-                        fontFamily: 'SB',
-                        fontSize: 24,
-                        color: Colors.white,
+                    TextButton(
+                      style: TextButton.styleFrom(
+                          foregroundColor: MyColors.myBlue),
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => BlocProvider<AuthBloc>(
+                              create: (context) => locator.get(),
+                              child: LoginScreen(),
+                            ),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'حساب کاربری دارید؟ وارد شوید ',
+                        style: TextStyle(
+                          fontFamily: 'SB',
+                          fontSize: 16,
+                        ),
                       ),
                     )
                   ],
                 ),
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 2,
-                child: Container(
-                  padding: const EdgeInsets.all(20),
-                  margin: const EdgeInsets.all(20),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      TextField(
-                        controller: _usernameTextController,
-                        decoration: const InputDecoration(
-                          labelText: 'نام کاربری',
-                          labelStyle: TextStyle(
-                            fontFamily: 'SM',
-                            fontSize: 18,
-                            color: Colors.black,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                              width: 2,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            borderSide: BorderSide(
-                              color: MyColors.myBlue,
-                              width: 3,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextField(
-                        controller: _passwordTextController,
-                        decoration: const InputDecoration(
-                          labelText: 'رمز عبور',
-                          labelStyle: TextStyle(
-                            fontFamily: 'SM',
-                            fontSize: 18,
-                            color: Colors.black,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                              width: 2,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            borderSide: BorderSide(
-                              color: MyColors.myBlue,
-                              width: 3,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextField(
-                        controller: _passwordConfirmTextController,
-                        decoration: const InputDecoration(
-                          labelText: 'تکرار رمز عبور',
-                          labelStyle: TextStyle(
-                            fontFamily: 'SM',
-                            fontSize: 18,
-                            color: Colors.black,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                              width: 2,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            borderSide: BorderSide(
-                              color: MyColors.myBlue,
-                              width: 3,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      BlocBuilder<AuthBloc, AuthState>(
-                        builder: (context, state) {
-                          if (state is AuthInitial) {
-                            return ElevatedButton(
-                              onPressed: () {
-                                context.read<AuthBloc>().add(
-                                      AuthRegisterRequest(
-                                        username: _usernameTextController.text,
-                                        password: _passwordTextController.text,
-                                        passwordConfirm:
-                                            _passwordConfirmTextController.text,
-                                      ),
-                                    );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: MyColors.myBlue,
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                maximumSize: const Size(200, 48),
-                              ),
-                              child: const Text(
-                                'ثبت نام',
-                                style: TextStyle(
-                                  fontFamily: 'SB',
-                                  fontSize: 16,
-                                ),
-                              ),
-                            );
-                          } else if (state is AuthLoading) {
-                            return const CustomLoadingWidget();
-                          } else if (state is AuthResponse) {
-                            return state.response.fold(
-                              (l) {
-                                return Text(l);
-                              },
-                              (r) {
-                                return Text(r);
-                              },
-                            );
-                          } else {
-                            return const Text('خطای نامشخص');
-                          }
-                        },
-                      ),
-                      const Spacer(),
-                      TextButton(
-                        style: TextButton.styleFrom(
-                            foregroundColor: MyColors.myBlue),
-                        onPressed: () {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => BlocProvider<AuthBloc>(
-                                create: (context) => locator.get(),
-                                child: LoginScreen(),
-                              ),
-                            ),
-                          );
-                        },
-                        child: const Text(
-                          'حساب کاربری دارید؟ ورود ',
-                          style: TextStyle(
-                            fontFamily: 'SB',
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
+            ),
           ),
         ),
       ),
