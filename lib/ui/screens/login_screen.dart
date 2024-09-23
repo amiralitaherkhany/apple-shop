@@ -7,8 +7,6 @@ import 'package:apple_shop/ui/widgets/custom_loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../main.dart';
-
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   final TextEditingController _usernameTextController =
@@ -17,6 +15,13 @@ class LoginScreen extends StatelessWidget {
       TextEditingController(text: 'Amir0200820621');
   @override
   Widget build(BuildContext context) {
+    return BlocProvider<AuthBloc>(
+      create: (context) => locator.get(),
+      child: viewContainer(context),
+    );
+  }
+
+  Directionality viewContainer(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -97,7 +102,21 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    BlocBuilder<AuthBloc, AuthState>(
+                    BlocConsumer<AuthBloc, AuthState>(
+                      listener: (context, state) {
+                        if (state is AuthResponse) {
+                          state.response.fold(
+                            (l) {},
+                            (r) {
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (context) => const MainWrapper(),
+                                ),
+                              );
+                            },
+                          );
+                        }
+                      },
                       builder: (context, state) {
                         if (state is AuthInitial) {
                           return ElevatedButton(
@@ -165,28 +184,7 @@ class LoginScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (context) => BlocProvider<AuthBloc>(
-                              create: (context) => locator.get()
-                                ..stream.forEach(
-                                  (state) {
-                                    if (state is AuthResponse) {
-                                      state.response.fold(
-                                        (l) {},
-                                        (r) {
-                                          globalNavigatorKey.currentState
-                                              ?.pushReplacement(
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const MainWrapper(),
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    }
-                                  },
-                                ),
-                              child: RegisterScreen(),
-                            ),
+                            builder: (context) => RegisterScreen(),
                           ),
                         );
                       },

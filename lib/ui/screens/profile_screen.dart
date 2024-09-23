@@ -1,13 +1,8 @@
-import 'package:apple_shop/bloc/authentication/auth_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
-import 'package:apple_shop/di/di.dart';
-import 'package:apple_shop/main.dart';
 import 'package:apple_shop/ui/screens/login_screen.dart';
-import 'package:apple_shop/ui/screens/main_wrapper.dart';
 import 'package:apple_shop/util/auth_manager.dart';
 import 'package:apple_shop/util/responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -125,28 +120,11 @@ class ProfileScreen extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () {
               AuthManager.logOut();
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => BlocProvider<AuthBloc>(
-                  create: (context) => locator.get()
-                    ..stream.forEach(
-                      (state) {
-                        if (state is AuthResponse) {
-                          state.response.fold(
-                            (l) {},
-                            (r) {
-                              globalNavigatorKey.currentState?.pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (context) => const MainWrapper(),
-                                ),
-                              );
-                            },
-                          );
-                        }
-                      },
-                    ),
-                  child: LoginScreen(),
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => LoginScreen(),
                 ),
-              ));
+              );
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red,

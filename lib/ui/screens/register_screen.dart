@@ -2,6 +2,7 @@ import 'package:apple_shop/bloc/authentication/auth_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/ui/screens/login_screen.dart';
+import 'package:apple_shop/ui/screens/main_wrapper.dart';
 import 'package:apple_shop/ui/widgets/custom_loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,6 +15,13 @@ class RegisterScreen extends StatelessWidget {
       TextEditingController();
   @override
   Widget build(BuildContext context) {
+    return BlocProvider<AuthBloc>(
+      create: (context) => locator.get(),
+      child: viewContainer(context),
+    );
+  }
+
+  Directionality viewContainer(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -147,7 +155,15 @@ class RegisterScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    BlocBuilder<AuthBloc, AuthState>(
+                    BlocConsumer<AuthBloc, AuthState>(
+                      listener: (context, state) {
+                        if (state is AuthResponse) {
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                            builder: (context) => const MainWrapper(),
+                          ));
+                        }
+                      },
                       builder: (context, state) {
                         if (state is AuthInitial) {
                           return ElevatedButton(
@@ -220,10 +236,7 @@ class RegisterScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (context) => BlocProvider<AuthBloc>(
-                              create: (context) => locator.get(),
-                              child: LoginScreen(),
-                            ),
+                            builder: (context) => LoginScreen(),
                           ),
                         );
                       },

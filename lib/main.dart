@@ -1,4 +1,3 @@
-import 'package:apple_shop/bloc/authentication/auth_bloc.dart';
 import 'package:apple_shop/bloc/basket/basket_bloc.dart';
 import 'package:apple_shop/bloc/category/category_bloc.dart';
 import 'package:apple_shop/bloc/home/home_bloc.dart';
@@ -62,12 +61,8 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: AuthManager.readAuth().isEmpty
-          ? BlocProvider<AuthBloc>(
-              create: (context) => locator.get(),
-              child: LoginScreen(),
-            )
-          : const MainWrapper(),
+      home:
+          AuthManager.readAuth().isEmpty ? LoginScreen() : const MainWrapper(),
     );
   }
 }
