@@ -5,6 +5,7 @@ import 'package:apple_shop/bloc/category/category_bloc.dart';
 import 'package:apple_shop/bloc/categoryProduct/category_product_bloc.dart';
 import 'package:apple_shop/bloc/comment/comment_bloc.dart';
 import 'package:apple_shop/bloc/home/home_bloc.dart';
+import 'package:apple_shop/bloc/payment/payment_bloc.dart';
 import 'package:apple_shop/bloc/product/product_bloc.dart';
 import 'package:apple_shop/cubit/basket/cubit/basket_cubit.dart';
 import 'package:apple_shop/data/dataSource/authentication_data_source.dart';
@@ -47,8 +48,9 @@ Future<void> getItInit() async {
 }
 
 void _initBlocs() {
-  locator.registerSingleton<BasketBloc>(
-      BasketBloc(paymentHandler: locator.get(), repository: locator.get()));
+  locator.registerSingleton<BasketBloc>(BasketBloc(repository: locator.get()));
+  locator.registerFactory(() =>
+      PaymentBloc(paymentHandler: locator.get(), repository: locator.get()));
   locator.registerFactory<AuthBloc>(() => AuthBloc(repository: locator.get()));
   locator.registerFactory<CategoryBloc>(
       () => CategoryBloc(repository: locator.get()));

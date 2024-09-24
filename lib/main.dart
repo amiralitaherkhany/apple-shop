@@ -1,6 +1,7 @@
 import 'package:apple_shop/bloc/basket/basket_bloc.dart';
 import 'package:apple_shop/bloc/category/category_bloc.dart';
 import 'package:apple_shop/bloc/home/home_bloc.dart';
+import 'package:apple_shop/bloc/payment/payment_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/cubit/basket/cubit/basket_cubit.dart';
 import 'package:apple_shop/di/di.dart';
@@ -33,6 +34,9 @@ void main() async {
         ),
         BlocProvider<BasketBloc>(
           create: (context) => locator.get()..add(BasketFetchFromHive()),
+        ),
+        BlocProvider<PaymentBloc>(
+          create: (context) => locator.get(),
         ),
       ],
       child: const MyApp(),

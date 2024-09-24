@@ -1,4 +1,5 @@
 import 'package:apple_shop/bloc/basket/basket_bloc.dart';
+import 'package:apple_shop/bloc/payment/payment_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
 import 'package:apple_shop/models/card_item.dart';
 import 'package:apple_shop/util/extensions/int_extensions.dart';
@@ -14,73 +15,81 @@ class BasketScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BasketBloc, BasketState>(
-      builder: (context, state) {
-        return Stack(
-          alignment: Alignment.center,
-          children: [
-            CustomScrollView(
-              slivers: [
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: Responsive.scaleFromFigma(context, 10),
-                  ),
-                ),
-                SliverAppBar(
-                  backgroundColor: Colors.transparent,
-                  elevation: 0,
-                  expandedHeight: Responsive.scaleFromFigma(context, 46),
-                  floating: true,
-                  pinned: false,
-                  flexibleSpace: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: Responsive.scaleFromFigma(context, 44)),
-                    child: Container(
-                      width: Responsive.scaleFromFigma(context, 340),
-                      height: Responsive.scaleFromFigma(context, 46),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.white,
-                      ),
-                      child: Stack(
-                        alignment: AlignmentDirectional.center,
-                        children: [
-                          Text(
-                            'سبد خرید',
-                            style: TextStyle(
-                              fontFamily: 'SB',
-                              fontSize: Responsive.scaleFromFigma(context, 16),
-                              color: MyColors.myBlue,
-                            ),
+    return BlocListener<PaymentBloc, PaymentState>(
+      listener: (context, state) {
+        if (state is PaymentResponse) {
+          state.response.fold(
+            (error) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(error)));
+            },
+            (isPaymentSuccess) {
+              isPaymentSuccess
+                  ? ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.green,
+                        content: Text(
+                          textAlign: TextAlign.end,
+                          'پرداخت موفقیت آمیز بود',
+                          style: TextStyle(
+                            fontFamily: 'SB',
+                            fontSize: Responsive.scaleFromFigma(context, 16),
+                            color: Colors.white,
                           ),
-                          Positioned(
-                            left: Responsive.scaleFromFigma(context, 15),
-                            top: Responsive.scaleFromFigma(context, 10),
-                            child: Image.asset(
-                              'assets/images/icon_apple_blue.png',
-                              width: Responsive.scaleFromFigma(context, 21),
-                              height: Responsive.scaleFromFigma(context, 26),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
+                    )
+                  : ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.red,
+                        content: Text(
+                          textAlign: TextAlign.end,
+                          'پرداخت موفقیت آمیز نبود',
+                          style: TextStyle(
+                            fontFamily: 'SB',
+                            fontSize: Responsive.scaleFromFigma(context, 16),
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    );
+            },
+          );
+        }
+      },
+      child: BlocBuilder<BasketBloc, BasketState>(
+        builder: (context, state) {
+          return Stack(
+            alignment: Alignment.center,
+            children: [
+              CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: Responsive.scaleFromFigma(context, 10),
                     ),
                   ),
-                ),
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: Responsive.scaleFromFigma(context, 32),
-                  ),
-                ),
-                if (state is BasketDataFetched) ...{
-                  state.basketItems.fold(
-                    (exception) {
-                      return SliverToBoxAdapter(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                  SliverAppBar(
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                    expandedHeight: Responsive.scaleFromFigma(context, 46),
+                    floating: true,
+                    pinned: false,
+                    flexibleSpace: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: Responsive.scaleFromFigma(context, 44)),
+                      child: Container(
+                        width: Responsive.scaleFromFigma(context, 340),
+                        height: Responsive.scaleFromFigma(context, 46),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.white,
+                        ),
+                        child: Stack(
+                          alignment: AlignmentDirectional.center,
                           children: [
                             Text(
-                              exception,
+                              'سبد خرید',
                               style: TextStyle(
                                 fontFamily: 'SB',
                                 fontSize:
@@ -88,35 +97,34 @@ class BasketScreen extends StatelessWidget {
                                 color: MyColors.myBlue,
                               ),
                             ),
+                            Positioned(
+                              left: Responsive.scaleFromFigma(context, 15),
+                              top: Responsive.scaleFromFigma(context, 10),
+                              child: Image.asset(
+                                'assets/images/icon_apple_blue.png',
+                                width: Responsive.scaleFromFigma(context, 21),
+                                height: Responsive.scaleFromFigma(context, 26),
+                              ),
+                            ),
                           ],
                         ),
-                      );
-                    },
-                    (basketItems) {
-                      if (basketItems.isNotEmpty) {
-                        return SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            childCount: basketItems.length,
-                            (context, index) {
-                              return Padding(
-                                padding: EdgeInsets.only(
-                                    bottom:
-                                        Responsive.scaleFromFigma(context, 20)),
-                                child: CardBasketitem(
-                                  index: index,
-                                  basketItem: basketItems[index],
-                                ),
-                              );
-                            },
-                          ),
-                        );
-                      } else {
+                      ),
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: Responsive.scaleFromFigma(context, 32),
+                    ),
+                  ),
+                  if (state is BasketDataFetched) ...{
+                    state.basketItems.fold(
+                      (exception) {
                         return SliverToBoxAdapter(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'سبد خرید شما خالی است',
+                                exception,
                                 style: TextStyle(
                                   fontFamily: 'SB',
                                   fontSize:
@@ -127,52 +135,89 @@ class BasketScreen extends StatelessWidget {
                             ],
                           ),
                         );
-                      }
-                    },
-                  ),
-                },
-                SliverPadding(
-                  padding: EdgeInsets.only(
-                      bottom: Responsive.scaleFromFigma(context, 180)),
-                )
-              ],
-            ),
-            if (state is BasketDataFetched) ...{
-              Positioned(
-                bottom: Responsive.scaleFromFigma(context, 95),
-                right: Responsive.scaleFromFigma(context, 44),
-                left: Responsive.scaleFromFigma(context, 44),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize:
-                        Size.fromHeight(Responsive.scaleFromFigma(context, 53)),
-                    backgroundColor: MyColors.myGreen,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
+                      },
+                      (basketItems) {
+                        if (basketItems.isNotEmpty) {
+                          return SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              childCount: basketItems.length,
+                              (context, index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom: Responsive.scaleFromFigma(
+                                          context, 20)),
+                                  child: CardBasketitem(
+                                    index: index,
+                                    basketItem: basketItems[index],
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        } else {
+                          return SliverToBoxAdapter(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'سبد خرید شما خالی است',
+                                  style: TextStyle(
+                                    fontFamily: 'SB',
+                                    fontSize:
+                                        Responsive.scaleFromFigma(context, 16),
+                                    color: MyColors.myBlue,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      },
                     ),
-                  ),
-                  onPressed: () {
-                    context.read<BasketBloc>().add(BasketPaymentInit());
-                    context.read<BasketBloc>().add(BasketPaymentRequest());
                   },
-                  child: Text(
-                    textDirection: TextDirection.rtl,
-                    state.finalPrice != 0
-                        ? '${state.finalPrice.formatPrice}  -  ادامه فرایند خرید '
-                        : 'محصولی در سبد خرید نیست',
-                    style: TextStyle(
-                      fontFamily: 'SB',
-                      fontSize: Responsive.scaleFromFigma(context, 16),
-                      color: Colors.white,
+                  SliverPadding(
+                    padding: EdgeInsets.only(
+                        bottom: Responsive.scaleFromFigma(context, 180)),
+                  )
+                ],
+              ),
+              if (state is BasketDataFetched) ...{
+                Positioned(
+                  bottom: Responsive.scaleFromFigma(context, 95),
+                  right: Responsive.scaleFromFigma(context, 44),
+                  left: Responsive.scaleFromFigma(context, 44),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size.fromHeight(
+                          Responsive.scaleFromFigma(context, 53)),
+                      backgroundColor: MyColors.myGreen,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                    onPressed: () {
+                      context.read<PaymentBloc>().add(PaymentInitEvent());
+                      context.read<PaymentBloc>().add(PaymentRequestEvent());
+                    },
+                    child: Text(
+                      textDirection: TextDirection.rtl,
+                      state.finalPrice != 0
+                          ? '${state.finalPrice.formatPrice}  -  ادامه فرایند خرید '
+                          : 'محصولی در سبد خرید نیست',
+                      style: TextStyle(
+                        fontFamily: 'SB',
+                        fontSize: Responsive.scaleFromFigma(context, 16),
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            },
-          ],
-        );
-      },
+              },
+            ],
+          );
+        },
+      ),
     );
   }
 }

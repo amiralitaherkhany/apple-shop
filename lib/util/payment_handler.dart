@@ -3,13 +3,14 @@ import 'dart:async';
 import 'package:app_links/app_links.dart';
 import 'package:apple_shop/util/extensions/string_extensions.dart';
 import 'package:apple_shop/util/url_handler.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:zarinpal/zarinpal.dart';
 
 abstract class PaymentHandler {
   Future<void> initPaymentRequest(int price);
-  Future<void> sendPaymentRequest();
-  Future<void> verifyPaymentRequest();
+  Future<Either<String, bool>> sendPaymentRequest();
+  Future<bool> verifyPaymentRequest();
 }
 
 class ZarinpalPaymentHandler implements PaymentHandler {
@@ -34,46 +35,53 @@ class ZarinpalPaymentHandler implements PaymentHandler {
   }
 
   @override
-  Future<void> sendPaymentRequest() async {
+  Future<Either<String, bool>> sendPaymentRequest() async {
+    Completer<Either<String, bool>> completer =
+        Completer<Either<String, bool>>();
     ZarinPal().startPayment(
       paymentRequest,
       (status, paymentGatewayUri) {
         if (status == 100) {
           urlHandler.openUrl(paymentGatewayUri!);
           _linkSubscription = appLinks.uriLinkStream.listen(
-            (uri) {
-              //expertflutter://shop?Authority=132324323423443421212121212121212121&Status=OK
-              print('app opened');
+            (uri) async {
+              debugPrint('app opened');
               if (uri.toString().contains('Authority')) {
                 _authority = uri.toString().extractValueFromQuery('Authority');
                 _status = uri.toString().extractValueFromQuery('Status');
-                print(_authority);
-                print(_status);
-                verifyPaymentRequest();
+                debugPrint(_authority);
+                debugPrint(_status);
+                bool isPaymentSuccess = await verifyPaymentRequest();
+                if (isPaymentSuccess) {
+                  completer.complete(right(true));
+                } else {
+                  completer.complete(right(false));
+                }
                 _linkSubscription?.cancel();
               }
             },
           );
         } else {
-          print(status.toString());
+          completer.complete(left('خطایی در شروع پرداخت پیش آمده'));
         }
       },
     );
+    return completer.future;
   }
 
   @override
-  Future<void> verifyPaymentRequest() async {
+  Future<bool> verifyPaymentRequest() async {
+    Completer<bool> completer = Completer<bool>();
+
     ZarinPal().verificationPayment(
       _status!,
       _authority!,
       paymentRequest,
       (isPaymentSuccess, refID, paymentRequest) {
-        if (isPaymentSuccess) {
-          debugPrint(refID);
-        } else {
-          debugPrint('payment failed');
-        }
+        completer.complete(isPaymentSuccess);
       },
     );
+
+    return completer.future;
   }
 }
