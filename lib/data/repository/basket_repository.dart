@@ -9,6 +9,7 @@ abstract class IBasketRepository {
   Future<int> getBasketItemCount();
 
   Future<void> removeBasketItem(int index);
+  Future<void> removeAllBasketItems();
 }
 
 class BasketRepository implements IBasketRepository {
@@ -50,5 +51,10 @@ class BasketRepository implements IBasketRepository {
   @override
   Future<void> removeBasketItem(int index) async {
     await dataSource.removeBasketItem(index);
+  }
+
+  @override
+  Future<void> removeAllBasketItems() async {
+    await dataSource.removeAllBasketItems();
   }
 }

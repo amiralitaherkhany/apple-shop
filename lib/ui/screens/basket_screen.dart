@@ -20,39 +20,53 @@ class BasketScreen extends StatelessWidget {
         if (state is PaymentResponse) {
           state.response.fold(
             (error) {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text(error)));
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    error,
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                      fontFamily: 'SB',
+                      fontSize: Responsive.scaleFromFigma(context, 16),
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              );
             },
             (isPaymentSuccess) {
-              isPaymentSuccess
-                  ? ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor: Colors.green,
-                        content: Text(
-                          textAlign: TextAlign.end,
-                          'پرداخت موفقیت آمیز بود',
-                          style: TextStyle(
-                            fontFamily: 'SB',
-                            fontSize: Responsive.scaleFromFigma(context, 16),
-                            color: Colors.white,
-                          ),
-                        ),
+              if (isPaymentSuccess) {
+                context.read<BasketBloc>().add(BasketRemoveAllProducts());
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: Colors.green,
+                    content: Text(
+                      textAlign: TextAlign.end,
+                      'پرداخت موفقیت آمیز بود',
+                      style: TextStyle(
+                        fontFamily: 'SB',
+                        fontSize: Responsive.scaleFromFigma(context, 16),
+                        color: Colors.white,
                       ),
-                    )
-                  : ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor: Colors.red,
-                        content: Text(
-                          textAlign: TextAlign.end,
-                          'پرداخت موفقیت آمیز نبود',
-                          style: TextStyle(
-                            fontFamily: 'SB',
-                            fontSize: Responsive.scaleFromFigma(context, 16),
-                            color: Colors.white,
-                          ),
-                        ),
+                    ),
+                  ),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: Colors.red,
+                    content: Text(
+                      textAlign: TextAlign.end,
+                      'پرداخت موفقیت آمیز نبود',
+                      style: TextStyle(
+                        fontFamily: 'SB',
+                        fontSize: Responsive.scaleFromFigma(context, 16),
+                        color: Colors.white,
                       ),
-                    );
+                    ),
+                  ),
+                );
+              }
             },
           );
         }
@@ -197,6 +211,9 @@ class BasketScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
+                      if (state.finalPrice == 0) {
+                        return;
+                      }
                       context.read<PaymentBloc>().add(PaymentInitEvent());
                       context.read<PaymentBloc>().add(PaymentRequestEvent());
                     },

@@ -10,3 +10,5 @@ final class BasketRemoveProduct extends BasketEvent {
 
   BasketRemoveProduct({required this.index});
 }
+
+final class BasketRemoveAllProducts extends BasketEvent {}

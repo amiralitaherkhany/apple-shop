@@ -24,5 +24,11 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
         add(BasketFetchFromHive());
       },
     );
+    on<BasketRemoveAllProducts>(
+      (event, emit) async {
+        await repository.removeAllBasketItems();
+        add(BasketFetchFromHive());
+      },
+    );
   }
 }

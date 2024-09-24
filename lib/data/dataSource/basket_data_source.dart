@@ -7,6 +7,7 @@ abstract class IBasketDataSource {
   Future<int> getBasketFinalPrice();
   Future<int> getBasketItemCount();
   Future<void> removeBasketItem(int index);
+  Future<void> removeAllBasketItems();
 }
 
 class BasketLocalDataSource implements IBasketDataSource {
@@ -39,6 +40,11 @@ class BasketLocalDataSource implements IBasketDataSource {
 
   @override
   Future<void> removeBasketItem(int index) async {
-    box.deleteAt(index);
+    await box.deleteAt(index);
+  }
+
+  @override
+  Future<void> removeAllBasketItems() async {
+    await box.clear();
   }
 }
