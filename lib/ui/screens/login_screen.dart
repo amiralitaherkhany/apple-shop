@@ -106,7 +106,20 @@ class LoginScreen extends StatelessWidget {
                       listener: (context, state) {
                         if (state is AuthResponse) {
                           state.response.fold(
-                            (l) {},
+                            (l) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  behavior: SnackBarBehavior.floating,
+                                  content: Text(
+                                    l,
+                                    style: const TextStyle(
+                                      fontFamily: 'SB',
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
                             (r) {
                               Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(
@@ -121,6 +134,8 @@ class LoginScreen extends StatelessWidget {
                         if (state is AuthInitial) {
                           return ElevatedButton(
                             onPressed: () {
+                              FocusManager.instance.primaryFocus?.unfocus();
+
                               context.read<AuthBloc>().add(AuthLoginRequest(
                                   username: _usernameTextController.text,
                                   password: _passwordTextController.text));
@@ -146,11 +161,28 @@ class LoginScreen extends StatelessWidget {
                         } else if (state is AuthResponse) {
                           return state.response.fold(
                             (l) {
-                              return Text(
-                                l,
-                                style: const TextStyle(
-                                  fontFamily: 'SB',
-                                  fontSize: 16,
+                              return ElevatedButton(
+                                onPressed: () {
+                                  FocusManager.instance.primaryFocus?.unfocus();
+
+                                  context.read<AuthBloc>().add(AuthLoginRequest(
+                                      username: _usernameTextController.text,
+                                      password: _passwordTextController.text));
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: MyColors.myBlue,
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  fixedSize: const Size(250, 48),
+                                ),
+                                child: const Text(
+                                  'ورود به حساب کاربری',
+                                  style: TextStyle(
+                                    fontFamily: 'SB',
+                                    fontSize: 16,
+                                  ),
                                 ),
                               );
                             },

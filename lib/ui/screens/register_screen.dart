@@ -158,16 +158,37 @@ class RegisterScreen extends StatelessWidget {
                     BlocConsumer<AuthBloc, AuthState>(
                       listener: (context, state) {
                         if (state is AuthResponse) {
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                            builder: (context) => const MainWrapper(),
-                          ));
+                          state.response.fold(
+                            (l) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  behavior: SnackBarBehavior.floating,
+                                  content: Text(
+                                    l,
+                                    style: const TextStyle(
+                                      fontFamily: 'SB',
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                            (r) {
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (context) => const MainWrapper(),
+                                ),
+                              );
+                            },
+                          );
                         }
                       },
                       builder: (context, state) {
                         if (state is AuthInitial) {
                           return ElevatedButton(
                             onPressed: () {
+                              FocusManager.instance.primaryFocus?.unfocus();
+
                               context.read<AuthBloc>().add(
                                     AuthRegisterRequest(
                                       username: _usernameTextController.text,
@@ -198,11 +219,36 @@ class RegisterScreen extends StatelessWidget {
                         } else if (state is AuthResponse) {
                           return state.response.fold(
                             (l) {
-                              return Text(
-                                l,
-                                style: const TextStyle(
-                                  fontFamily: 'SB',
-                                  fontSize: 16,
+                              return ElevatedButton(
+                                onPressed: () {
+                                  FocusManager.instance.primaryFocus?.unfocus();
+
+                                  context.read<AuthBloc>().add(
+                                        AuthRegisterRequest(
+                                          username:
+                                              _usernameTextController.text,
+                                          password:
+                                              _passwordTextController.text,
+                                          passwordConfirm:
+                                              _passwordConfirmTextController
+                                                  .text,
+                                        ),
+                                      );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: MyColors.myBlue,
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  fixedSize: const Size(250, 48),
+                                ),
+                                child: const Text(
+                                  'ثبت نام',
+                                  style: TextStyle(
+                                    fontFamily: 'SB',
+                                    fontSize: 16,
+                                  ),
                                 ),
                               );
                             },
