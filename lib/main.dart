@@ -3,7 +3,6 @@ import 'package:apple_shop/bloc/category/category_bloc.dart';
 import 'package:apple_shop/bloc/home/home_bloc.dart';
 import 'package:apple_shop/bloc/payment/payment_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
-import 'package:apple_shop/cubit/basket/cubit/basket_cubit.dart';
 import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/models/card_item.dart';
 import 'package:apple_shop/ui/screens/login_screen.dart';
@@ -23,9 +22,6 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider<BasketCubit>(
-          create: (context) => locator.get()..updateBasketItems(),
-        ),
         BlocProvider<CategoryBloc>(
           create: (context) => locator.get()..add(CategoryRequestList()),
         ),

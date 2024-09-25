@@ -4,7 +4,6 @@ import 'package:apple_shop/bloc/basket/basket_bloc.dart';
 import 'package:apple_shop/bloc/comment/comment_bloc.dart';
 import 'package:apple_shop/bloc/product/product_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
-import 'package:apple_shop/cubit/basket/cubit/basket_cubit.dart';
 import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/models/product.dart';
 import 'package:apple_shop/models/product_image.dart';
@@ -1155,14 +1154,8 @@ class AddToBasketButton extends StatelessWidget {
                   context
                       .read<ProductBloc>()
                       .add(ProductAddToBasket(product: product));
-                  await Future.delayed(
-                    const Duration(milliseconds: 100),
-                  );
+
                   context.read<BasketBloc>().add(BasketFetchFromHive());
-                  await Future.delayed(
-                    const Duration(milliseconds: 100),
-                  );
-                  context.read<BasketCubit>().updateBasketItems();
                 },
                 child: Container(
                   width: Responsive.scaleFromFigma(context, 160),

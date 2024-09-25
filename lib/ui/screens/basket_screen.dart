@@ -497,7 +497,7 @@ class DeleteProductCheap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
+      onTap: () async {
         context
             .read<BasketBloc>()
             .add(BasketRemoveProduct(index: productItemIndex));
