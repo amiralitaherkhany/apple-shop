@@ -62,7 +62,8 @@ class ZarinpalPaymentHandler implements PaymentHandler {
             },
           );
         } else {
-          completer.complete(left('خطایی در شروع پرداخت پیش آمده'));
+          completer.complete(
+              left('status: $status  -   خطایی در شروع پرداخت پیش آمده است'));
         }
       },
     );
