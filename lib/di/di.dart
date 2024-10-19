@@ -7,6 +7,7 @@ import 'package:apple_shop/bloc/comment/comment_bloc.dart';
 import 'package:apple_shop/bloc/home/home_bloc.dart';
 import 'package:apple_shop/bloc/payment/payment_bloc.dart';
 import 'package:apple_shop/bloc/product/product_bloc.dart';
+import 'package:apple_shop/bloc/profile/profile_bloc.dart';
 import 'package:apple_shop/data/dataSource/authentication_data_source.dart';
 import 'package:apple_shop/data/dataSource/banner_data_source.dart';
 import 'package:apple_shop/data/dataSource/basket_data_source.dart';
@@ -63,6 +64,9 @@ void _initBlocs() {
       productRepository: locator.get()));
   locator.registerFactory<CommentBloc>(
     () => CommentBloc(commentRepository: locator.get()),
+  );
+  locator.registerFactory<ProfileBloc>(
+    () => ProfileBloc(),
   );
 }
 

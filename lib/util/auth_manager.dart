@@ -15,12 +15,20 @@ class AuthManager {
     _sharedPref.setString('user_id', id);
   }
 
+  static void saveUserName(String userName) async {
+    _sharedPref.setString('user_name', userName);
+  }
+
   static String readAuth() {
     return _sharedPref.getString('access_token') ?? '';
   }
 
   static String getId() {
     return _sharedPref.getString('user_id') ?? '';
+  }
+
+  static String getUserName() {
+    return _sharedPref.getString('user_name') ?? '';
   }
 
   static void logOut() {

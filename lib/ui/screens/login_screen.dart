@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Directionality viewContainer(BuildContext context) {
+  Widget viewContainer(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -136,9 +136,11 @@ class LoginScreen extends StatelessWidget {
                             onPressed: () {
                               FocusManager.instance.primaryFocus?.unfocus();
 
-                              context.read<AuthBloc>().add(AuthLoginRequest(
-                                  username: _usernameTextController.text,
-                                  password: _passwordTextController.text));
+                              context.read<AuthBloc>().add(
+                                    AuthLoginRequest(
+                                        username: _usernameTextController.text,
+                                        password: _passwordTextController.text),
+                                  );
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: MyColors.myBlue,

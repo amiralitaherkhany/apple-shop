@@ -1,11 +1,28 @@
+import 'package:apple_shop/bloc/profile/profile_bloc.dart';
 import 'package:apple_shop/constants/colors.dart';
+import 'package:apple_shop/di/di.dart';
 import 'package:apple_shop/ui/screens/login_screen.dart';
-import 'package:apple_shop/util/auth_manager.dart';
+import 'package:apple_shop/ui/widgets/custom_loading_widget.dart';
 import 'package:apple_shop/util/responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<ProfileBloc>(
+      create: (context) => locator.get()..add(ProfileLoad()),
+      child: const ViewContainer(),
+    );
+  }
+}
+
+class ViewContainer extends StatelessWidget {
+  const ViewContainer({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -52,14 +69,22 @@ class ProfileScreen extends StatelessWidget {
         SizedBox(
           height: Responsive.scaleFromFigma(context, 32),
         ),
-        Text(
-          textAlign: TextAlign.center,
-          'امیرعلی طاهرخانی',
-          style: TextStyle(
-            fontFamily: 'SB',
-            fontSize: Responsive.scaleFromFigma(context, 16),
-            color: Colors.black,
-          ),
+        BlocBuilder<ProfileBloc, ProfileState>(
+          builder: (context, state) {
+            if (state is ProfileResponse) {
+              return Text(
+                textAlign: TextAlign.center,
+                state.userId,
+                style: TextStyle(
+                  fontFamily: 'SB',
+                  fontSize: Responsive.scaleFromFigma(context, 16),
+                  color: Colors.black,
+                ),
+              );
+            } else {
+              return const CustomLoadingWidget();
+            }
+          },
         ),
         SizedBox(
           height: Responsive.scaleFromFigma(context, 6),
@@ -117,27 +142,33 @@ class ProfileScreen extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(
               horizontal: Responsive.scaleFromFigma(context, 80)),
-          child: ElevatedButton(
-            onPressed: () {
-              AuthManager.logOut();
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) => LoginScreen(),
-                ),
-              );
+          child: BlocListener<ProfileBloc, ProfileState>(
+            listener: (context, state) {
+              if (state is ProfileLogedOut) {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => LoginScreen(),
+                  ),
+                );
+              }
             },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
-              fixedSize: Size.fromHeight(
-                Responsive.scaleFromFigma(context, 50),
+            child: ElevatedButton(
+              onPressed: () {
+                context.read<ProfileBloc>().add(ProfileLogOut());
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                fixedSize: Size.fromHeight(
+                  Responsive.scaleFromFigma(context, 50),
+                ),
               ),
-            ),
-            child: Text(
-              'خروج',
-              style: TextStyle(
-                fontFamily: 'SM',
-                fontSize: Responsive.scaleFromFigma(context, 16),
-                color: MyColors.myWhite,
+              child: Text(
+                'خروج',
+                style: TextStyle(
+                  fontFamily: 'SM',
+                  fontSize: Responsive.scaleFromFigma(context, 16),
+                  color: MyColors.myWhite,
+                ),
               ),
             ),
           ),
