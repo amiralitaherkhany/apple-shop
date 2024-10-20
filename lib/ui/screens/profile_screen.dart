@@ -81,6 +81,11 @@ class ViewContainer extends StatelessWidget {
                   color: Colors.black,
                 ),
               );
+            } else if (state is ProfileLogedOut) {
+              return const SizedBox(
+                width: 0,
+                height: 0,
+              );
             } else {
               return const CustomLoadingWidget();
             }

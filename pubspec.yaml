@@ -38,6 +38,7 @@ dependencies:
   ficonsax: ^0.0.3
   flutter:
     sdk: flutter
+  flutter_animate: ^4.5.0
   flutter_bloc: ^8.1.6
   flutter_native_splash: ^2.4.2
   get_it: ^7.7.0

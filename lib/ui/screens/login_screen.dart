@@ -5,6 +5,7 @@ import 'package:apple_shop/ui/screens/main_wrapper.dart';
 import 'package:apple_shop/ui/screens/register_screen.dart';
 import 'package:apple_shop/ui/widgets/custom_loading_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -40,7 +41,7 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Image.asset(
-                      'assets/images/login_photo.jpg',
+                      'assets/images/login_photo.png',
                       width: 250,
                       height: 250,
                     ),
@@ -77,7 +78,12 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                       ],
-                    ),
+                    ).animate().slideX(
+                          begin: 1,
+                          duration: 1.seconds,
+                          curve: Curves.easeIn,
+                          end: 0,
+                        ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -98,7 +104,12 @@ class LoginScreen extends StatelessWidget {
                         PasswordTextField(
                             passwordTextController: _passwordTextController),
                       ],
-                    ),
+                    ).animate().slideX(
+                          begin: 1,
+                          duration: 1.seconds,
+                          curve: Curves.easeIn,
+                          end: 0,
+                        ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -208,7 +219,10 @@ class LoginScreen extends StatelessWidget {
                           );
                         }
                       },
-                    ),
+                    ).animate().fadeIn(
+                          duration: 2.5.seconds,
+                          curve: Curves.easeInOut,
+                        ),
                     const SizedBox(
                       height: 30,
                     ),
@@ -229,7 +243,10 @@ class LoginScreen extends StatelessWidget {
                           fontSize: 16,
                         ),
                       ),
-                    )
+                    ).animate().fadeIn(
+                          duration: 2.5.seconds,
+                          curve: Curves.easeInOut,
+                        ),
                   ],
                 ),
               ),
