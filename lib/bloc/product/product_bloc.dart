@@ -30,8 +30,11 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           await productDetailRepository.getProductCategory(event.categoryId);
       var productProperties =
           await productDetailRepository.getProductProperties(event.productId);
+      var isAddedToBasket =
+          await basketRepository.isAddedToBasket(event.productId);
       emit(
         ProductResponse(
+          isAddedtoBasket: isAddedToBasket,
           productProperties: productProperties,
           productImageList: productImageList,
           productVariantList: productVariantsList,
@@ -54,6 +57,11 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           persent: event.product.persent,
         );
         await basketRepository.addProductToBasket(basketItem);
+        if (state is ProductResponse) {
+          emit(
+            (state as ProductResponse).copyWith(isAddedtoBasket: true),
+          );
+        }
       },
     );
   }

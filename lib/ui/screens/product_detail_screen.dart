@@ -435,6 +435,7 @@ class ProductDetailScreen extends StatelessWidget {
                           ),
                           AddToBasketButton(
                             product: product,
+                            isAddedtoBasket: state.isAddedtoBasket,
                           ),
                         ],
                       ),
@@ -1121,14 +1122,25 @@ class _GalleryWidgetState extends State<GalleryWidget> {
   }
 }
 
-class AddToBasketButton extends StatelessWidget {
+class AddToBasketButton extends StatefulWidget {
   const AddToBasketButton({
+    required this.isAddedtoBasket,
     super.key,
     required this.product,
   });
   final Product product;
+  final bool isAddedtoBasket;
+
+  @override
+  State<AddToBasketButton> createState() => _AddToBasketButtonState();
+}
+
+class _AddToBasketButtonState extends State<AddToBasketButton> {
   @override
   Widget build(BuildContext context) {
+    String buttonText =
+        widget.isAddedtoBasket ? 'موجود در سبد خرید' : 'افزودن به سبد خرید';
+
     return Stack(
       clipBehavior: Clip.none,
       alignment: AlignmentDirectional.topCenter,
@@ -1151,11 +1163,15 @@ class AddToBasketButton extends StatelessWidget {
                 splashColor: MyColors.myBlue,
                 borderRadius: BorderRadius.circular(15),
                 onTap: () async {
-                  context
-                      .read<ProductBloc>()
-                      .add(ProductAddToBasket(product: product));
-
-                  context.read<BasketBloc>().add(BasketFetchFromHive());
+                  if (widget.isAddedtoBasket) {
+                    return;
+                  } else {
+                    context
+                        .read<ProductBloc>()
+                        .add(ProductAddToBasket(product: widget.product));
+                    await Future.delayed(const Duration(milliseconds: 500));
+                    context.read<BasketBloc>().add(BasketFetchFromHive());
+                  }
                 },
                 child: Container(
                   width: Responsive.scaleFromFigma(context, 160),
@@ -1175,7 +1191,7 @@ class AddToBasketButton extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      'افزودن به سبد خرید',
+                      buttonText,
                       style: TextStyle(
                         fontFamily: 'SB',
                         fontSize: Responsive.scaleFromFigma(context, 16),

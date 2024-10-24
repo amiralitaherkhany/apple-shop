@@ -78,12 +78,14 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                       ],
-                    ).animate().slideX(
-                          begin: 1,
+                    )
+                        .animate()
+                        .slideX(
+                          begin: 0.2,
                           duration: 1.seconds,
-                          curve: Curves.easeIn,
                           end: 0,
-                        ),
+                        )
+                        .fadeIn(),
                     const SizedBox(
                       height: 20,
                     ),
@@ -104,12 +106,14 @@ class LoginScreen extends StatelessWidget {
                         PasswordTextField(
                             passwordTextController: _passwordTextController),
                       ],
-                    ).animate().slideX(
-                          begin: 1,
+                    )
+                        .animate()
+                        .slideX(
+                          begin: 0.2,
                           duration: 1.seconds,
-                          curve: Curves.easeIn,
                           end: 0,
-                        ),
+                        )
+                        .fadeIn(),
                     const SizedBox(
                       height: 20,
                     ),

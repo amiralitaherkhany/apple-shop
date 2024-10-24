@@ -8,13 +8,18 @@ abstract class IBasketDataSource {
   Future<int> getBasketItemCount();
   Future<void> removeBasketItem(int index);
   Future<void> removeAllBasketItems();
+  Future<bool> isAddedToBasket(String productId);
 }
 
 class BasketLocalDataSource implements IBasketDataSource {
   var box = Hive.box<BasketItem>('BasketBox');
   @override
   Future<void> addProduct(BasketItem basketItem) async {
-    await box.add(basketItem);
+    if (await isAddedToBasket(basketItem.id)) {
+      return;
+    } else {
+      await box.add(basketItem);
+    }
   }
 
   @override
@@ -46,5 +51,12 @@ class BasketLocalDataSource implements IBasketDataSource {
   @override
   Future<void> removeAllBasketItems() async {
     await box.clear();
+  }
+
+  @override
+  Future<bool> isAddedToBasket(String productId) async {
+    return box.values.any(
+      (element) => element.id == productId,
+    );
   }
 }

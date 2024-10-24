@@ -10,6 +10,7 @@ import 'package:apple_shop/ui/widgets/product_item.dart';
 import 'package:apple_shop/util/responsive.dart';
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -237,7 +238,7 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           scrollDirection: Axis.horizontal,
           itemCount: productBestSellerList.length,
-        ),
+        ).animate().fadeIn(duration: 1.seconds).slideX(),
       ),
     );
   }
