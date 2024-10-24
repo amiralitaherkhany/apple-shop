@@ -5,7 +5,9 @@ import 'package:apple_shop/ui/screens/login_screen.dart';
 import 'package:apple_shop/ui/screens/main_wrapper.dart';
 import 'package:apple_shop/ui/widgets/custom_loading_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
@@ -39,10 +41,12 @@ class RegisterScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: Column(
                   children: [
-                    Image.asset(
-                      'assets/images/register.png',
-                      width: 250,
-                      height: 250,
+                    Lottie.asset(
+                      'assets/images/register_animation.json',
+                      width: 200,
+                      height: 200,
+                      fit: BoxFit.cover,
+                      repeat: false,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,6 +67,7 @@ class RegisterScreen extends StatelessWidget {
                           //   FocusManager.instance.primaryFocus?.unfocus();
                           // },
                           controller: _usernameTextController,
+                          textInputAction: TextInputAction.next,
                           decoration: InputDecoration(
                             focusedBorder: const OutlineInputBorder(
                               gapPadding: 0,
@@ -77,7 +82,14 @@ class RegisterScreen extends StatelessWidget {
                           ),
                         ),
                       ],
-                    ),
+                    )
+                        .animate()
+                        .slideX(
+                          begin: 0.2,
+                          duration: 1.seconds,
+                          end: 0,
+                        )
+                        .fadeIn(),
                     const SizedBox(
                       height: 20,
                     ),
@@ -100,6 +112,7 @@ class RegisterScreen extends StatelessWidget {
                           //   FocusManager.instance.primaryFocus?.unfocus();
                           // },
                           controller: _passwordTextController,
+                          textInputAction: TextInputAction.next,
                           decoration: InputDecoration(
                             focusedBorder: const OutlineInputBorder(
                               gapPadding: 0,
@@ -114,7 +127,14 @@ class RegisterScreen extends StatelessWidget {
                           ),
                         ),
                       ],
-                    ),
+                    )
+                        .animate()
+                        .slideX(
+                          begin: 0.2,
+                          duration: 1.seconds,
+                          end: 0,
+                        )
+                        .fadeIn(),
                     const SizedBox(
                       height: 20,
                     ),
@@ -151,7 +171,14 @@ class RegisterScreen extends StatelessWidget {
                           ),
                         ),
                       ],
-                    ),
+                    )
+                        .animate()
+                        .slideX(
+                          begin: 0.2,
+                          duration: 1.seconds,
+                          end: 0,
+                        )
+                        .fadeIn(),
                     const SizedBox(
                       height: 20,
                     ),
@@ -272,7 +299,10 @@ class RegisterScreen extends StatelessWidget {
                           );
                         }
                       },
-                    ),
+                    ).animate().fadeIn(
+                          duration: 2.5.seconds,
+                          curve: Curves.easeInOut,
+                        ),
                     const SizedBox(
                       height: 30,
                     ),
@@ -293,7 +323,10 @@ class RegisterScreen extends StatelessWidget {
                           fontSize: 16,
                         ),
                       ),
-                    )
+                    ).animate().fadeIn(
+                          duration: 2.5.seconds,
+                          curve: Curves.easeInOut,
+                        ),
                   ],
                 ),
               ),

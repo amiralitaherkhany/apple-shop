@@ -7,6 +7,7 @@ import 'package:apple_shop/ui/widgets/custom_loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -40,10 +41,12 @@ class LoginScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: Column(
                   children: [
-                    Image.asset(
-                      'assets/images/login_photo.png',
-                      width: 250,
-                      height: 250,
+                    Lottie.asset(
+                      'assets/images/login_animation.json',
+                      fit: BoxFit.cover,
+                      width: 200,
+                      height: 200,
+                      repeat: false,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,6 +67,7 @@ class LoginScreen extends StatelessWidget {
                           //   FocusManager.instance.primaryFocus?.unfocus();
                           // },
                           controller: _usernameTextController,
+                          textInputAction: TextInputAction.next,
                           decoration: InputDecoration(
                             focusedBorder: const OutlineInputBorder(
                               gapPadding: 0,

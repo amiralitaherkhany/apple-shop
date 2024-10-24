@@ -173,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           scrollDirection: Axis.horizontal,
           itemCount: productHottestList.length,
-        ),
+        ).animate().fadeIn(duration: 2.seconds).slideX(),
       ),
     );
   }
@@ -238,7 +238,7 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           scrollDirection: Axis.horizontal,
           itemCount: productBestSellerList.length,
-        ).animate().fadeIn(duration: 1.seconds).slideX(),
+        ).animate().fadeIn(duration: 1.3.seconds).slideX(),
       ),
     );
   }
@@ -303,7 +303,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             );
           },
-        ),
+        ).animate().fadeIn(duration: 1.seconds).slideX(),
       ),
     );
   }
